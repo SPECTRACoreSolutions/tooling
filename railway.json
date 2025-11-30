@@ -1,0 +1,23 @@
+{
+  "deploy": {
+    "healthcheckTimeout": 10,
+    "restartPolicyMaxRetries": 3,
+    "numReplicas": 1,
+    "healthcheckPath": "/health",
+    "restartPolicyType": "ON_FAILURE"
+  },
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "DOCKERFILE",
+    "dockerfilePath": "Dockerfile",
+    "watchPatterns": [
+      "**/*.py",
+      "**/*.js",
+      "**/*.ts",
+      "requirements.txt",
+      "package.json",
+      "pyproject.toml",
+      "Dockerfile"
+    ]
+  }
+}

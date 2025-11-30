@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "python": {
+    "packages": [
+      "ms-fabric-cli",
+      "ipykernel",
+      "ruff",
+      "openai",
+      "tomli",
+      "pytest",
+      "pytest-cov",
+      "pytest-asyncio"
+    ],
+    "editable": [
+      "cli"
+    ]
+  },
+  "npm": {
+    "global": [
+      "@railway/cli",
+      "@pnp/cli-microsoft365"
+    ]
+  },
+  "vscode": {
+    "extensions": [
+      "ms-vscode-remote.remote-containers",
+      "github.copilot",
+      "github.copilot-chat",
+      "ms-vscode.powershell",
+      "ms-python.python",
+      "ms-python.vscode-pylance",
+      "charliermarsh.ruff",
+      "ms-toolsai.jupyter",
+      "bierner.markdown-preview-github-styles",
+      "yzhang.markdown-all-in-one"
+    ]
+  },
+  "env": {
+    "required": [
+      "SPECTRA_FABRIC_CLIENT_ID",
+      "SPECTRA_FABRIC_CLIENT_SECRET",
+      "SPECTRA_FABRIC_TENANT_ID",
+      "SPECTRA_FABRIC_CAPACITY_ID",
+      "SPECTRA_GITHUB_APP_ID",
+      "SPECTRA_GITHUB_APP_INSTALLATION_ID_CORE",
+      "SPECTRA_GITHUB_APP_PRIVATE_KEY_PATH"
+    ],
+    "optional": [
+      "SPECTRA_DATA_ROOT"
+    ]
+  },
+  "shellProfiles": {
+    "pwsh": "# Load local .env if present\nif (Test-Path \"$PSScriptRoot/../../.env\") {\n  foreach ($line in Get-Content \"$PSScriptRoot/../../.env\") {\n    if ($line -match '^\\s*#' -or $line -notmatch '=') { continue }\n    $parts = $line -split '=', 2\n    if (-not $env:$($parts[0])) { $env:$($parts[0]) = $parts[1] }\n  }\n}\n",
+    "bash": "if [ -f \"$(dirname \"${BASH_SOURCE[0]}\")/../../.env\" ]; then\n  set -o allexport\n  source \"$(dirname \"${BASH_SOURCE[0]}\")/../../.env\"\n  set +o allexport\nfi\n"
+  }
+}

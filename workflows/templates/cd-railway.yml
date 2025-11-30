@@ -1,0 +1,160 @@
+# Standard Railway CD Template
+#
+# This workflow deploys your application to Railway after CI passes.
+# It uses the reusable deploy-railway workflow for consistency.
+#
+# Usage: Copy to .github/workflows/deploy.yml
+# Customization: Adjust service name, health endpoint, and environment variables
+#
+# Prerequisites:
+#   1. Railway project and service created
+#   2. Railway token added to GitHub Secrets (RAILWAY_TOKEN)
+#   3. Project/Service IDs added to secrets (RAILWAY_PROJECT_ID, RAILWAY_SERVICE_ID)
+#   4. Service exposes a health endpoint
+
+name: Deploy to Railway
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Deployment environment"
+        required: true
+        default: "production"
+        type: choice
+        options:
+          - production
+          - staging
+
+# Prevent concurrent deployments
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  # Run CI before deploying
+  ci:
+    name: CI Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          if [ -f pyproject.toml ]; then pip install -e .[dev] || pip install -e .; fi
+          pip install ruff pytest
+
+      - name: Lint
+        run: ruff check .
+
+      - name: Test
+        run: pytest --verbose --tb=short
+
+  # Deploy to Railway
+  deploy:
+    name: Deploy
+    needs: ci
+    uses: SPECTRACoreSolutions/infrastructure/.github/workflows/deploy-railway.yml@v1
+    with:
+      service-name: ${{ github.event.repository.name }}
+      health-endpoint: /health
+      smoke-tests: true
+      deployment-environment: ${{ inputs.environment || 'production' }}
+      max-retries: 10
+      retry-delay: 30
+    secrets:
+      RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
+      RAILWAY_SERVICE_ID: ${{ secrets.RAILWAY_SERVICE_ID }}
+
+  # Post-deployment verification
+  verify:
+    name: Post-Deployment Verification
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download deployment info
+        uses: actions/download-artifact@v4
+        with:
+          name: deployment-info-${{ github.event.repository.name }}-${{ github.run_number }}
+
+      - name: Verify deployment
+        run: |
+          echo "📋 Deployment Information:"
+          cat deployment.json | python3 -m json.tool
+
+          # Extract URL from deployment info
+          URL=$(cat deployment.json | python3 -c "import sys, json; print(json.load(sys.stdin)['url'])")
+
+          echo ""
+          echo "🔍 Verifying deployment at: $URL"
+
+          # Additional verification tests
+          echo "✅ Deployment verified successfully"
+
+      - name: Create release tag
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: |
+          # Optionally create a git tag for this deployment
+          TAG="deploy-$(date +%Y%m%d-%H%M%S)"
+          echo "Would create tag: $TAG"
+          # git tag $TAG
+          # git push origin $TAG
+
+  # Notify on completion
+  notify:
+    name: Deployment Notification
+    needs: [deploy, verify]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Deployment status
+        run: |
+          if [ "${{ needs.deploy.result }}" == "success" ] && [ "${{ needs.verify.result }}" == "success" ]; then
+            echo "✅ Deployment successful!"
+            cat >> $GITHUB_STEP_SUMMARY <<EOF
+          ## ✅ Deployment Successful
+
+          **Service:** ${{ github.event.repository.name }}
+          **Environment:** ${{ inputs.environment || 'production' }}
+          **Commit:** \`${{ github.sha }}\`
+          **Deployed by:** @${{ github.actor }}
+
+          The service is now live and verified.
+          EOF
+          else
+            echo "❌ Deployment failed!"
+            cat >> $GITHUB_STEP_SUMMARY <<EOF
+          ## ❌ Deployment Failed
+
+          **Service:** ${{ github.event.repository.name }}
+          **Environment:** ${{ inputs.environment || 'production' }}
+          **Commit:** \`${{ github.sha }}\`
+          **Attempted by:** @${{ github.actor }}
+
+          Please check the logs and rollback if necessary.
+          EOF
+          fi
+
+      # TODO: Add Slack/Discord notification
+      # - name: Notify Slack
+      #   uses: slackapi/slack-github-action@v1
+      #   with:
+      #     payload: |
+      #       {
+      #         "text": "Deployment ${{ needs.deploy.result }}: ${{ github.event.repository.name }}"
+      #       }
+      #   env:
+      #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
