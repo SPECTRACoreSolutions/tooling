@@ -9,7 +9,7 @@
 Configuration and tool recommendations for SPECTRA development:
 
 ### Cursor/VS Code Extensions
-- **`cursor-extensions-curated.md`** - Living list of proven extensions (70+)
+- **`docs/cursor-extensions-curated.md`** - Living list of proven extensions (70+)
 - **`install-spectra-extensions.ps1`** - Quick installer script
 
 ### PC Build Toolkit
@@ -74,7 +74,7 @@ Configuration and tool recommendations for SPECTRA development:
 
 ## Browse Extensions
 
-**See full catalog**: `cursor-extensions-curated.md`
+**See full catalog**: `docs/cursor-extensions-curated.md`
 
 **Organized by**:
 - Top Tier (>5M downloads)
@@ -107,7 +107,7 @@ Configuration and tool recommendations for SPECTRA development:
 
 **Next review**: 2025-03-02
 
-**To contribute**: See "Contributing" section in `cursor-extensions-curated.md`
+**To contribute**: See "Contributing" section in `docs/cursor-extensions-curated.md`
 
 ---
 
@@ -172,7 +172,7 @@ Configuration and tool recommendations for SPECTRA development:
 1. Check quality criteria (downloads, stars, official)
 2. Verify actively maintained
 3. Ensure no better alternative exists
-4. Add to `cursor-extensions-curated.md` with metrics
+4. Add to `docs/cursor-extensions-curated.md` with metrics
 5. Update install script if in recommended tier
 
 **To report issues**:

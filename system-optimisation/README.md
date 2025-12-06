@@ -113,7 +113,7 @@ client = OpenRGBClient()
 client.set_colour(RGBColour(255, 0, 0))  # Red
 ```
 
-See `openrgb-integration.md` for complete guide!
+See `docs/openrgb-integration.md` for complete guide!
 
 ---
 

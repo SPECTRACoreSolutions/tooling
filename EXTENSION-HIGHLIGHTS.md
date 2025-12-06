@@ -353,7 +353,7 @@ Day 5-7: GitLens
    - VS Code blog (code.visualstudio.com/blogs)
 
 4. **SPECTRA Curated List**
-   - `cursor-extensions-curated.md` (this repo)
+   - `docs/cursor-extensions-curated.md` (this repo)
    - Monthly updates
    - Pre-vetted for quality
 
