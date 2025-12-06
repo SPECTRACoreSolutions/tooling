@@ -1,0 +1,586 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                   COMPLETE PC BUILD/UPGRADE GUIDE                          ║
+║            ASRock Z690 Taichi → MSI MEG Z890 GODLIKE                       ║
+║                  + Intel Core Ultra 9 285K                                 ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+🎄 Christmas 2025 Build - Mark's Ultimate Upgrade
+
+═══════════════════════════════════════════════════════════════════════════
+📋 BUILD SPECIFICATIONS
+═══════════════════════════════════════════════════════════════════════════
+
+NEW COMPONENTS:
+    CPU:        Intel Core Ultra 9 285K (Arrow Lake)
+                - LGA 1851 socket
+                - 24 cores (8P + 16E)
+                - Up to 5.7 GHz boost
+    
+    Motherboard: MSI MEG Z890 GODLIKE
+                - DDR5 up to 9200+ MT/s
+                - Thunderbolt 5
+                - WiFi 7 (BE200)
+                - 10Gb Ethernet
+                - PCIe 5.0
+    
+    AIO Cooler: MSI MAG CoreLiquid i360
+                - 360mm radiator
+                - LGA 1851 compatible
+                - LCD pump display
+                - ARGB lighting
+
+KEEPING FROM OLD BUILD:
+    RAM:        64GB Corsair DDR5-4800 (4x 16GB) ✅ Compatible!
+    GPU:        [Your existing GPU]
+    Storage:    [Your existing M.2/SATA drives]
+    PSU:        [Your existing power supply]
+    Case:       [Your existing case]
+
+═══════════════════════════════════════════════════════════════════════════
+⏰ TIME ESTIMATE: 2-3 hours for hardware swap
+                  + 30 mins for Windows/driver setup
+═══════════════════════════════════════════════════════════════════════════
+
+🛠️  TOOLS NEEDED:
+    ✅ Phillips head screwdriver (magnetic tip helpful)
+    ✅ Anti-static wrist strap (or ground yourself often)
+    ✅ Isopropyl alcohol 90%+ (cleaning old thermal paste)
+    ✅ Coffee filters or lint-free cloth
+    ✅ Good lighting
+    ✅ This USB stick!
+    ✅ Patience and steady hands
+
+═══════════════════════════════════════════════════════════════════════════
+🎯 PRE-SWAP CHECKLIST
+═══════════════════════════════════════════════════════════════════════════
+
+[ ] All drivers downloaded to this USB
+[ ] Windows Update fully completed
+[ ] Important files backed up (OneDrive synced)
+[ ] System info backed up (already done!)
+[ ] Photo of current BIOS settings (optional)
+[ ] Browser bookmarks exported (optional)
+[ ] Game saves backed up (Steam Cloud should handle)
+[ ] MSI Z890 manual downloaded/accessible
+[ ] MSI CoreLiquid i360 manual accessible
+
+═══════════════════════════════════════════════════════════════════════════
+🔌 PHASE 1: SAFE SHUTDOWN & REMOVAL
+═══════════════════════════════════════════════════════════════════════════
+
+1. Shut down Windows properly (Start → Shutdown)
+2. Flip PSU switch to OFF (back of PC)
+3. Unplug power cable from wall
+4. Press power button 5-10 times (discharge capacitors)
+5. Remove all external cables:
+   - Monitor cables
+   - USB devices
+   - Network cable
+   - Audio cables
+   - Any other peripherals
+
+6. Move PC to workspace with good lighting
+7. Open side panel(s)
+8. 📸 Take photo of cable routing (for reference later!)
+
+⚠️  CRITICAL: Touch your PC case frequently to ground yourself!
+
+═══════════════════════════════════════════════════════════════════════════
+🗑️  PHASE 2: REMOVE OLD COMPONENTS
+═══════════════════════════════════════════════════════════════════════════
+
+ORDER MATTERS! Follow this sequence:
+
+1. DISCONNECT ALL MOTHERBOARD CABLES:
+   [ ] 24-pin ATX power (squeeze clip, pull straight)
+   [ ] 8-pin CPU power (top left of board)
+   [ ] Front panel connectors (tiny pins at bottom)
+   [ ] USB headers (front panel USB ports)
+   [ ] Audio header (front panel audio)
+   [ ] All fan headers
+   [ ] Any RGB/LED headers
+   [ ] SATA cables (if any)
+
+2. REMOVE GPU (if installed):
+   [ ] Unscrew bracket from case (back of PC)
+   [ ] Press PCIe slot release tab (on motherboard)
+   [ ] Pull GPU straight out (may need wiggling)
+   [ ] Set aside in anti-static bag
+
+3. REMOVE RAM:
+   [ ] Push clips on both ends outward
+   [ ] Pull RAM straight up
+   [ ] Keep all 4 sticks together safely
+
+4. REMOVE M.2 DRIVES:
+   [ ] Locate M.2 drives (usually under heatsinks)
+   [ ] Remove heatsink (if present)
+   [ ] Unscrew tiny M.2 screw
+   [ ] Pull drive out at 30° angle
+   [ ] Keep screws in safe place!
+
+5. REMOVE OLD AIO COOLER:
+   [ ] Disconnect pump power cable
+   [ ] Disconnect pump USB cable (if any)
+   [ ] Disconnect ARGB cable (if any)
+   [ ] Unscrew radiator from case (3-6 screws)
+   [ ] Unscrew pump from CPU (4 screws, X pattern)
+      ⚠️  Loosen in X pattern: a bit of each screw at a time!
+   [ ] Lift cooler carefully (thermal paste will be sticky)
+   [ ] Set aside
+
+6. CLEAN OLD THERMAL PASTE:
+   [ ] Put isopropyl alcohol on coffee filter
+   [ ] Gently wipe CPU surface (IHS)
+   [ ] Wipe until completely clean and shiny
+   [ ] Let air dry (30 seconds)
+
+7. REMOVE OLD MOTHERBOARD:
+   [ ] Count motherboard screws (usually 8-9)
+   [ ] Unscrew all motherboard screws
+   [ ] Gently lift motherboard straight up
+   [ ] Place in anti-static bag or on box
+
+8. OPTIONAL: CLEAN CASE:
+   [ ] Compressed air to blow out dust
+   [ ] Wipe down case interior
+   [ ] Check/clean dust filters
+
+═══════════════════════════════════════════════════════════════════════════
+🆕 PHASE 3: INSTALL NEW COMPONENTS
+═══════════════════════════════════════════════════════════════════════════
+
+PREP:
+    - Place new Z890 motherboard on its box (on anti-static bag)
+    - Work on non-conductive surface
+    - Keep touching case to ground yourself
+
+─────────────────────────────────────────────────────────────────────────────
+STEP 1: INSTALL CPU (Core Ultra 9 285K) - 5 MINUTES
+─────────────────────────────────────────────────────────────────────────────
+
+⚠️  MOST CRITICAL STEP - GO SLOW!
+
+[ ] Locate CPU socket (large square with metal cover)
+[ ] Lift retention arm (moves to the side, click)
+[ ] Remove plastic socket cover (save for warranty!)
+[ ] Remove CPU from package:
+    - Hold by edges ONLY
+    - Never touch bottom pins/contacts
+[ ] Locate orientation marker:
+    - CPU has small triangle in one corner
+    - Socket has matching triangle
+    - MUST align correctly!
+[ ] Place CPU in socket:
+    - Should drop in with ZERO force
+    - If it doesn't sit flat → STOP, check orientation
+    - Should sit completely flat in socket
+[ ] Close retention arm:
+    - Will need slight pressure
+    - Clicks into place when locked
+
+✅ CPU should be completely flat, retention arm locked
+
+─────────────────────────────────────────────────────────────────────────────
+STEP 2: INSTALL RAM - 2 MINUTES
+─────────────────────────────────────────────────────────────────────────────
+
+[ ] Check Z890 manual for slot configuration
+    (All 4 slots for quad-channel: A1, A2, B1, B2)
+[ ] Open clips on both ends of each slot
+[ ] Align notch on RAM with notch in slot
+[ ] Press down firmly until BOTH clips click
+    - Requires firm pressure
+    - Should hear/feel two clicks
+[ ] Verify: You should NOT be able to remove RAM without pressing clips
+
+✅ All 4 RAM sticks installed, clips locked
+
+─────────────────────────────────────────────────────────────────────────────
+STEP 3: INSTALL MOTHERBOARD IN CASE - 10 MINUTES
+─────────────────────────────────────────────────────────────────────────────
+
+[ ] Install I/O shield if separate (snap into place from inside)
+    (Z890 GODLIKE likely has integrated I/O shield)
+[ ] Check standoffs align with motherboard holes
+[ ] Lower motherboard into case carefully
+[ ] Align I/O ports with I/O shield
+[ ] Check all standoff screws align with holes
+[ ] Screw in motherboard:
+    - Start with corners (don't fully tighten yet)
+    - Then middle screws
+    - Finally tighten all (snug, not gorilla-tight!)
+
+✅ Motherboard secure, doesn't flex when pressed
+
+─────────────────────────────────────────────────────────────────────────────
+STEP 4: INSTALL MSI MAG CORELIQUID i360 AIO - 20 MINUTES
+─────────────────────────────────────────────────────────────────────────────
+
+🔗 Follow MSI CoreLiquid i360 manual for LGA 1851!
+
+GENERAL STEPS:
+
+[ ] Install backplate behind motherboard:
+    - Feed posts through holes around CPU socket
+    - Secure from front with standoffs
+
+[ ] Check thermal paste:
+    - Pump should have pre-applied paste
+    - If not: apply pea-sized dot to CPU center
+
+[ ] Mount pump block to CPU:
+    - Align with backplate posts
+    - Start all 4 screws loosely
+    - Tighten in X pattern: a bit of each at a time
+    - Final tightness: snug but not over-tight
+    - Orient pump display how you want (rotatable)
+
+[ ] Install radiator in case:
+    OPTION A: Top mount (exhaust) - Quieter, slightly warmer CPU
+    OPTION B: Front mount (intake) - Cooler CPU, slightly warmer system
+    
+    💡 Recommendation: Top mount as exhaust
+    
+    - Tubes should route naturally (no kinking)
+    - Tubes at bottom of radiator (helps with air bubbles)
+    - Screw radiator + fans to case
+
+[ ] Connect cables:
+    - Pump power → CPU_FAN or PUMP_FAN header on motherboard
+    - Radiator fans → SYS_FAN headers or fan hub
+    - ARGB cable → JRAINBOW header (3-pin 5V ARGB)
+    - USB cable → USB 2.0 header (for pump display control)
+
+✅ AIO installed, all cables connected, pump feels firm
+
+─────────────────────────────────────────────────────────────────────────────
+STEP 5: REINSTALL YOUR COMPONENTS - 10 MINUTES
+─────────────────────────────────────────────────────────────────────────────
+
+M.2 DRIVES:
+[ ] Remove M.2 heatsinks from Z890 (if present)
+[ ] Insert M.2 drive at 30° angle
+[ ] Push down flat
+[ ] Screw in with tiny M.2 screw
+[ ] Replace heatsink
+[ ] Repeat for all M.2 drives
+
+GPU (if you have one):
+[ ] Remove PCIe slot covers from case
+[ ] Align GPU with top PCIe x16 slot
+[ ] Push down firmly until click
+[ ] Screw bracket to case
+[ ] Connect PCIe power cables to GPU (if needed)
+
+✅ All storage drives installed
+✅ GPU installed and secured
+
+─────────────────────────────────────────────────────────────────────────────
+STEP 6: CONNECT ALL CABLES - 15 MINUTES
+─────────────────────────────────────────────────────────────────────────────
+
+POWER CABLES:
+[ ] 24-pin ATX to motherboard (main power, right side)
+    - Push until CLICK!
+[ ] 8-pin CPU power to top left of motherboard
+    - May be 2x 4-pin or 1x 8-pin
+[ ] PCIe power to GPU (if needed)
+    - 8-pin or 6+2 pin connectors
+
+FRONT PANEL CONNECTORS (consult Z890 manual!):
+[ ] PWR_SW (power button) - CRITICAL!
+[ ] RST_SW (reset button)
+[ ] PWR_LED + and -
+[ ] HDD_LED
+
+💡 These tiny pins are labeled. Match labels on motherboard.
+   PWR_SW is the most critical - PC won't start without it!
+
+HEADERS:
+[ ] USB 3.0 header (blue, 19-pin)
+[ ] USB 2.0 header(s) (black, 9-pin)
+[ ] Audio header (HD_AUDIO)
+[ ] All remaining fan headers
+
+SATA (if you have SATA drives):
+[ ] SATA data cables to motherboard
+[ ] SATA power from PSU to drives
+
+✅ All cables connected
+✅ Nothing loose or unplugged
+
+─────────────────────────────────────────────────────────────────────────────
+STEP 7: FINAL PRE-BOOT CHECK - 5 MINUTES ⚠️  CRITICAL!
+─────────────────────────────────────────────────────────────────────────────
+
+WALK AROUND PC AND CHECK:
+
+[ ] 24-pin ATX power - FIRMLY connected (heard click)
+[ ] 8-pin CPU power - FIRMLY connected
+[ ] RAM - all sticks fully seated (both clips clicked)
+[ ] GPU - fully seated, bracket screwed in, power connected
+[ ] AIO pump - power connected, feels firm on CPU
+[ ] AIO radiator - fans connected, screwed to case
+[ ] Front panel PWR_SW - connected correctly
+[ ] No loose screws rattling in case
+[ ] No cables touching fan blades
+[ ] Side panel ready to close (but leave open for first boot)
+
+✅ Everything checked twice!
+
+═══════════════════════════════════════════════════════════════════════════
+🚀 PHASE 4: FIRST BOOT (MOMENT OF TRUTH!)
+═══════════════════════════════════════════════════════════════════════════
+
+PREP:
+[ ] Keep side panel OFF (need to see/hear)
+[ ] Plug power cable to PSU
+[ ] Flip PSU switch to ON
+[ ] Plug monitor cable to GPU (or motherboard if no GPU)
+[ ] Plug keyboard into USB port
+
+POWER ON:
+[ ] Press power button
+[ ] Watch for signs of life:
+    - Fans spinning? ✅
+    - Pump making noise/vibration? ✅
+    - Lights on motherboard? ✅
+    - Monitor shows something? ✅
+
+WHAT SHOULD HAPPEN:
+    1. Fans spin up
+    2. MSI logo appears on screen (might take 10-20 seconds)
+    3. POST beep (optional, some boards don't beep)
+    4. "Press DEL to enter BIOS" message
+
+═══════════════════════════════════════════════════════════════════════════
+⚠️  TROUBLESHOOTING: NO DISPLAY
+═══════════════════════════════════════════════════════════════════════════
+
+If fans spin but no display:
+
+1. CHECK RAM:
+   - Reseat all RAM sticks (remove and reinstall)
+   - Try one stick in slot A2
+   - Try each stick individually
+
+2. CHECK CABLES:
+   - Monitor cable connected to GPU (not motherboard)?
+   - Both power cables connected (24-pin + 8-pin)?
+
+3. CHECK CPU:
+   - Was it oriented correctly?
+   - Did it sit flat?
+   - Retention arm locked?
+
+4. CHECK DEBUG LEDS:
+   - Z890 GODLIKE has debug LED display
+   - Note the code, look up in manual
+
+5. CLEAR CMOS:
+   - Look for CMOS clear button on motherboard
+   - Or remove CMOS battery for 30 seconds
+
+═══════════════════════════════════════════════════════════════════════════
+🎮 PHASE 5: BIOS CONFIGURATION
+═══════════════════════════════════════════════════════════════════════════
+
+AS SOON AS YOU SEE MSI LOGO:
+    → SPAM the DELETE key to enter BIOS
+
+IN BIOS:
+
+STEP 1: VERIFY HARDWARE DETECTED
+[ ] CPU: Intel Core Ultra 9 285K (should show all cores)
+[ ] RAM: 64GB (all 4 sticks detected)
+[ ] CPU Temperature: 30-45°C idle (should be reasonable)
+[ ] All fans detected and spinning
+[ ] Boot drives detected
+
+STEP 2: ENABLE XMP (CRITICAL FOR RAM SPEED!)
+[ ] Navigate to: Settings → Advanced → Memory Settings
+[ ] Enable: XMP Profile 1
+[ ] Should set RAM to 4800 MT/s
+[ ] Verify frequency changed
+
+STEP 3: SET BOOT ORDER
+[ ] Navigate to: Settings → Boot
+[ ] Set your Windows drive as #1 boot device
+[ ] Disable other boot devices if desired
+
+STEP 4: OPTIONAL SETTINGS
+[ ] Check fan curves (adjust if too loud/quiet)
+[ ] Enable Resizable BAR (for modern GPUs)
+[ ] Set CPU power limits (default is fine)
+
+STEP 5: SAVE AND EXIT
+[ ] Press F10 to save
+[ ] Confirm: Yes
+[ ] PC will reboot
+
+💡 If settings look good, PC will boot to Windows!
+
+═══════════════════════════════════════════════════════════════════════════
+🪟 PHASE 6: WINDOWS FIRST BOOT
+═══════════════════════════════════════════════════════════════════════════
+
+WHAT TO EXPECT:
+
+1. MSI logo
+2. Windows loading animation
+3. Might say "Getting Windows ready" or "Please wait"
+   - This is normal! Windows is detecting new hardware
+4. Might reboot once or twice automatically
+5. Eventually: Windows login screen
+
+LOGIN:
+[ ] Sign in with your account
+[ ] Windows might download drivers automatically
+[ ] Let it work for a few minutes
+
+═══════════════════════════════════════════════════════════════════════════
+💾 PHASE 7: INSTALL DRIVERS (FROM THIS USB!)
+═══════════════════════════════════════════════════════════════════════════
+
+INSERT THIS USB STICK!
+
+INSTALL IN THIS ORDER:
+
+1. CHIPSET DRIVER (Priority #1)
+   Location: H:\02-Drivers\MSI-MEG-Z890-GODLIKE\Chipset\
+   [ ] Run installer
+   [ ] Restart when prompted
+
+2. LAN DRIVER (Priority #2)
+   Location: H:\02-Drivers\MSI-MEG-Z890-GODLIKE\LAN\
+   [ ] Install Intel LAN driver
+   [ ] Now you should have internet!
+
+3. RUN WINDOWS UPDATE
+   [ ] Settings → Windows Update → Check for updates
+   [ ] Let it download and install everything
+   [ ] Restart as needed
+
+4. REMAINING DRIVERS
+   Location: H:\02-Drivers\MSI-MEG-Z890-GODLIKE\
+   [ ] Audio driver
+   [ ] WiFi/Bluetooth driver
+   [ ] Thunderbolt driver
+   [ ] Intel ME driver
+
+5. MSI CENTER
+   Location: H:\03-AIO-RGB\MSI-Center\
+   [ ] Install MSI Center
+   [ ] Restart
+   [ ] Open MSI Center
+   [ ] Configure AIO pump display (show CPU temp, custom images)
+   [ ] Set fan curves
+   [ ] Configure RGB lighting
+
+6. GPU DRIVER (if not already installed by Windows Update)
+   Location: H:\02-Drivers\Universal\NVIDIA\ (or AMD)
+   [ ] Run installer
+   [ ] Restart
+
+═══════════════════════════════════════════════════════════════════════════
+✅ PHASE 8: VERIFICATION & TESTING
+═══════════════════════════════════════════════════════════════════════════
+
+RUN SYSTEM CHECK:
+[ ] Run: H:\05-Scripts\01-check-system-info.ps1
+    - Verify all components detected
+    - Check RAM speed (should be 4800 MT/s)
+    - Check RAM type (should show DDR5)
+
+[ ] Run: H:\05-Scripts\02-check-windows-activation.ps1
+    - Verify Windows is activated
+    - If not: Sign in with Microsoft account
+
+[ ] Run: H:\05-Scripts\03-quick-troubleshoot.ps1
+    - Checks for common issues
+    - Lists any devices needing drivers
+
+CHECK DEVICE MANAGER:
+[ ] Open Device Manager (devmgmt.msc)
+[ ] Look for yellow warning triangles
+[ ] All devices should show "This device is working properly"
+
+CHECK TEMPERATURES:
+[ ] Install HWiNFO64 from: H:\04-Utilities\Monitoring\
+[ ] Check idle temps:
+    - CPU: 30-45°C idle
+    - GPU: 30-50°C idle
+    - If higher: check AIO pump is running!
+
+═══════════════════════════════════════════════════════════════════════════
+🔥 PHASE 9: STRESS TESTING (RECOMMENDED!)
+═══════════════════════════════════════════════════════════════════════════
+
+TEST SYSTEM STABILITY:
+
+1. CPU STRESS TEST (10-30 minutes)
+   Location: H:\04-Utilities\Stress-Testing\
+   
+   [ ] Run Prime95 or OCCT
+   [ ] Monitor temps with HWiNFO64
+   [ ] Should stay under 90°C under load
+   [ ] Watch for crashes or blue screens
+   
+   ✅ PASS: No crashes, temps reasonable
+
+2. RAM TEST (OPTIONAL - takes hours)
+   Location: H:\04-Utilities\Stress-Testing\MemTest86
+   
+   [ ] Create bootable USB with MemTest86
+   [ ] Boot from USB
+   [ ] Let run overnight (4-8 passes minimum)
+   [ ] 0 errors = good RAM
+   
+   ✅ PASS: 0 errors
+
+3. QUICK GAMING TEST
+   [ ] Play demanding game for 30 minutes
+   [ ] Monitor temps
+   [ ] Watch for crashes
+   
+   ✅ PASS: No issues, smooth gameplay
+
+═══════════════════════════════════════════════════════════════════════════
+🎊 PHASE 10: FINAL TOUCHES
+═══════════════════════════════════════════════════════════════════════════
+
+[ ] Close side panel
+[ ] Clean up cables (zip ties, velcro straps)
+[ ] Connect all peripherals
+[ ] Organize desk/workspace
+[ ] Take photo of new build! 📸
+[ ] Update this USB with latest drivers periodically
+[ ] Keep this USB for future builds!
+
+═══════════════════════════════════════════════════════════════════════════
+🎄 CONGRATULATIONS!
+═══════════════════════════════════════════════════════════════════════════
+
+You've successfully upgraded to:
+
+    🔥 Intel Core Ultra 9 285K
+    🔥 MSI MEG Z890 GODLIKE
+    🔥 64GB DDR5-4800
+    🔥 MSI MAG CoreLiquid i360
+
+ENJOY YOUR CHRISTMAS PRESENT TO YOURSELF! 🎁
+
+═══════════════════════════════════════════════════════════════════════════
+
+Need help? Check:
+    - README.txt (on this USB)
+    - TROUBLESHOOTING.txt (on this USB)
+    - Run scripts in H:\05-Scripts\
+    - MSI support: https://www.msi.com/support
+
+═══════════════════════════════════════════════════════════════════════════
+
+Created with ❤️  by SPECTRA AI
+December 4, 2025
+

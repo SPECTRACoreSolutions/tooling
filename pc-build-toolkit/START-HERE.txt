@@ -1,0 +1,309 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║              ✨ SPECTRA PC BUILD TOOLKIT - START HERE ✨                  ║
+║                                                                            ║
+║                Your complete PC building companion                         ║
+║                        on one USB stick!                                   ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+🎄 CHRISTMAS 2025 BUILD
+    ASRock Z690 Taichi → MSI MEG Z890 GODLIKE + Core Ultra 9 285K
+
+═══════════════════════════════════════════════════════════════════════════
+📍 YOU ARE HERE
+═══════════════════════════════════════════════════════════════════════════
+
+This USB drive has been prepared with EVERYTHING you need for your upgrade:
+
+✅ Folder structure created (7 main folders)
+✅ README.txt created (overview)
+✅ DOWNLOAD-CHECKLIST.txt created (what to download)
+✅ 3 PowerShell scripts created (automation tools)
+✅ BUILD-GUIDE.txt created (complete step-by-step guide)
+✅ TROUBLESHOOTING.txt created (fixes for common issues)
+
+USB: Drive H: (233GB, plenty of space!)
+Status: Ready for downloads!
+
+═══════════════════════════════════════════════════════════════════════════
+🎯 NEXT STEPS (DO IN ORDER!)
+═══════════════════════════════════════════════════════════════════════════
+
+STEP 1: DOWNLOAD ESSENTIAL DRIVERS ⭐ DO THIS NOW!
+───────────────────────────────────────────────────────────────────────────
+
+Open: H:\DOWNLOAD-CHECKLIST.txt
+
+MUST DOWNLOAD (before your build):
+    ✓ MSI MEG Z890 GODLIKE drivers
+      https://www.msi.com/Motherboard/MEG-Z890-GODLIKE/support
+      
+      Priority downloads:
+      1. Chipset driver (install FIRST after Windows boots!)
+      2. LAN driver (for internet)
+      3. Audio driver
+      4. WiFi/Bluetooth driver
+      5. Thunderbolt driver
+    
+    ✓ MSI Center (controls AIO + RGB)
+      https://www.msi.com/Landing/MSI-Center
+    
+    ✓ MSI CoreLiquid i360 manual
+      https://www.msi.com/Liquid-Cooling/MAG-CORELIQUID-I360/support
+
+OPTIONAL (can download later):
+    - GPU drivers (NVIDIA/AMD)
+    - Utilities (HWiNFO64, CPU-Z, Prime95, etc.)
+    - Windows 11 installation media
+
+⏱️  Time needed: 15-30 minutes (just the essentials)
+
+═══════════════════════════════════════════════════════════════════════════
+
+STEP 2: READ THE BUILD GUIDE
+───────────────────────────────────────────────────────────────────────────
+
+Open: H:\06-Documentation\BUILD-GUIDE.txt
+
+This is your COMPLETE step-by-step guide:
+    → 10 phases covering everything
+    → Hardware removal
+    → New component installation
+    → BIOS configuration
+    → Driver installation
+    → Testing procedures
+
+⏱️  Time needed: 15-20 minutes to read through
+
+💡 TIP: Keep this open on a phone/tablet during build!
+
+═══════════════════════════════════════════════════════════════════════════
+
+STEP 3: OPTIONAL - BACKUP YOUR CURRENT BIOS SETTINGS
+───────────────────────────────────────────────────────────────────────────
+
+If you have custom settings you want to preserve:
+    1. Restart PC
+    2. Press DELETE to enter BIOS
+    3. Take phone photos of important screens
+    4. Save to H:\07-Backup\
+
+⏱️  Time needed: 5 minutes
+
+═══════════════════════════════════════════════════════════════════════════
+
+STEP 4: THE BUILD! 🚀
+───────────────────────────────────────────────────────────────────────────
+
+When you're ready:
+    1. Follow BUILD-GUIDE.txt step by step
+    2. Take your time (2-3 hours for hardware)
+    3. Don't skip any checks!
+    4. Keep this USB handy for driver install after boot
+
+═══════════════════════════════════════════════════════════════════════════
+📂 WHAT'S ON THIS USB
+═══════════════════════════════════════════════════════════════════════════
+
+📄 ROOT FILES:
+    README.txt              → Overview & quick reference
+    DOWNLOAD-CHECKLIST.txt  → Complete download list
+    START-HERE.txt          → This file!
+    USB-Contents.txt        → Full folder listing (on Desktop)
+
+📁 01-Windows/
+    → Windows 11 installation media (when you download it)
+
+📁 02-Drivers/
+    ├── MSI-MEG-Z890-GODLIKE/  → Your new motherboard drivers
+    │   ├── Chipset/            (download these!)
+    │   ├── LAN/
+    │   ├── Audio/
+    │   ├── WiFi-Bluetooth/
+    │   ├── Thunderbolt/
+    │   └── BIOS/
+    └── Universal/              → GPU drivers for future use
+        ├── NVIDIA/
+        ├── AMD/
+        └── Intel/
+
+📁 03-AIO-RGB/
+    ├── MSI-Center/          → Control AIO, RGB, fans, monitoring
+    └── MSI-CoreLiquid-i360/ → AIO manual
+
+📁 04-Utilities/
+    ├── System-Info/         → CPU-Z, GPU-Z (info tools)
+    ├── Monitoring/          → HWiNFO64 (temps, voltages)
+    ├── Stress-Testing/      → Prime95, OCCT, MemTest86
+    ├── Drive-Tools/         → CrystalDiskInfo, CrystalDiskMark
+    ├── Driver-Tools/        → DDU, Snappy Driver Installer
+    └── General/             → 7-Zip, Rufus
+
+📁 05-Scripts/
+    01-check-system-info.ps1        → View all system specs
+    02-check-windows-activation.ps1 → Check/fix Windows license
+    03-quick-troubleshoot.ps1       → Auto-detect common issues
+
+📁 06-Documentation/
+    BUILD-GUIDE.txt          → Complete build instructions
+    TROUBLESHOOTING.txt      → Fix common problems
+
+📁 07-Backup/
+    → Store BIOS settings photos, driver backups, etc.
+
+═══════════════════════════════════════════════════════════════════════════
+🎮 AFTER THE BUILD - USEFUL SCRIPTS
+═══════════════════════════════════════════════════════════════════════════
+
+After Windows boots with new hardware:
+
+RUN THIS FIRST:
+    H:\05-Scripts\03-quick-troubleshoot.ps1
+    → Auto-checks for common issues
+    → Lists missing drivers
+    → Verifies all hardware detected
+
+THEN CHECK:
+    H:\05-Scripts\01-check-system-info.ps1
+    → See all your new specs!
+    → Verify RAM speed (4800 MT/s)
+    → Check RAM type (DDR5)
+    → Save report to Desktop
+
+IF WINDOWS WON'T ACTIVATE:
+    H:\05-Scripts\02-check-windows-activation.ps1
+    → Checks activation status
+    → Provides fix instructions
+    → Can attempt auto-activation
+
+═══════════════════════════════════════════════════════════════════════════
+⚠️  IMPORTANT REMINDERS
+═══════════════════════════════════════════════════════════════════════════
+
+BEFORE BUILD:
+    ✓ Download drivers to this USB (PRIORITY 1 section)
+    ✓ Windows Update fully completed on current system
+    ✓ OneDrive synced (your files are safe!)
+    ✓ Read BUILD-GUIDE.txt completely
+
+DURING BUILD:
+    ✓ Ground yourself (touch case frequently)
+    ✓ Don't force anything (especially CPU!)
+    ✓ Take your time - no rush!
+    ✓ Keep BUILD-GUIDE.txt open for reference
+
+AFTER BUILD:
+    ✓ Enter BIOS first (press DELETE)
+    ✓ Enable XMP for RAM speed
+    ✓ Install chipset driver FIRST
+    ✓ Then LAN driver for internet
+    ✓ Run Windows Update
+    ✓ Install MSI Center
+    ✓ Run stress tests
+
+═══════════════════════════════════════════════════════════════════════════
+🎯 YOUR BUILD SPECS (FOR REFERENCE)
+═══════════════════════════════════════════════════════════════════════════
+
+CURRENT (OLD):
+    CPU:        Intel 12th/13th Gen (LGA 1700)
+    Motherboard: ASRock Z690 Taichi Razer Edition
+    RAM:        64GB Corsair DDR5-4800 ✅ Keeping this!
+    AIO:        [Previous AIO]
+
+NEW (UPGRADED):
+    CPU:        Intel Core Ultra 9 285K (LGA 1851) 🔥
+    Motherboard: MSI MEG Z890 GODLIKE 🔥
+    RAM:        64GB Corsair DDR5-4800 (same sticks!)
+    AIO:        MSI MAG CoreLiquid i360 🔥
+
+KEEPING:
+    ✓ GPU (move to new build)
+    ✓ Storage drives (move to new build)
+    ✓ PSU (reuse)
+    ✓ Case (reuse)
+    ✓ RAM (reuse - confirmed DDR5 compatible!)
+
+═══════════════════════════════════════════════════════════════════════════
+💾 KEEP THIS USB UPDATED!
+═══════════════════════════════════════════════════════════════════════════
+
+This USB is designed to be REUSABLE for any future builds:
+
+PERIODICALLY UPDATE:
+    → Latest chipset drivers (every 3-6 months)
+    → Latest GPU drivers
+    → Latest BIOS files
+    → Utility software updates
+
+USE FOR:
+    → Future PC builds (yours or friends!)
+    → Troubleshooting
+    → Clean Windows installs
+    → Driver installation after crashes
+    → System recovery
+
+BACKUP THIS USB:
+    → Copy entire USB to:
+      C:\Users\markm\OneDrive\SPECTRA\Hardware\PC-Build-Toolkit\
+    → Cloud backup of essential files
+    → Now you can recreate this USB anytime!
+
+═══════════════════════════════════════════════════════════════════════════
+🎄 FINAL WORDS
+═══════════════════════════════════════════════════════════════════════════
+
+This is an INCREDIBLE upgrade! The MEG Z890 GODLIKE is MSI's absolute
+flagship board, and the Core Ultra 9 285K is a beast of a CPU.
+
+Your system specs:
+    🔥 24 cores (8P + 16E)
+    🔥 Up to 5.7 GHz boost
+    🔥 64GB DDR5 RAM
+    🔥 Thunderbolt 5
+    🔥 WiFi 7
+    🔥 10Gb Ethernet
+    🔥 PCIe 5.0
+    🔥 MSI ecosystem (board + AIO + software)
+
+This is basically a workstation/gaming hybrid monster!
+
+═══════════════════════════════════════════════════════════════════════════
+
+🎁 MERRY CHRISTMAS TO YOURSELF, MARK! 🎁
+
+You've got this! Take your time, follow the guide, and enjoy the process.
+Building PCs is LEGO for adults - it's therapeutic and satisfying!
+
+When you're done, you'll have an absolute POWERHOUSE that will serve you
+well for years to come.
+
+═══════════════════════════════════════════════════════════════════════════
+
+📞 NEED HELP?
+    → Check TROUBLESHOOTING.txt first
+    → Run the PowerShell scripts (05-Scripts/)
+    → MSI Support: https://www.msi.com/support
+    → Reddit r/buildapc (friendly community!)
+
+═══════════════════════════════════════════════════════════════════════════
+
+✨ Created with SPECTRA AI Assistant
+   December 4, 2025
+   
+   This USB toolkit is designed to make your build as smooth as possible.
+   Everything you need is right here on this drive!
+
+═══════════════════════════════════════════════════════════════════════════
+
+🚀 READY TO BEGIN?
+
+STEP 1: Open DOWNLOAD-CHECKLIST.txt and start downloading drivers!
+STEP 2: Read BUILD-GUIDE.txt completely
+STEP 3: Schedule your build day and GO FOR IT!
+
+Good luck and happy building! 🎮🔧💻
+
+═══════════════════════════════════════════════════════════════════════════
+

@@ -1,0 +1,199 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║           SPECTRA PC TOOLKIT - DOWNLOAD CHECKLIST                          ║
+║                     Check off as you download!                             ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+═══════════════════════════════════════════════════════════════════════════
+🔥 PRIORITY 1: MSI MEG Z890 GODLIKE DRIVERS (CURRENT BUILD)
+═══════════════════════════════════════════════════════════════════════════
+
+Main Page: https://www.msi.com/Motherboard/MEG-Z890-GODLIKE/support
+Click "Driver" tab
+
+[ ] Chipset Driver (Intel 800 Series)
+    Save to: 02-Drivers/MSI-MEG-Z890-GODLIKE/Chipset/
+    ⭐ INSTALL THIS FIRST after Windows boots!
+
+[ ] Intel LAN Driver
+    Save to: 02-Drivers/MSI-MEG-Z890-GODLIKE/LAN/
+    ⭐ CRITICAL for internet connection
+
+[ ] Killer LAN Driver (if available)
+    Save to: 02-Drivers/MSI-MEG-Z890-GODLIKE/LAN/
+
+[ ] Realtek Audio Driver (ALC4080 or similar)
+    Save to: 02-Drivers/MSI-MEG-Z890-GODLIKE/Audio/
+
+[ ] Nahimic Audio Software (optional)
+    Save to: 02-Drivers/MSI-MEG-Z890-GODLIKE/Audio/
+
+[ ] Intel WiFi 7 Driver (BE200)
+    Save to: 02-Drivers/MSI-MEG-Z890-GODLIKE/WiFi-Bluetooth/
+
+[ ] Intel Bluetooth Driver
+    Save to: 02-Drivers/MSI-MEG-Z890-GODLIKE/WiFi-Bluetooth/
+
+[ ] Intel Thunderbolt 5 Driver
+    Save to: 02-Drivers/MSI-MEG-Z890-GODLIKE/Thunderbolt/
+
+[ ] Intel Management Engine (ME) Driver
+    Save to: 02-Drivers/MSI-MEG-Z890-GODLIKE/Chipset/
+
+[ ] Latest BIOS file (optional but recommended)
+    Save to: 02-Drivers/MSI-MEG-Z890-GODLIKE/BIOS/
+
+═══════════════════════════════════════════════════════════════════════════
+❄️ PRIORITY 2: MSI SOFTWARE & AIO
+═══════════════════════════════════════════════════════════════════════════
+
+[ ] MSI Center
+    URL: https://www.msi.com/Landing/MSI-Center
+    Save to: 03-AIO-RGB/MSI-Center/
+    ⭐ Controls AIO, RGB, monitoring, fan curves
+
+[ ] MSI CoreLiquid i360 Manual PDF
+    URL: https://www.msi.com/Liquid-Cooling/MAG-CORELIQUID-I360/support
+    Save to: 03-AIO-RGB/MSI-CoreLiquid-i360/
+
+═══════════════════════════════════════════════════════════════════════════
+🎮 PRIORITY 3: UNIVERSAL GPU DRIVERS
+═══════════════════════════════════════════════════════════════════════════
+
+[ ] NVIDIA GeForce Game Ready Driver (Latest)
+    URL: https://www.nvidia.com/download/index.aspx
+    Save to: 02-Drivers/Universal/NVIDIA/
+    Note: Select your GPU model when downloading
+
+[ ] AMD Adrenalin Edition (Latest)
+    URL: https://www.amd.com/en/support
+    Save to: 02-Drivers/Universal/AMD/
+
+═══════════════════════════════════════════════════════════════════════════
+🔧 PRIORITY 4: ESSENTIAL UTILITIES
+═══════════════════════════════════════════════════════════════════════════
+
+SYSTEM INFORMATION:
+[ ] CPU-Z (Portable)
+    URL: https://www.cpuid.com/softwares/cpu-z.html
+    Save to: 04-Utilities/System-Info/
+
+[ ] GPU-Z (Portable)
+    URL: https://www.techpowerup.com/gpuz/
+    Save to: 04-Utilities/System-Info/
+
+[ ] HWiNFO64 (Portable)
+    URL: https://www.hwinfo.com/download/
+    Save to: 04-Utilities/Monitoring/
+    ⭐ Best comprehensive monitoring tool
+
+DRIVE TOOLS:
+[ ] CrystalDiskInfo (Portable)
+    URL: https://crystalmark.info/en/software/crystaldiskinfo/
+    Save to: 04-Utilities/Drive-Tools/
+    Note: Shows drive health (S.M.A.R.T.)
+
+[ ] CrystalDiskMark (Portable)
+    URL: https://crystalmark.info/en/software/crystaldiskmark/
+    Save to: 04-Utilities/Drive-Tools/
+    Note: Benchmarks drive speeds
+
+STRESS TESTING:
+[ ] Prime95
+    URL: https://www.mersenne.org/download/
+    Save to: 04-Utilities/Stress-Testing/
+    Note: CPU stability testing
+
+[ ] OCCT
+    URL: https://www.ocbase.com/
+    Save to: 04-Utilities/Stress-Testing/
+    Note: Comprehensive stability testing
+
+[ ] MemTest86 (USB Bootable)
+    URL: https://www.memtest86.com/download.htm
+    Save to: 04-Utilities/Stress-Testing/
+    Note: RAM testing (create bootable USB)
+
+[ ] FurMark (Portable)
+    URL: https://geeks3d.com/furmark/
+    Save to: 04-Utilities/Stress-Testing/
+    Note: GPU stress testing (use carefully!)
+
+DRIVER TOOLS:
+[ ] Display Driver Uninstaller (DDU)
+    URL: https://www.guru3d.com/files-details/display-driver-uninstaller-download.html
+    Save to: 04-Utilities/Driver-Tools/
+    Note: Clean GPU driver removal
+
+[ ] Snappy Driver Installer (SDI)
+    URL: https://sdi-tool.org/download/
+    Save to: 04-Utilities/Driver-Tools/
+    Note: Auto-finds missing drivers (offline capable)
+
+GENERAL UTILITIES:
+[ ] 7-Zip
+    URL: https://www.7-zip.org/download.html
+    Save to: 04-Utilities/General/
+
+[ ] Rufus (Portable)
+    URL: https://rufus.ie/
+    Save to: 04-Utilities/General/
+    Note: Creates bootable USB drives
+
+═══════════════════════════════════════════════════════════════════════════
+🪟 OPTIONAL: WINDOWS INSTALLATION
+═══════════════════════════════════════════════════════════════════════════
+
+[ ] Windows 11 Media Creation Tool
+    URL: https://www.microsoft.com/software-download/windows11
+    Save to: 01-Windows/
+    Note: Run this to create Windows 11 bootable USB
+
+[ ] Windows 11 ISO (Direct download for advanced users)
+    URL: Same as above, choose "Download Now" → ISO
+    Save to: 01-Windows/
+    Note: 5GB+ file, use with Rufus if needed
+
+═══════════════════════════════════════════════════════════════════════════
+📊 DOWNLOAD SUMMARY
+═══════════════════════════════════════════════════════════════════════════
+
+MUST HAVE (Before Build):
+    ✓ MSI Z890 GODLIKE Chipset driver
+    ✓ MSI Z890 GODLIKE LAN driver
+    ✓ MSI Center
+    ✓ HWiNFO64
+    ✓ Prime95 or OCCT
+
+HIGHLY RECOMMENDED:
+    ✓ All Z890 GODLIKE drivers
+    ✓ GPU drivers
+    ✓ CrystalDiskInfo/Mark
+    ✓ CPU-Z, GPU-Z
+    ✓ MemTest86
+
+NICE TO HAVE:
+    ✓ Windows 11 media
+    ✓ DDU
+    ✓ Snappy Driver Installer
+    ✓ 7-Zip, Rufus
+
+Estimated Total Size: ~15-25GB (depending on what you include)
+Your USB: 233GB - plenty of space! 🎉
+
+═══════════════════════════════════════════════════════════════════════════
+💡 DOWNLOAD TIPS
+═══════════════════════════════════════════════════════════════════════════
+
+• Download PORTABLE versions when available (no installation needed)
+• Get the latest versions of everything
+• Check file sizes match what website says
+• Scan downloads with Windows Defender if paranoid
+• Keep this checklist updated as you download!
+
+═══════════════════════════════════════════════════════════════════════════
+
+🎄 Start with Priority 1 & 2 - those are essential for your build!
+   Everything else can be downloaded over time as needed.
+
+Ready to start downloading? Let's do this! 🚀
+

@@ -1,0 +1,168 @@
+{
+  "version": "1.0",
+  "description": "Central Python package registry for SPECTRA tooling",
+  "categories": {
+    "core": {
+      "description": "Essential packages for all SPECTRA development",
+      "packages": {
+        "python-dotenv": {
+          "version": ">=1.0.0",
+          "description": "Load environment variables from .env files",
+          "use_cases": [
+            "Local testing of Fabric notebooks",
+            "Development environment configuration",
+            "Credential management for local testing"
+          ],
+          "install": "pip install python-dotenv",
+          "conda": "conda install -c conda-forge python-dotenv"
+        },
+        "requests": {
+          "version": ">=2.31.0",
+          "description": "HTTP library for API calls",
+          "use_cases": [
+            "REST API testing",
+            "External service integration",
+            "Data extraction from APIs"
+          ],
+          "install": "pip install requests"
+        },
+        "pyyaml": {
+          "version": ">=6.0",
+          "description": "YAML parser and emitter",
+          "use_cases": [
+            "Contract/manifest parsing",
+            "Configuration management",
+            "Pipeline definitions"
+          ],
+          "install": "pip install pyyaml"
+        }
+      }
+    },
+    "data_processing": {
+      "description": "Data processing and transformation",
+      "packages": {
+        "pandas": {
+          "version": ">=2.0.0",
+          "description": "Data manipulation and analysis",
+          "use_cases": [
+            "Local data testing",
+            "Alternative to Spark for small datasets",
+            "Data quality checks"
+          ],
+          "install": "pip install pandas"
+        },
+        "pyspark": {
+          "version": ">=3.4.0",
+          "description": "Apache Spark Python API",
+          "use_cases": [
+            "Local Spark testing",
+            "DataFrame operations",
+            "Big data processing"
+          ],
+          "install": "pip install pyspark",
+          "note": "Large package (~300MB), optional for local testing"
+        },
+        "delta-spark": {
+          "version": ">=2.4.0",
+          "description": "Delta Lake for Spark",
+          "use_cases": [
+            "Local Delta format testing",
+            "Time travel queries",
+            "ACID transactions"
+          ],
+          "install": "pip install delta-spark",
+          "note": "Requires PySpark, optional for local testing"
+        }
+      }
+    },
+    "development": {
+      "description": "Development and testing tools",
+      "packages": {
+        "jupyter": {
+          "version": ">=1.0.0",
+          "description": "Interactive notebook environment",
+          "use_cases": [
+            "Local notebook testing",
+            "Interactive development",
+            "Data exploration"
+          ],
+          "install": "pip install jupyter"
+        },
+        "jupyterlab": {
+          "version": ">=4.0.0",
+          "description": "Modern notebook interface",
+          "use_cases": [
+            "Enhanced notebook experience",
+            "Multi-tab editing",
+            "Extension support"
+          ],
+          "install": "pip install jupyterlab"
+        },
+        "pytest": {
+          "version": ">=7.4.0",
+          "description": "Testing framework",
+          "use_cases": [
+            "Unit testing",
+            "Integration testing",
+            "Test automation"
+          ],
+          "install": "pip install pytest"
+        },
+        "ruff": {
+          "version": ">=0.1.0",
+          "description": "Fast Python linter",
+          "use_cases": [
+            "Code quality",
+            "Style enforcement",
+            "Error detection"
+          ],
+          "install": "pip install ruff"
+        }
+      }
+    },
+    "fabric_runtime": {
+      "description": "Packages matching Fabric runtime environment",
+      "packages": {
+        "notebookutils": {
+          "version": "N/A",
+          "description": "Fabric notebook utilities (Fabric-only)",
+          "use_cases": [
+            "Fabric-specific operations",
+            "Lakehouse integration",
+            "Spark utilities"
+          ],
+          "install": "N/A - Fabric runtime only",
+          "note": "Not available for local installation"
+        }
+      }
+    }
+  },
+  "installation_profiles": {
+    "minimal": {
+      "description": "Minimal setup for API testing",
+      "packages": ["python-dotenv", "requests", "pyyaml"],
+      "install": "pip install python-dotenv requests pyyaml"
+    },
+    "notebook_testing": {
+      "description": "Local notebook testing without Spark",
+      "packages": ["python-dotenv", "requests", "pyyaml", "pandas", "jupyter"],
+      "install": "pip install python-dotenv requests pyyaml pandas jupyter"
+    },
+    "full_local": {
+      "description": "Full local development with Spark",
+      "packages": ["python-dotenv", "requests", "pyyaml", "pandas", "pyspark", "delta-spark", "jupyterlab", "pytest", "ruff"],
+      "install": "pip install python-dotenv requests pyyaml pandas pyspark delta-spark jupyterlab pytest ruff"
+    },
+    "development": {
+      "description": "Development tools only",
+      "packages": ["pytest", "ruff", "jupyter"],
+      "install": "pip install pytest ruff jupyter"
+    }
+  },
+  "conda_environment": {
+    "description": "Conda environment definition",
+    "file": "Data/jira/env.yml",
+    "note": "Jira has a comprehensive env.yml that can be adapted for Zephyr"
+  }
+}
+

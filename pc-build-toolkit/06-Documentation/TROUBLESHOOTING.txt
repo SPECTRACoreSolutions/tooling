@@ -1,0 +1,261 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                    PC BUILD TROUBLESHOOTING GUIDE                          ║
+║                   Quick fixes for common issues                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+═══════════════════════════════════════════════════════════════════════════
+🚨 PROBLEM: PC WON'T TURN ON (No fans, no lights)
+═══════════════════════════════════════════════════════════════════════════
+
+CHECKS (in order):
+1. [ ] PSU switch is ON (back of PC)
+2. [ ] Power cable plugged into wall AND PSU
+3. [ ] Wall outlet has power (test with phone charger)
+4. [ ] 24-pin ATX cable firmly connected to motherboard
+5. [ ] 8-pin CPU power cable connected (top left of motherboard)
+6. [ ] Front panel PWR_SW cable connected correctly
+7. [ ] Try shorting the power pins manually (check manual for location)
+
+STILL NOT WORKING?
+→ PSU might be dead - test PSU separately or try paperclip test
+
+═══════════════════════════════════════════════════════════════════════════
+🚨 PROBLEM: Fans spin but NO DISPLAY
+═══════════════════════════════════════════════════════════════════════════
+
+This is the most common issue!
+
+CHECKS (in order):
+1. [ ] Monitor cable connected to GPU (NOT motherboard!)
+2. [ ] Monitor powered on and set to correct input
+3. [ ] GPU power cables connected (if GPU needs them)
+4. [ ] Try onboard graphics (plug monitor into motherboard)
+
+STILL NO DISPLAY?
+→ RAM is the most likely culprit!
+
+5. [ ] Remove ALL RAM
+6. [ ] Install ONE stick in slot A2 (2nd slot from CPU)
+7. [ ] Try to boot
+8. [ ] If works, add other sticks one at a time
+9. [ ] If doesn't work, try different stick
+
+STILL NOTHING?
+10. [ ] Reseat CPU (remove and reinstall)
+11. [ ] Check CPU orientation (triangle markers aligned)
+12. [ ] Check for bent pins in CPU socket
+13. [ ] Clear CMOS (remove battery or use clear button)
+
+═══════════════════════════════════════════════════════════════════════════
+🚨 PROBLEM: System boots but random crashes/blue screens
+═══════════════════════════════════════════════════════════════════════════
+
+LIKELY CAUSES:
+1. RAM not stable
+2. Drivers not installed properly
+3. Overheating
+
+FIXES:
+[ ] Run MemTest86 overnight (H:\04-Utilities\Stress-Testing\)
+[ ] Check RAM is in correct slots (consult motherboard manual)
+[ ] Disable XMP in BIOS temporarily (test stability)
+[ ] Check all drivers installed (run 03-quick-troubleshoot.ps1)
+[ ] Monitor temps with HWiNFO64
+[ ] Update BIOS to latest version
+
+═══════════════════════════════════════════════════════════════════════════
+🚨 PROBLEM: High CPU temperatures (85°C+ at idle, 100°C+ under load)
+═══════════════════════════════════════════════════════════════════════════
+
+CHECKS:
+1. [ ] Is AIO pump powered? (should feel vibration)
+2. [ ] Are radiator fans spinning?
+3. [ ] Is pump mounted firmly? (no wobble)
+4. [ ] Check pump power cable in CPU_FAN or PUMP_FAN header
+5. [ ] Thermal paste applied correctly? (not too much/little)
+6. [ ] Radiator clear of obstructions?
+7. [ ] Case has adequate airflow?
+
+SOLUTION:
+→ Most common: pump not powered or not making contact
+→ Re-seat cooler with fresh thermal paste
+
+═══════════════════════════════════════════════════════════════════════════
+🚨 PROBLEM: No internet connection after Windows install
+═══════════════════════════════════════════════════════════════════════════
+
+SIMPLE FIX:
+1. [ ] Insert this USB drive
+2. [ ] Install LAN driver from: H:\02-Drivers\MSI-MEG-Z890-GODLIKE\LAN\
+3. [ ] Restart
+4. [ ] Should have internet!
+
+═══════════════════════════════════════════════════════════════════════════
+🚨 PROBLEM: Windows won't activate after hardware change
+═══════════════════════════════════════════════════════════════════════════
+
+YOUR LICENSE IS RETAIL - THIS SHOULD WORK:
+
+1. [ ] Settings → Accounts → Your info
+2. [ ] Sign in with Microsoft account (if not already)
+3. [ ] Settings → System → Activation
+4. [ ] Click "Troubleshoot"
+5. [ ] Select "I changed hardware on this device recently"
+6. [ ] Follow prompts
+
+OR: Run H:\05-Scripts\02-check-windows-activation.ps1
+
+═══════════════════════════════════════════════════════════════════════════
+🚨 PROBLEM: Device Manager shows unknown devices
+═══════════════════════════════════════════════════════════════════════════
+
+SOLUTION:
+1. [ ] Install chipset driver first (H:\02-Drivers\MSI-MEG-Z890-GODLIKE\Chipset\)
+2. [ ] Restart
+3. [ ] Run Windows Update
+4. [ ] Install remaining drivers from USB
+5. [ ] Run: H:\05-Scripts\03-quick-troubleshoot.ps1 to check
+
+═══════════════════════════════════════════════════════════════════════════
+🚨 PROBLEM: RAM running at wrong speed (not 4800 MT/s)
+═══════════════════════════════════════════════════════════════════════════
+
+CAUSE: XMP not enabled
+
+FIX:
+1. [ ] Restart and enter BIOS (press DELETE during boot)
+2. [ ] Settings → Advanced → Memory Settings
+3. [ ] Enable XMP Profile 1
+4. [ ] Save and Exit (F10)
+
+Check in Windows:
+→ Task Manager → Performance → Memory
+   Should show: 4800 MT/s
+
+═══════════════════════════════════════════════════════════════════════════
+🚨 PROBLEM: AIO pump display not working
+═══════════════════════════════════════════════════════════════════════════
+
+CHECKS:
+1. [ ] USB cable from pump connected to USB 2.0 header?
+2. [ ] MSI Center installed?
+3. [ ] MSI Center → Device → CoreLiquid i360 detected?
+
+FIX:
+→ Install MSI Center from H:\03-AIO-RGB\MSI-Center\
+→ Restart PC
+→ Open MSI Center → should detect AIO automatically
+
+═══════════════════════════════════════════════════════════════════════════
+🚨 PROBLEM: GPU not detected or poor performance
+═══════════════════════════════════════════════════════════════════════════
+
+CHECKS:
+1. [ ] GPU fully seated in PCIe slot (clicks)
+2. [ ] GPU power cables connected (6-pin, 8-pin, or both)
+3. [ ] GPU screwed into case bracket
+4. [ ] Monitor cable in GPU (not motherboard)
+
+IF DETECTED BUT SLOW:
+5. [ ] Install latest GPU drivers from:
+       H:\02-Drivers\Universal\NVIDIA\ (or AMD)
+6. [ ] Enable Resizable BAR in BIOS:
+       Settings → Advanced → PCI Subsystem Settings → Re-Size BAR Support: Enabled
+
+═══════════════════════════════════════════════════════════════════════════
+🚨 PROBLEM: System unstable after overclocking
+═══════════════════════════════════════════════════════════════════════════
+
+QUICK FIX:
+1. Restart and enter BIOS
+2. Press F6 (Load Optimized Defaults)
+3. Re-enable XMP only
+4. Save and Exit
+
+THEN:
+→ Test stability before overclocking again
+→ Increase overclocks gradually
+→ Test each change with Prime95 or OCCT
+
+═══════════════════════════════════════════════════════════════════════════
+🚨 PROBLEM: Fans too loud
+═══════════════════════════════════════════════════════════════════════════
+
+SOLUTIONS:
+
+IN BIOS:
+1. [ ] Settings → Advanced → Fan Control
+2. [ ] Adjust fan curves (lower RPM at low temps)
+3. [ ] Set to "Silent" profile if available
+
+IN MSI CENTER:
+1. [ ] User Scenario → Smart Priority → Silent
+2. [ ] Or create custom fan curve
+
+═══════════════════════════════════════════════════════════════════════════
+🚨 PROBLEM: USB devices not working
+═══════════════════════════════════════════════════════════════════════════
+
+CHECKS:
+1. [ ] USB headers connected to motherboard?
+2. [ ] Trying front or back USB ports?
+3. [ ] USB drivers installed? (should be in chipset driver)
+
+FIX:
+→ Install chipset driver: H:\02-Drivers\MSI-MEG-Z890-GODLIKE\Chipset\
+→ Try different USB port
+→ Check Device Manager for USB controller errors
+
+═══════════════════════════════════════════════════════════════════════════
+🛠️  DEBUG TOOLS ON THIS USB
+═══════════════════════════════════════════════════════════════════════════
+
+SCRIPTS:
+→ H:\05-Scripts\01-check-system-info.ps1       (full system check)
+→ H:\05-Scripts\02-check-windows-activation.ps1 (activation fix)
+→ H:\05-Scripts\03-quick-troubleshoot.ps1      (finds common issues)
+
+UTILITIES:
+→ H:\04-Utilities\Monitoring\HWiNFO64          (temps, voltages, speeds)
+→ H:\04-Utilities\System-Info\CPU-Z            (CPU info)
+→ H:\04-Utilities\System-Info\GPU-Z            (GPU info)
+→ H:\04-Utilities\Stress-Testing\Prime95       (CPU stability)
+→ H:\04-Utilities\Stress-Testing\MemTest86     (RAM testing)
+
+═══════════════════════════════════════════════════════════════════════════
+📞 WHEN TO SEEK HELP
+═══════════════════════════════════════════════════════════════════════════
+
+If you've tried everything and still have issues:
+
+1. MSI Support: https://www.msi.com/support
+2. Intel Support: https://www.intel.com/support
+3. Reddit: r/buildapc (very helpful community)
+4. Discord: PC Build communities
+
+BEFORE ASKING:
+→ Run H:\05-Scripts\03-quick-troubleshoot.ps1
+→ Note any error codes or beeps
+→ Take photo of inside of PC (cable routing)
+→ List symptoms clearly
+
+═══════════════════════════════════════════════════════════════════════════
+🎯 MOST COMMON ISSUES (90% of problems):
+═══════════════════════════════════════════════════════════════════════════
+
+1. RAM not fully seated → Reseat RAM (push until BOTH clips click)
+2. Monitor cable in wrong port → Use GPU port, not motherboard
+3. Power cables loose → Check 24-pin and 8-pin firmly connected
+4. AIO pump not powered → Check pump power cable
+5. XMP not enabled → Enable in BIOS for full RAM speed
+6. Chipset driver not installed → Install from USB first!
+
+═══════════════════════════════════════════════════════════════════════════
+
+💡 Remember: Most "broken" builds are just loose cables or incorrect settings!
+   Take a deep breath, methodically check everything, and you'll find it!
+
+═══════════════════════════════════════════════════════════════════════════
+
+Good luck with your build! 🎄
+

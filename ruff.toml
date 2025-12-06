@@ -1,0 +1,128 @@
+# SPECTRA Universal Ruff Configuration
+# Central linting rules for all SPECTRA projects
+# Context-specific overrides via per-file-ignores
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+src = ["src", "scripts"]
+
+exclude = [
+    ".git",
+    ".venv",
+    "__pycache__",
+    "build",
+    "dist",
+    "*.egg-info",
+    "_utils",
+    ".pytest_cache",
+    ".ruff_cache",
+]
+
+[tool.ruff.lint]
+# Base rules (apply to all files by default)
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings  
+    "F",    # Pyflakes
+    "I",    # isort
+    "B",    # flake8-bugbear
+    "UP",   # pyupgrade
+    "C4",   # flake8-comprehensions
+    "SIM",  # flake8-simplify
+    "RUF",  # Ruff-specific rules
+    "N",    # pep8-naming
+    "D",    # pydocstyle
+    "ANN",  # flake8-annotations
+]
+
+# Universal ignores (apply to all contexts)
+ignore = [
+    "E501",   # Line too long (handled by formatter)
+    "D100",   # Missing docstring in public module
+    "D104",   # Missing docstring in public package
+    "D101",   # Missing docstring in public class
+    "D102",   # Missing docstring in public method
+    "D103",   # Missing docstring in public function
+    "D105",   # Missing docstring in magic method
+    "D107",   # Missing docstring in __init__
+    "ANN201", # Missing return type annotation for public function
+    "ANN204", # Missing return type annotation for special method
+    "N802",   # Function name should be lowercase (camelCase is SPECTRA standard)
+    "N815",   # Variable in class scope should not be mixedCase (activityType is intentional)
+]
+
+# Context-specific overrides
+[tool.ruff.lint.per-file-ignores]
+
+# === FABRIC NOTEBOOKS ===
+# Fabric runtime injects objects and has metadata cells before imports
+"**/*.Notebook/*.py" = [
+    "E402",   # Module import not at top (metadata cells first)
+    "F821",   # Undefined name (spark, notebookutils, display injected by Fabric)
+    "F401",   # Unused import (conditional imports for local vs Fabric)
+]
+
+# === TEST FILES ===
+# Tests are self-documenting and don't need strict annotations
+"**/tests/**/*.py" = [
+    "D",      # All docstring rules (tests are self-documenting)
+    "ANN",    # All annotation rules (overkill for tests)
+    "S101",   # Use of assert (required in tests!)
+]
+"**/*_test.py" = [
+    "D",      # All docstring rules
+    "ANN",    # All annotation rules
+    "S101",   # Use of assert
+]
+"**/test_*.py" = [
+    "D",      # All docstring rules
+    "ANN",    # All annotation rules
+    "S101",   # Use of assert
+]
+
+# === SCRIPTS ===
+# Scripts are ad-hoc and need print statements
+"**/scripts/**/*.py" = [
+    "T201",   # print() statements (needed for script output)
+    "D",      # All docstring rules (scripts are ad-hoc)
+]
+
+# === LEGACY/UTILS ===
+# Legacy code and utilities may not follow strict standards
+"**/_utils/**/*.py" = [
+    "D205",   # 1 blank line required between summary and description
+    "D415",   # First line should end with period
+    "N803",   # Argument name should be lowercase
+    "N806",   # Variable in function should be lowercase
+    "N812",   # Lowercase imported as non-lowercase
+    "ANN",    # All annotation rules
+    "RUF003", # Comment contains ambiguous character
+    "E402",   # Module import not at top
+    "F821",   # Undefined name
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+# === USAGE ===
+# 
+# Universal linting:
+#   spectra-lint.ps1 <file_or_directory>
+# 
+# Auto-fix:
+#   spectra-lint.ps1 <file_or_directory> -Fix
+# 
+# Verbose (show context-specific rules):
+#   spectra-lint.ps1 <file_or_directory> -Verbose
+# 
+# === CONTEXT DETECTION ===
+# 
+# - Fabric notebooks: **/*.Notebook/*.py
+# - Test files: **/tests/**/*.py, **/*_test.py, **/test_*.py
+# - Scripts: **/scripts/**/*.py
+# - General: Everything else (strict rules)
+

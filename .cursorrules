@@ -1,0 +1,60 @@
+# Cursor Extension Guidelines for SPECTRA
+
+## Quality Standards
+
+When recommending extensions to SPECTRA team members:
+
+### Include If:
+- >500k downloads on VS Code Marketplace
+- >1k stars on GitHub
+- Official extension (Microsoft, GitHub, HashiCorp, AWS, etc.)
+- Industry standard tool (Docker, Kubernetes, Terraform, etc.)
+- Actively maintained (updated in last 12 months)
+
+### Exclude If:
+- <100k downloads (unless exceptional)
+- Not updated in 18+ months
+- <3★ average rating
+- Better alternative exists
+- Abandoned by maintainer
+
+## Recommendation Process
+
+1. Check `cursor-extensions-curated.md` first
+2. If not listed, verify against quality criteria
+3. If meets criteria, add to curated list
+4. Update installation script
+5. Document use case and metrics
+
+## Installation Priority
+
+**Essential** (install first):
+- Thunder Client, Rainbow CSV, DotENV, GitLens, YAML
+- Python stack (Python, Pylance, Black)
+- Markdown, Docker
+
+**Recommended** (add when needed):
+- Jupyter, SQLTools, REST Client, Todo Tree
+- Git History, Error Lens, Indent Rainbow
+
+**Optional** (explore later):
+- Domain-specific tools
+- Emerging extensions (<500k but growing)
+
+## Performance Considerations
+
+Heavy extensions (>100ms startup):
+- GitLens, Jupyter, Docker, Remote-SSH
+
+Solution: Use extension profiles per project type.
+
+## Monthly Review
+
+Update `cursor-extensions-curated.md`:
+- Verify download counts
+- Check for new high-traction extensions
+- Remove deprecated/abandoned extensions
+- Update metrics
+
+Next review: 2025-03-02
+

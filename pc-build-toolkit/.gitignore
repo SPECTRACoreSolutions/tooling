@@ -1,0 +1,90 @@
+# SPECTRA PC Build Toolkit - Git Ignore
+# 
+# This file prevents large downloaded binaries from being committed to Git
+# Only the structure, documentation, and scripts are version controlled
+# The toolkit can be recreated by downloading files per DOWNLOAD-CHECKLIST.txt
+
+# ============================================================================
+# IGNORE ALL DOWNLOADED BINARIES (they're large and can be re-downloaded)
+# ============================================================================
+
+# Windows Installation Media
+01-Windows/*.iso
+01-Windows/*.exe
+01-Windows/*.wim
+
+# All Driver Files (EXE, MSI, ZIP installers)
+02-Drivers/**/*.exe
+02-Drivers/**/*.msi
+02-Drivers/**/*.zip
+02-Drivers/**/*.rar
+02-Drivers/**/*.7z
+02-Drivers/**/*.cab
+02-Drivers/**/*.inf
+02-Drivers/**/*.sys
+02-Drivers/**/*.dll
+
+# BIOS files
+02-Drivers/**/*.rom
+02-Drivers/**/*.bin
+02-Drivers/**/*.cap
+
+# AIO/RGB Software Installers
+03-AIO-RGB/**/*.exe
+03-AIO-RGB/**/*.msi
+03-AIO-RGB/**/*.zip
+
+# Utility Software (downloaded tools)
+04-Utilities/**/*.exe
+04-Utilities/**/*.msi
+04-Utilities/**/*.zip
+04-Utilities/**/*.rar
+04-Utilities/**/*.7z
+04-Utilities/**/*.iso
+
+# Backup folders (user-specific)
+07-Backup/*
+!07-Backup/.gitkeep
+
+# ============================================================================
+# KEEP THESE (documentation, scripts, structure)
+# ============================================================================
+
+# Keep all text files
+!**/*.txt
+!**/*.md
+
+# Keep all scripts
+!**/*.ps1
+!**/*.py
+!**/*.sh
+!**/*.bat
+
+# Keep PDF documentation
+!**/*.pdf
+
+# Keep folder structure (empty folders)
+!**/.gitkeep
+
+# ============================================================================
+# STANDARD IGNORES
+# ============================================================================
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# MacOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+*.bak
+*~
+
