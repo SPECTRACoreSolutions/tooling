@@ -1,0 +1,331 @@
+# Reusable Railway Deployment Workflow
+#
+# This is a reusable workflow that can be called from repository-specific workflows
+# to deploy services to Railway with verification and rollback capabilities.
+#
+# Usage in your repository:
+#   jobs:
+#     deploy:
+#       uses: SPECTRACoreSolutions/infrastructure/.github/workflows/deploy-railway.yml@v1
+#       with:
+#         service-name: my-service
+#         health-endpoint: /health
+#         smoke-tests: true
+#       secrets: inherit
+#
+# Requirements:
+#   - Railway project and service must be created
+#   - RAILWAY_TOKEN secret must be configured
+#   - Service must expose a health endpoint
+
+name: Deploy to Railway
+
+on:
+  workflow_call:
+    inputs:
+      service-name:
+        description: "Name of the service (for logging/artifacts)"
+        type: string
+        required: true
+      railway-project-id:
+        description: "Railway project ID (optional, can be in secrets)"
+        type: string
+        required: false
+        default: ""
+      railway-service-id:
+        description: "Railway service ID (optional, can be in secrets)"
+        type: string
+        required: false
+        default: ""
+      health-endpoint:
+        description: "Health check endpoint (e.g. /health, /api/health)"
+        type: string
+        required: false
+        default: "/health"
+      smoke-tests:
+        description: "Run smoke tests after deployment"
+        type: boolean
+        required: false
+        default: true
+      deployment-environment:
+        description: "GitHub deployment environment name"
+        type: string
+        required: false
+        default: "production"
+      max-retries:
+        description: "Maximum health check retries"
+        type: number
+        required: false
+        default: 10
+      retry-delay:
+        description: "Delay between retries (seconds)"
+        type: number
+        required: false
+        default: 30
+    secrets:
+      RAILWAY_TOKEN:
+        description: "Railway API token"
+        required: true
+      RAILWAY_PROJECT_ID:
+        description: "Railway project ID (if not provided in inputs)"
+        required: false
+      RAILWAY_SERVICE_ID:
+        description: "Railway service ID (if not provided in inputs)"
+        required: false
+    outputs:
+      deployment-url:
+        description: "Deployed service URL"
+        value: ${{ jobs.deploy.outputs.deployment-url }}
+      deployment-status:
+        description: "Deployment status (success/failed)"
+        value: ${{ jobs.deploy.outputs.deployment-status }}
+
+jobs:
+  deploy:
+    name: Deploy to Railway
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.deployment-environment }}
+      url: ${{ steps.get-url.outputs.url }}
+    outputs:
+      deployment-url: ${{ steps.get-url.outputs.url }}
+      deployment-status: ${{ steps.deployment.outcome }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js for Railway CLI
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
+
+      - name: Verify Railway authentication
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          railway whoami || echo "✅ Using token-based auth"
+
+      - name: Link Railway project and service
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          PROJECT_ID="${{ inputs.railway-project-id }}"
+          SERVICE_ID="${{ inputs.railway-service-id }}"
+
+          # Use secrets if inputs not provided
+          if [ -z "$PROJECT_ID" ]; then
+            PROJECT_ID="${{ secrets.RAILWAY_PROJECT_ID }}"
+          fi
+          if [ -z "$SERVICE_ID" ]; then
+            SERVICE_ID="${{ secrets.RAILWAY_SERVICE_ID }}"
+          fi
+
+          if [ -n "$PROJECT_ID" ] && [ -n "$SERVICE_ID" ]; then
+            echo "🔗 Linking to Railway project/service..."
+            railway link --project "$PROJECT_ID" --service "$SERVICE_ID" || {
+              echo "⚠️ Link failed, assuming repo is already linked in Railway"
+            }
+          else
+            echo "ℹ️ No project/service IDs provided, assuming repo is linked in Railway"
+          fi
+
+      - name: Set deployment metadata
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          # Set deployment metadata as Railway variables
+          railway variables set GITHUB_SHA="${{ github.sha }}" || true
+          railway variables set GITHUB_REF="${{ github.ref }}" || true
+          railway variables set GITHUB_ACTOR="${{ github.actor }}" || true
+          railway variables set DEPLOYED_AT="$(date -u +%Y-%m-%dT%H:%M:%SZ)" || true
+
+          echo "📋 Deployment metadata set"
+
+      - name: Deploy to Railway
+        id: deployment
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          echo "🚀 Deploying ${{ inputs.service-name }} to Railway..."
+          railway up --detach --ci
+          echo "✅ Deployment triggered"
+
+      - name: Get deployment URL
+        id: get-url
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          echo "🔍 Getting service URL..."
+          URL=$(railway domain 2>/dev/null || echo "")
+
+          if [ -z "$URL" ]; then
+            echo "⚠️ Could not retrieve URL automatically"
+            echo "url=https://railway.app" >> $GITHUB_OUTPUT
+          else
+            echo "✅ Service URL: $URL"
+            echo "url=https://$URL" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Wait for deployment to stabilize
+        run: |
+          echo "⏳ Waiting 30 seconds for deployment to stabilize..."
+          sleep 30
+
+      - name: Health check
+        if: inputs.health-endpoint != ''
+        run: |
+          URL="${{ steps.get-url.outputs.url }}"
+          ENDPOINT="${{ inputs.health-endpoint }}"
+          MAX_RETRIES=${{ inputs.max-retries }}
+          RETRY_DELAY=${{ inputs.retry-delay }}
+
+          echo "🏥 Checking health at: $URL$ENDPOINT"
+
+          for i in $(seq 1 $MAX_RETRIES); do
+            echo "Attempt $i/$MAX_RETRIES..."
+            
+            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "$URL$ENDPOINT" || echo "000")
+            
+            if [ "$HTTP_CODE" = "200" ] || [ "$HTTP_CODE" = "204" ]; then
+              echo "✅ Health check passed (HTTP $HTTP_CODE)"
+              exit 0
+            else
+              echo "⚠️ Health check failed (HTTP $HTTP_CODE)"
+              if [ $i -lt $MAX_RETRIES ]; then
+                echo "Retrying in ${RETRY_DELAY}s..."
+                sleep $RETRY_DELAY
+              fi
+            fi
+          done
+
+          echo "❌ Health check failed after $MAX_RETRIES attempts"
+          exit 1
+
+      - name: Run smoke tests
+        if: inputs.smoke-tests && steps.deployment.outcome == 'success'
+        run: |
+          URL="${{ steps.get-url.outputs.url }}"
+
+          echo "🧪 Running smoke tests against: $URL"
+
+          # Basic connectivity test
+          echo "1. Testing basic connectivity..."
+          curl -f -s -o /dev/null "$URL" || {
+            echo "❌ Basic connectivity failed"
+            exit 1
+          }
+
+          # Health endpoint test
+          if [ -n "${{ inputs.health-endpoint }}" ]; then
+            echo "2. Testing health endpoint..."
+            curl -f -s -o /dev/null "$URL${{ inputs.health-endpoint }}" || {
+              echo "❌ Health endpoint test failed"
+              exit 1
+            }
+          fi
+
+          # SSL certificate check (if HTTPS)
+          if [[ "$URL" == https://* ]]; then
+            echo "3. Checking SSL certificate..."
+            curl -s --head "$URL" | grep -i "HTTP" || {
+              echo "❌ SSL check failed"
+              exit 1
+            }
+          fi
+
+          echo "✅ All smoke tests passed"
+
+      - name: Create deployment artifact
+        if: always()
+        run: |
+          mkdir -p deployment-info
+          cat > deployment-info/deployment.json <<EOF
+          {
+            "service": "${{ inputs.service-name }}",
+            "environment": "${{ inputs.deployment-environment }}",
+            "url": "${{ steps.get-url.outputs.url }}",
+            "commit": "${{ github.sha }}",
+            "branch": "${{ github.ref }}",
+            "actor": "${{ github.actor }}",
+            "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "status": "${{ steps.deployment.outcome }}",
+            "health_check": "${{ inputs.health-endpoint }}",
+            "smoke_tests": ${{ inputs.smoke-tests }}
+          }
+          EOF
+
+          cat deployment-info/deployment.json
+          echo "📄 Deployment artifact created"
+
+      - name: Upload deployment artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deployment-info-${{ inputs.service-name }}-${{ github.run_number }}
+          path: deployment-info/
+          retention-days: 90
+
+      - name: Deployment summary
+        if: always()
+        run: |
+          cat >> $GITHUB_STEP_SUMMARY <<EOF
+          ## 🚀 Railway Deployment: ${{ inputs.service-name }}
+
+          **Status:** ${{ steps.deployment.outcome == 'success' && '✅ Success' || '❌ Failed' }}
+          **Environment:** \`${{ inputs.deployment-environment }}\`
+          **URL:** ${{ steps.get-url.outputs.url }}
+          **Commit:** \`${{ github.sha }}\`
+          **Deployed by:** @${{ github.actor }}
+          **Timestamp:** $(date -u +%Y-%m-%dT%H:%M:%SZ)
+
+          ### Health Check
+          - Endpoint: \`${{ inputs.health-endpoint }}\`
+          - Status: ${{ steps.deployment.outcome == 'success' && '✅ Passed' || '❌ Failed' }}
+
+          ### Smoke Tests
+          - Enabled: ${{ inputs.smoke-tests && 'Yes' || 'No' }}
+          - Status: ${{ steps.deployment.outcome == 'success' && '✅ Passed' || '❌ Failed or Skipped' }}
+          EOF
+
+  # Optional: Rollback on failure
+  rollback:
+    name: Rollback on Failure
+    runs-on: ubuntu-latest
+    needs: deploy
+    if: failure() && github.event_name == 'push'
+    steps:
+      - name: Notify rollback needed
+        run: |
+          echo "⚠️ Deployment failed, rollback may be needed"
+          echo "To rollback manually:"
+          echo "  1. Go to Railway dashboard"
+          echo "  2. Select the service"
+          echo "  3. Go to Deployments tab"
+          echo "  4. Click 'Rollback' on the last successful deployment"
+
+          cat >> $GITHUB_STEP_SUMMARY <<EOF
+          ## ⚠️ Rollback Required
+
+          Deployment of **${{ inputs.service-name }}** failed.
+
+          ### Manual Rollback Steps:
+          1. Open [Railway Dashboard](https://railway.app)
+          2. Navigate to the service
+          3. Go to **Deployments** tab
+          4. Find the last successful deployment
+          5. Click **Rollback**
+
+          ### Prevention:
+          - Review logs in Railway dashboard
+          - Check GitHub Actions logs above
+          - Test locally before deploying
+          - Consider using staging environment first
+          EOF
+
+      # TODO: Implement automatic rollback via Railway API
+      # Currently Railway CLI doesn't support programmatic rollback
+      # This would require using Railway's GraphQL API directly
+

@@ -12,6 +12,17 @@ Configuration and tool recommendations for SPECTRA development:
 - **`cursor-extensions-curated.md`** - Living list of proven extensions (70+)
 - **`install-spectra-extensions.ps1`** - Quick installer script
 
+### PC Build Toolkit
+- **`pc-build-toolkit/`** - Complete Windows PC build toolkit with drivers, utilities, and documentation
+- **`PC-BUILD-READY.md`** - Build day checklist and quick start
+
+### System Optimisation
+- **`system-optimisation/`** - RGB control, OpenRGB integration, system optimiser scripts
+
+### Cursor Configuration
+- **`config/cursor/`** - Cursor MCP configuration and sync scripts
+- **`CURSOR-ENVIRONMENT-SYNC.md`** - Environment sync documentation
+
 **Quality threshold**: Only extensions with >500k downloads OR >1k GitHub stars OR official backing.
 
 **Last updated**: 2025-12-02  
@@ -174,4 +185,3 @@ Configuration and tool recommendations for SPECTRA development:
 *Maintained by: SPECTRA Team*  
 *Purpose: Prevent extension bloat, ensure quality*  
 *Philosophy: Community-backed > trending, proven > new*
-

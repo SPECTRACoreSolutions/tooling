@@ -1,0 +1,252 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://spectra.dev/schemas/cosmos-config.schema.json",
+  "title": "SPECTRA Cosmos Configuration",
+  "description": "Complete configuration schema for a SPECTRA Cosmos instance",
+  "type": "object",
+  "required": ["customer_id", "subscription_tier", "cosmos"],
+  "properties": {
+    "customer_id": {
+      "type": "string",
+      "description": "Unique customer identifier",
+      "pattern": "^cust_[a-z0-9]+$",
+      "examples": ["cust_abc123"]
+    },
+    "subscription_tier": {
+      "type": "string",
+      "enum": ["starter", "pro", "team", "enterprise"],
+      "description": "Subscription tier level"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Cosmos creation timestamp"
+    },
+    "cosmos": {
+      "type": "object",
+      "required": ["persona", "resources"],
+      "properties": {
+        "persona": {
+          "type": "object",
+          "description": "Persona configuration",
+          "required": ["name"],
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Persona name (references persona JSON file)",
+              "examples": ["alana", "yoda", "jarvis"]
+            },
+            "overrides": {
+              "type": "object",
+              "description": "Custom overrides to persona defaults",
+              "properties": {
+                "display_name": {"type": "string"},
+                "greeting": {"type": "object"},
+                "theme": {"type": "object"}
+              }
+            }
+          }
+        },
+        "resources": {
+          "type": "object",
+          "description": "Resource limits and quotas",
+          "required": ["cpu_limit", "memory_limit", "storage_limit"],
+          "properties": {
+            "cpu_limit": {
+              "type": "string",
+              "description": "CPU limit (e.g., '2', '4')",
+              "pattern": "^[0-9]+$"
+            },
+            "memory_limit": {
+              "type": "string",
+              "description": "Memory limit (e.g., '2Gi', '8Gi')",
+              "pattern": "^[0-9]+(Mi|Gi)$"
+            },
+            "storage_limit": {
+              "type": "string",
+              "description": "Storage limit (e.g., '10Gi', '50Gi')",
+              "pattern": "^[0-9]+(Mi|Gi)$"
+            }
+          }
+        },
+        "tooling": {
+          "type": "object",
+          "description": "Development tools and packages",
+          "properties": {
+            "languages": {
+              "type": "array",
+              "description": "Programming languages to install",
+              "items": {
+                "type": "string",
+                "enum": ["python", "node", "go", "rust", "dotnet", "java", "ruby", "php"]
+              }
+            },
+            "frameworks": {
+              "type": "array",
+              "description": "Frameworks to install",
+              "items": {"type": "string"}
+            },
+            "custom_packages": {
+              "type": "object",
+              "description": "Custom packages per package manager",
+              "properties": {
+                "python": {
+                  "type": "array",
+                  "items": {"type": "string"}
+                },
+                "npm": {
+                  "type": "array",
+                  "items": {"type": "string"}
+                },
+                "apt": {
+                  "type": "array",
+                  "items": {"type": "string"}
+                }
+              }
+            },
+            "extensions": {
+              "type": "array",
+              "description": "Cursor extensions (in addition to persona defaults)",
+              "items": {"type": "string"}
+            }
+          }
+        },
+        "integrations": {
+          "type": "object",
+          "description": "External service integrations",
+          "properties": {
+            "github_orgs": {
+              "type": "array",
+              "description": "GitHub organizations to clone repos from",
+              "items": {"type": "string"}
+            },
+            "azure_tenant_id": {
+              "type": "string",
+              "description": "Azure tenant ID for authentication"
+            },
+            "custom_apis": {
+              "type": "array",
+              "description": "Custom API endpoints",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {"type": "string"},
+                  "url": {"type": "string"},
+                  "auth_type": {"enum": ["bearer", "basic", "api_key", "none"]}
+                }
+              }
+            }
+          }
+        },
+        "ssh": {
+          "type": "object",
+          "description": "SSH access configuration",
+          "required": ["public_key"],
+          "properties": {
+            "public_key": {
+              "type": "string",
+              "description": "SSH public key for authentication"
+            },
+            "allowed_ips": {
+              "type": "array",
+              "description": "IP whitelist (CIDR notation)",
+              "items": {"type": "string"}
+            },
+            "port": {
+              "type": "integer",
+              "description": "SSH port (default 2222)",
+              "default": 2222
+            }
+          }
+        },
+        "networking": {
+          "type": "object",
+          "description": "Networking configuration",
+          "properties": {
+            "custom_domain": {
+              "type": "string",
+              "description": "Custom domain for SSH access"
+            },
+            "internal_dns": {
+              "type": "boolean",
+              "description": "Enable internal DNS resolution",
+              "default": false
+            }
+          }
+        },
+        "features": {
+          "type": "object",
+          "description": "Optional feature flags",
+          "properties": {
+            "auto_update_repos": {
+              "type": "boolean",
+              "description": "Auto git pull on login",
+              "default": false
+            },
+            "scheduled_backups": {
+              "type": "boolean",
+              "description": "Enable automatic workspace backups",
+              "default": true
+            },
+            "usage_analytics": {
+              "type": "boolean",
+              "description": "Enable usage analytics collection",
+              "default": true
+            },
+            "collaboration": {
+              "type": "boolean",
+              "description": "Enable team collaboration features",
+              "default": false
+            }
+          }
+        }
+      }
+    },
+    "team": {
+      "type": "object",
+      "description": "Team configuration (for team/enterprise tiers)",
+      "properties": {
+        "name": {"type": "string"},
+        "members": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "email": {"type": "string"},
+              "role": {"enum": ["admin", "developer", "viewer"]},
+              "ssh_public_key": {"type": "string"}
+            }
+          }
+        },
+        "shared_workspaces": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "billing": {
+      "type": "object",
+      "description": "Billing information (managed by platform)",
+      "properties": {
+        "stripe_customer_id": {"type": "string"},
+        "subscription_id": {"type": "string"},
+        "billing_email": {"type": "string"},
+        "next_billing_date": {"type": "string", "format": "date-time"}
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional metadata",
+      "properties": {
+        "created_by": {"type": "string"},
+        "tags": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "notes": {"type": "string"}
+      }
+    }
+  }
+}
+
+
