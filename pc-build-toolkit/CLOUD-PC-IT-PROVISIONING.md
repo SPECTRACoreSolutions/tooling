@@ -6,7 +6,30 @@
 
 **Related:** [Invoke-SpectraBootstrap.ps1](Invoke-SpectraBootstrap.ps1) · [04-install-post-wipe-apps.ps1](05-Scripts/04-install-post-wipe-apps.ps1) (defaults to `winget --scope user`)
 
-**Last updated:** 2026-03-24 (Intune admin self-service section)
+**Last updated:** 2026-03-24 (group naming aligned with SE First standards)
+
+---
+
+## Entra security group naming (SE First)
+
+**Canonical standard:** `SE-First/docs/content/standards/identity-access-architecture.md` — **SE First RBAC Groups**:
+
+- Pattern: `{organisation}-{environment}-{role}-{scope}` (lowercase kebab).
+- Examples: `sefirst-dev-platform-admins`, `sefirst-test-data-engineers`, `sefirst-fabric-dev-admins`.
+
+**Power Platform Nexus** uses a documented variant for environment access: `sefirst-nexus-{environment}-{role}` (e.g. `sefirst-nexus-dev-admin`) — see `SE-First/operations/powerapps/ENVIRONMENT-STRATEGY-SEFIRST-OWNED.md`.
+
+**For Cloud PC / Intune (this doc),** use the **four-part** pattern so groups sit alongside other SE First Entra groups:
+
+| Purpose | Suggested group name |
+|---------|----------------------|
+| Users who are **local Administrators** on **dev** Cloud PCs (Intune *Local user group membership*) | **`sefirst-dev-cloudpc-local-admins`** |
+| **Device** group for assigning dev Cloud PCs (dynamic or static) | **`sefirst-dev-cloudpc-devices`** (or your existing Cloud PC device naming) |
+| Intune **app** assignments to those developers (optional separate group) | **`sefirst-dev-cloudpc-developers`** |
+
+Adjust **`dev`** → **`test`** / **`prod`** if you segment Cloud PCs by environment (use **prod** sparingly for local admin).
+
+Do **not** use generic `SG-...` prefixes unless your tenant has a different written standard — the repo standard above is **`sefirst-...`** kebab-case.
 
 ---
 
@@ -16,14 +39,14 @@ You can resolve elevation **without a ticket** by doing **one or both** of the f
 
 ### A) Add developers to **BUILTIN\Administrators** on Cloud PCs (unblocks machine-wide winget)
 
-1. **Entra admin center** → **Groups** → create (or reuse) a **Security** group, e.g. `SG-CloudPC-Developers-LocalAdmin`.
+1. **Entra admin center** → **Groups** → create (or reuse) a **Security** group per [naming above](#entra-security-group-naming-se-first), e.g. **`sefirst-dev-cloudpc-local-admins`**.
 2. **Membership:** add accounts that should be **local admins** on dev Cloud PCs (yourself, devs).  
    - Prefer a **group**, not a single user, so onboarding is repeatable.
 3. **Intune** → **Endpoint security** → **Account protection** → **Create policy**.
 4. **Platform:** Windows 10, Windows 11, and Windows Server (or the option that includes **Local user group membership**).
 5. **Profile type:** **Local user group membership** (if available in your tenant).
-6. **Configuration:** add a row that puts **Administrators** (the built-in local group) in **Members** and add your **Entra group** (`SG-CloudPC-Developers-LocalAdmin`) as a member (the UI usually lets you pick **Users and groups** from Azure AD).
-7. **Assignments:** assign to a **device group** that contains **only dev Cloud PCs** (recommended), e.g. a dynamic group on **Cloud PC** SKU or a static group you maintain. **Do not** assign to every laptop in the org unless policy allows.
+6. **Configuration:** add a row that puts **Administrators** (the built-in local group) in **Members** and add your **Entra group** (`sefirst-dev-cloudpc-local-admins`) as a member (the UI usually lets you pick **Users and groups** from Azure AD).
+7. **Assignments:** assign to a **device group** that contains **only dev Cloud PCs** (recommended), e.g. **`sefirst-dev-cloudpc-devices`** or a dynamic group on **Cloud PC** SKU. **Do not** assign to every laptop in the org unless policy allows.
 
 8. **Sync / policy refresh:** on the Cloud PC run **Settings → Accounts → Access work or school → your org → Info → Sync**, or wait for the next MDM cycle. Sign out and back in (or reboot) so the new **Administrators** token applies.
 
@@ -68,7 +91,7 @@ Scripts default to **per-user** installs to reduce UAC. **Elevation cannot be gr
 
 ### 1) Intune: deploy the dev stack (recommended for automation)
 
-Deploy **Win32 apps** and/or **Microsoft Store** apps to a **security group** used for **developer Cloud PCs** (e.g. `SG-CloudPC-Developers`).
+Deploy **Win32 apps** and/or **Microsoft Store** apps to a **device** or **user** group (e.g. **`sefirst-dev-cloudpc-devices`** / **`sefirst-dev-cloudpc-developers`**).
 
 **Typical packages** (mirror [04-install-post-wipe-apps.ps1](05-Scripts/04-install-post-wipe-apps.ps1)):
 
@@ -93,7 +116,7 @@ Deploy **Win32 apps** and/or **Microsoft Store** apps to a **security group** us
 Add the user (or a **group**) to the **Administrators** group on the Cloud PC **via Intune**:
 
 - **Account protection** / **Local user group membership** (CSP), or  
-- A **Settings catalog** policy that adds `AzureAD\user` or `SG-Developers` to **BUILTIN\Administrators**, per your security model.
+- A **Settings catalog** policy that adds `AzureAD\user` or a group such as **`sefirst-dev-cloudpc-local-admins`** to **BUILTIN\Administrators**, per your security model.
 
 **Outcome:** `winget --scope machine` and installers that require elevation work **without** a separate admin account, subject to your UAC settings.
 
