@@ -33,15 +33,13 @@ Open **PowerShell** (or Windows Terminal) and run:
 $env:SPECTRA_CLOUD_PC=1; irm https://raw.githubusercontent.com/SPECTRACoreSolutions/tooling/main/pc-build-toolkit/Invoke-SpectraBootstrap.ps1 | iex
 ```
 
-*Cloud PC: `SPECTRA_CLOUD_PC=1` skips the driver reminder. For physical PCs, omit it or type `n` when prompted.*
-
-**Or** run and get prompted:
+**Or** without the env var:
 
 ```powershell
 irm https://raw.githubusercontent.com/SPECTRACoreSolutions/tooling/main/pc-build-toolkit/Invoke-SpectraBootstrap.ps1 | iex
 ```
 
-*(Type `y` for Cloud PC, `n` for physical.)*
+Bootstrap defaults to **per-user winget** (`--scope user`) to avoid UAC where possible. If installs still need **elevation** and your account is not local admin, **IT must** fix provisioning — see [CLOUD-PC-IT-PROVISIONING.md](CLOUD-PC-IT-PROVISIONING.md) (Intune deploy or local admin for dev Cloud PCs).
 
 ---
 
@@ -118,6 +116,7 @@ cd path\to\tooling\pc-build-toolkit
 
 ## Related
 
+- [CLOUD-PC-IT-PROVISIONING.md](CLOUD-PC-IT-PROVISIONING.md) — **IT / Intune:** unattended installs, elevation, zero-touch options
 - [dev-env-full-install-path.md](../../../../SE-First/Digital Transformation/epics/397-tenant-dev-and-cloud-architecture/design/dev-env-full-install-path.md) — Full install checklist
 - [05-bootstrap-dev-setup.ps1](05-Scripts/05-bootstrap-dev-setup.ps1) — Script the bootstrap runs
 - [POST-WIPE-INSTALL-EVERYTHING.md](POST-WIPE-INSTALL-EVERYTHING.md) — Post-wipe flow
