@@ -6,7 +6,8 @@
 #        .\04-install-post-wipe-apps.ps1 -WhatIf
 # -----------------------------------------------------------------------------
 
-[CmdletBinding(SupportsShouldProcess)]
+# Do not use SupportsShouldProcess here: it injects -WhatIf and conflicts with explicit $WhatIf below.
+[CmdletBinding()]
 param([switch]$WhatIf)
 
 $ErrorActionPreference = "Stop"
