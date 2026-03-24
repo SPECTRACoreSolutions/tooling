@@ -13,7 +13,10 @@
 [CmdletBinding()]
 param(
     # Back-compat: older Invoke-SpectraBootstrap.ps1 passed this when -CloudPC; no longer used (driver prompt removed).
-    [switch]$SkipDriverReminder
+    [switch]$SkipDriverReminder,
+    # Per-user winget installs avoid UAC on Cloud PCs; use Machine from an elevated shell for all-users installs.
+    [ValidateSet('User', 'Machine')]
+    [string]$WingetInstallScope = 'User'
 )
 
 $ErrorActionPreference = "Stop"
@@ -33,7 +36,7 @@ if (-not (Test-Path $appScript)) {
     Write-Host "Not found: $appScript" -ForegroundColor Red
     exit 1
 }
-& $appScript
+& $appScript -InstallScope $WingetInstallScope
 if ($LASTEXITCODE -ne 0) { Write-Host "App script had errors; continuing anyway." -ForegroundColor Gray }
 
 # --- Step 2: Azure DevOps CLI extension ---

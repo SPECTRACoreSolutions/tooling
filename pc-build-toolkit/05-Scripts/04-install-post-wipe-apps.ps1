@@ -2,13 +2,21 @@
 # SPECTRA PC Toolkit - Install dev apps via winget (Cursor, Git, Azure CLI, ...)
 # Typically called from 05-bootstrap-dev-setup.ps1.
 # -----------------------------------------------------------------------------
+# Default is per-user installs (--scope user) so Cloud PCs and standard users avoid
+# UAC admin prompts. Use -InstallScope Machine from an elevated shell for all-users installs.
+# -----------------------------------------------------------------------------
 # Usage: .\04-install-post-wipe-apps.ps1
 #        .\04-install-post-wipe-apps.ps1 -WhatIf
+#        .\04-install-post-wipe-apps.ps1 -InstallScope Machine   # requires admin
 # -----------------------------------------------------------------------------
 
 # Do not use SupportsShouldProcess here: it injects -WhatIf and conflicts with explicit $WhatIf below.
 [CmdletBinding()]
-param([switch]$WhatIf)
+param(
+    [switch]$WhatIf,
+    [ValidateSet('User', 'Machine')]
+    [string]$InstallScope = 'User'
+)
 
 $ErrorActionPreference = "Stop"
 
@@ -32,9 +40,11 @@ $packages = @(
 Write-Host "`n================================================================================" -ForegroundColor Cyan
 Write-Host "     SPECTRA POST-WIPE - Install apps (winget)" -ForegroundColor Cyan
 Write-Host "================================================================================`n" -ForegroundColor Cyan
+Write-Host "winget scope: $InstallScope (User = no admin UAC for most packages on Cloud PC)." -ForegroundColor Gray
+Write-Host ""
 
 if ($WhatIf) {
-    Write-Host "WhatIf: would install the following via winget:" -ForegroundColor Yellow
+    Write-Host "WhatIf: would install the following via winget (--scope $InstallScope):" -ForegroundColor Yellow
     foreach ($p in $packages) { Write-Host "  - $($p.Name) ($($p.Id))" }
     Write-Host "`nRun without -WhatIf to install. Ensure winget is available (Windows 10/11)." -ForegroundColor Gray
     exit 0
@@ -46,12 +56,13 @@ if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
     exit 1
 }
 
+$scopeLower = $InstallScope.ToLowerInvariant()
 $installed = 0
 $failed = 0
 foreach ($p in $packages) {
     Write-Host "Installing $($p.Name) ($($p.Id))..." -ForegroundColor Yellow
     try {
-        winget install --id $p.Id -e --accept-source-agreements --accept-package-agreements --silent
+        winget install --id $p.Id -e --scope $scopeLower --accept-source-agreements --accept-package-agreements --silent
         if ($LASTEXITCODE -eq 0) { $installed++ } else { $failed++; Write-Host "  (skipped or failed)" -ForegroundColor Gray }
     } catch {
         $failed++

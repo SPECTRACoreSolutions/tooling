@@ -14,7 +14,9 @@
 param(
     [switch]$CloudPC,
     [switch]$WhatIf,
-    [string]$TargetPath = ""
+    [string]$TargetPath = "",
+    # Machine-wide winget installs (requires elevation). Default is per-user (matches 05 / 04).
+    [switch]$MachineWinget
 )
 
 $ErrorActionPreference = "Stop"
@@ -25,7 +27,7 @@ $BOOTSTRAP_SCRIPT_PATH = "pc-build-toolkit\05-Scripts\05-bootstrap-dev-setup.ps1
 
 if ($WhatIf) {
     Write-Host "WhatIf: would clone tooling and run 05-bootstrap-dev-setup.ps1" -ForegroundColor Yellow
-    Write-Host "  CloudPC: $CloudPC  TargetPath: $TargetPath" -ForegroundColor Gray
+    Write-Host "  CloudPC: $CloudPC  TargetPath: $TargetPath  MachineWinget: $MachineWinget" -ForegroundColor Gray
     exit 0
 }
 
@@ -47,10 +49,18 @@ if (-not $git) {
         Write-Host "  ERROR: winget not found. Update Windows or install App Installer from Store." -ForegroundColor Red
         exit 1
     }
-    winget install --id Git.Git -e --accept-source-agreements --accept-package-agreements --silent
-    $gitPath = "$env:ProgramFiles\Git\cmd\git.exe"
-    if (Test-Path $gitPath) {
-        $env:Path = "$env:ProgramFiles\Git\cmd;" + $env:Path
+    $gitScope = if ($MachineWinget) { "machine" } else { "user" }
+    winget install --id Git.Git -e --scope $gitScope --accept-source-agreements --accept-package-agreements --silent
+    $gitExe = $null
+    foreach ($candidate in @(
+            "$env:ProgramFiles\Git\cmd\git.exe",
+            "${env:ProgramFiles(x86)}\Git\cmd\git.exe",
+            "$env:LocalAppData\Programs\Git\cmd\git.exe"
+        )) {
+        if (Test-Path $candidate) { $gitExe = $candidate; break }
+    }
+    if ($gitExe) {
+        $env:Path = "$(Split-Path $gitExe -Parent);" + $env:Path
         Write-Host "  Git installed. Refreshed PATH." -ForegroundColor Green
     } else {
         Write-Host "  Git may need a new terminal. Run this script again." -ForegroundColor Yellow
@@ -105,7 +115,11 @@ if (-not (Test-Path $bootstrapPath)) {
 # Step 4: Run bootstrap
 Write-Host "[4/4] Running dev setup (winget + az extension + pip tools)..." -ForegroundColor Yellow
 Write-Host ""
-& $bootstrapPath
+if ($MachineWinget) {
+    & $bootstrapPath -WingetInstallScope Machine
+} else {
+    & $bootstrapPath
+}
 $bootstrapExit = $LASTEXITCODE
 
 # Done

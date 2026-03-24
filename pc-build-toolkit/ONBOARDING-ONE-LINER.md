@@ -110,6 +110,7 @@ cd path\to\tooling\pc-build-toolkit
 | Parameter | Meaning |
 |-----------|---------|
 | `-CloudPC` | Optional legacy flag (no longer required; bootstrap does not prompt for OEM drivers) |
+| `-MachineWinget` | winget `--scope machine` (all users; needs elevation). Default is **per-user** (`--scope user`) to avoid UAC on Cloud PCs |
 | `-WhatIf` | Dry run — show what would happen |
 | `-TargetPath` | Where to clone tooling (default: `%USERPROFILE%\Repos`) |
 
