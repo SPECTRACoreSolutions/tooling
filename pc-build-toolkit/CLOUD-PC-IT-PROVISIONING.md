@@ -6,7 +6,49 @@
 
 **Related:** [Invoke-SpectraBootstrap.ps1](Invoke-SpectraBootstrap.ps1) · [04-install-post-wipe-apps.ps1](05-Scripts/04-install-post-wipe-apps.ps1) (defaults to `winget --scope user`)
 
-**Last updated:** 2026-03-24
+**Last updated:** 2026-03-24 (Intune admin self-service section)
+
+---
+
+## If you are the Intune admin (give the right permission yourself)
+
+You can resolve elevation **without a ticket** by doing **one or both** of the following in **Microsoft Intune admin center** (`intune.microsoft.com`). Names vary slightly by tenant; use search in the policy blade if menus differ.
+
+### A) Add developers to **BUILTIN\Administrators** on Cloud PCs (unblocks machine-wide winget)
+
+1. **Entra admin center** → **Groups** → create (or reuse) a **Security** group, e.g. `SG-CloudPC-Developers-LocalAdmin`.
+2. **Membership:** add accounts that should be **local admins** on dev Cloud PCs (yourself, devs).  
+   - Prefer a **group**, not a single user, so onboarding is repeatable.
+3. **Intune** → **Endpoint security** → **Account protection** → **Create policy**.
+4. **Platform:** Windows 10, Windows 11, and Windows Server (or the option that includes **Local user group membership**).
+5. **Profile type:** **Local user group membership** (if available in your tenant).
+6. **Configuration:** add a row that puts **Administrators** (the built-in local group) in **Members** and add your **Entra group** (`SG-CloudPC-Developers-LocalAdmin`) as a member (the UI usually lets you pick **Users and groups** from Azure AD).
+7. **Assignments:** assign to a **device group** that contains **only dev Cloud PCs** (recommended), e.g. a dynamic group on **Cloud PC** SKU or a static group you maintain. **Do not** assign to every laptop in the org unless policy allows.
+
+8. **Sync / policy refresh:** on the Cloud PC run **Settings → Accounts → Access work or school → your org → Info → Sync**, or wait for the next MDM cycle. Sign out and back in (or reboot) so the new **Administrators** token applies.
+
+**Verify on the Cloud PC:** open **cmd** or PowerShell **as normal user**, run `net localgroup administrators` — your account or group should appear.
+
+**Alternative UI:** some tenants expose the same under **Devices** → **Configuration** → **Create** → **Settings catalog** → search for **local user** / **group membership** and configure **Administrators** membership. Prefer **Account protection → Local user group membership** when it exists; it is easier to audit.
+
+---
+
+### B) Deploy the dev stack as Intune apps (best for “nothing to install” automation)
+
+Even with local admin, **pre-deploying** Git, Azure CLI, PowerShell 7, Python, etc. avoids long winget runs on first day.
+
+1. **Intune** → **Apps** → **All apps** → **Add** → **Windows app (Win32)** (or **Microsoft Store app** where appropriate).
+2. Package each tool (`.intunewin` from vendor installers or use Microsoft’s guidance per app).
+3. **Assignments:** same **device** or **user** group as your Cloud PC devs.
+4. Keep the list aligned with [04-install-post-wipe-apps.ps1](05-Scripts/04-install-post-wipe-apps.ps1) so docs and device state match.
+
+---
+
+### Governance (still do this even if it is “just us”)
+
+- **Scope:** restrict **local admin** policy to **dev Cloud PC devices** only, not every Entra-joined PC.
+- **Change record:** note the policy name, group name, and assignment in your usual change log.
+- **Conflict check:** if a **Security baseline** or **Device restriction** profile removes local admin or blocks installers, **exclude** dev Cloud PCs from that baseline or adjust the baseline with an **exclusion** group.
 
 ---
 
