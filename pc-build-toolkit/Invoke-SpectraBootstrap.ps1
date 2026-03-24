@@ -108,11 +108,12 @@ if (-not (Test-Path $bootstrapPath)) {
 # Step 4: Run bootstrap
 Write-Host "[4/4] Running dev setup (winget + az extension + pip tools)..." -ForegroundColor Yellow
 Write-Host ""
-$bootstrapArgs = @()
+# Use explicit -SkipDriverReminder (not array splat): PS 5.1 can mis-bind splatted strings as positional args.
 if ($CloudPC) {
-    $bootstrapArgs += "-SkipDriverReminder"
+    & $bootstrapPath -SkipDriverReminder
+} else {
+    & $bootstrapPath
 }
-& $bootstrapPath @bootstrapArgs
 $bootstrapExit = $LASTEXITCODE
 
 # Done
