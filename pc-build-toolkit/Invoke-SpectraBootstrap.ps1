@@ -29,12 +29,9 @@ if ($WhatIf) {
     exit 0
 }
 
-# When run via irm | iex, params aren't passed. Use env var or prompt.
+# When run via irm | iex, params aren't passed. Use env var.
+# -CloudPC is optional (legacy); bootstrap no longer prompts for OEM drivers.
 if (-not $CloudPC -and $env:SPECTRA_CLOUD_PC -eq "1") { $CloudPC = $true }
-if (-not $CloudPC) {
-    $r = Read-Host "Is this a Cloud PC? (y/N)"
-    if ($r -match '^y') { $CloudPC = $true }
-}
 
 Write-Host ""
 Write-Host "[ SPECTRA Dev Setup - Welcome ]" -ForegroundColor Cyan
@@ -93,7 +90,7 @@ if (Test-Path $toolingPath) {
     & git clone --depth 1 $TOOLING_CLONE_URL $toolingPath
     if ($LASTEXITCODE -ne 0) {
         Write-Host "  Clone failed. Check repo is public: $TOOLING_CLONE_URL" -ForegroundColor Red
-        Write-Host "  Or run locally: cd path\to\tooling\pc-build-toolkit; .\Invoke-SpectraBootstrap.ps1 -CloudPC" -ForegroundColor Yellow
+        Write-Host "  Or run locally: cd path\to\tooling\pc-build-toolkit; .\Invoke-SpectraBootstrap.ps1" -ForegroundColor Yellow
         exit 1
     }
     Write-Host "  Cloned successfully." -ForegroundColor Green
@@ -108,12 +105,7 @@ if (-not (Test-Path $bootstrapPath)) {
 # Step 4: Run bootstrap
 Write-Host "[4/4] Running dev setup (winget + az extension + pip tools)..." -ForegroundColor Yellow
 Write-Host ""
-# Use explicit -SkipDriverReminder (not array splat): PS 5.1 can mis-bind splatted strings as positional args.
-if ($CloudPC) {
-    & $bootstrapPath -SkipDriverReminder
-} else {
-    & $bootstrapPath
-}
+& $bootstrapPath
 $bootstrapExit = $LASTEXITCODE
 
 # Done

@@ -1,6 +1,6 @@
 # -----------------------------------------------------------------------------
-# SPECTRA PC Toolkit - Post-wipe: install everything we need (winget)
-# Run after drivers (MSI Center Live Update). Installs Cursor, Figma, dev tools.
+# SPECTRA PC Toolkit - Install dev apps via winget (Cursor, Git, Azure CLI, ...)
+# Typically called from 05-bootstrap-dev-setup.ps1.
 # -----------------------------------------------------------------------------
 # Usage: .\04-install-post-wipe-apps.ps1
 #        .\04-install-post-wipe-apps.ps1 -WhatIf

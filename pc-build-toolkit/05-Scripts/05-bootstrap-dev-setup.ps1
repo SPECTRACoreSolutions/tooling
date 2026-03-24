@@ -1,32 +1,26 @@
 # -----------------------------------------------------------------------------
-# SPECTRA PC Toolkit - Post-wipe: bootstrap full dev setup
-# Runs: drivers reminder -> app install -> az extension -> pip tools.
-# Use after Phase 3 (drivers). Part of post-wipe-full-rebuild-playbook.
+# SPECTRA PC Toolkit - Bootstrap dev tooling (any Windows machine)
+# Runs: app install (winget) -> az extension -> pip tools.
 # -----------------------------------------------------------------------------
 # Usage: .\05-bootstrap-dev-setup.ps1
-#        .\05-bootstrap-dev-setup.ps1 -SkipDriverReminder
+#
+# OEM/chipset/GPU drivers are machine-specific (e.g. a custom desktop after a
+# clean Windows install). That belongs in vendor docs or POST-WIPE-INSTALL-EVERYTHING.md
+# for the SPECTRA USB home-build workflow — not in this generic bootstrap.
 # -----------------------------------------------------------------------------
 
 [CmdletBinding()]
-param([switch]$SkipDriverReminder)
+param()
 
 $ErrorActionPreference = "Stop"
 $ScriptDir = $PSScriptRoot
 
 Write-Host "`n================================================================================" -ForegroundColor Cyan
-Write-Host "     NEXUS DEV SETUP - Bootstrap (post-wipe)" -ForegroundColor Cyan
+Write-Host "     NEXUS DEV SETUP - Bootstrap" -ForegroundColor Cyan
 Write-Host "================================================================================`n" -ForegroundColor Cyan
 
-# --- Phase: Drivers reminder ---
-if (-not $SkipDriverReminder) {
-    Write-Host "Have you already run MSI Center -> Live Update (all Z890 GODLIKE drivers)?" -ForegroundColor Yellow
-    Write-Host "If not, do that first (see POST-WIPE-INSTALL-EVERYTHING.md section 1)." -ForegroundColor Gray
-    $cont = Read-Host "Continue anyway? (y/N)"
-    if ($cont -notmatch '^y') {
-        Write-Host "Exiting. Run this script again after drivers are installed." -ForegroundColor Gray
-        exit 0
-    }
-}
+Write-Host "Installing dev apps and CLI tooling (Cursor, Git, Azure CLI, Python, Docker, ...)." -ForegroundColor Gray
+Write-Host ""
 
 # --- Step 1: Install apps (winget) ---
 Write-Host "`n[1/3] Running app install script (04-install-post-wipe-apps.ps1)..." -ForegroundColor Yellow
