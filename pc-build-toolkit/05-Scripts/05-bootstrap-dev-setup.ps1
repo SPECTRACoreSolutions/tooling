@@ -3,6 +3,7 @@
 # Runs: app install (winget) -> az extension -> pip tools.
 # -----------------------------------------------------------------------------
 # Usage: .\05-bootstrap-dev-setup.ps1
+#        .\05-bootstrap-dev-setup.ps1 -SkipDriverReminder   # no-op; kept for older Invoke-SpectraBootstrap.ps1
 #
 # OEM/chipset/GPU drivers are machine-specific (e.g. a custom desktop after a
 # clean Windows install). That belongs in vendor docs or POST-WIPE-INSTALL-EVERYTHING.md
@@ -10,7 +11,10 @@
 # -----------------------------------------------------------------------------
 
 [CmdletBinding()]
-param()
+param(
+    # Back-compat: older Invoke-SpectraBootstrap.ps1 passed this when -CloudPC; no longer used (driver prompt removed).
+    [switch]$SkipDriverReminder
+)
 
 $ErrorActionPreference = "Stop"
 $ScriptDir = $PSScriptRoot
