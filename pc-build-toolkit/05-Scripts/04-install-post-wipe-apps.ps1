@@ -1,10 +1,10 @@
-# ═══════════════════════════════════════════════════════════════════════════
+# -----------------------------------------------------------------------------
 # SPECTRA PC Toolkit - Post-wipe: install everything we need (winget)
 # Run after drivers (MSI Center Live Update). Installs Cursor, Figma, dev tools.
-# ═══════════════════════════════════════════════════════════════════════════
+# -----------------------------------------------------------------------------
 # Usage: .\04-install-post-wipe-apps.ps1
 #        .\04-install-post-wipe-apps.ps1 -WhatIf
-# ═══════════════════════════════════════════════════════════════════════════
+# -----------------------------------------------------------------------------
 
 [CmdletBinding(SupportsShouldProcess)]
 param([switch]$WhatIf)
@@ -28,9 +28,9 @@ $packages = @(
     @{ Id = "Adobe.CreativeCloud";           Name = "Adobe Creative Cloud" }
 )
 
-Write-Host "`n╔════════════════════════════════════════════════════════════════════════╗" -ForegroundColor Cyan
-Write-Host "║     SPECTRA POST-WIPE — Install apps (winget)                         ║" -ForegroundColor Cyan
-Write-Host "╚════════════════════════════════════════════════════════════════════════╝`n" -ForegroundColor Cyan
+Write-Host "`n================================================================================" -ForegroundColor Cyan
+Write-Host "     SPECTRA POST-WIPE - Install apps (winget)" -ForegroundColor Cyan
+Write-Host "================================================================================`n" -ForegroundColor Cyan
 
 if ($WhatIf) {
     Write-Host "WhatIf: would install the following via winget:" -ForegroundColor Yellow
