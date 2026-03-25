@@ -54,6 +54,45 @@ Bootstrap defaults to **per-user winget** (`--scope user`) to avoid UAC where po
 
 **~15 minutes** depending on connection and machine.
 
+### Verify installs (script is on the machine after step 2)
+
+The bootstrap clone includes the checker at:
+
+`%USERPROFILE%\Repos\tooling\pc-build-toolkit\05-Scripts\Verify-SpectraDevBootstrap.ps1`
+
+Open a **new** PowerShell window (PATH refresh), then:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
+& "$env:USERPROFILE\Repos\tooling\pc-build-toolkit\05-Scripts\Verify-SpectraDevBootstrap.ps1"
+```
+
+Optional: `-Strict`, `-PullTooling`, or after you clone operations `-PullOperations -OperationsRepoPath "...\SE-First\operations"`.
+
+### Verify without a local clone (download from GitHub raw)
+
+Use this when the script is **not** under `%USERPROFILE%\Repos\tooling\...` yet (bootstrap not run, or clone is old). **Requires** the file to exist on **`main`** in [SPECTRACoreSolutions/tooling](https://github.com/SPECTRACoreSolutions/tooling) — if `Invoke-WebRequest` returns **404**, push `pc-build-toolkit` from the SPECTRA workspace to that repo, then retry.
+
+```powershell
+$verifyUrl = "https://raw.githubusercontent.com/SPECTRACoreSolutions/tooling/main/pc-build-toolkit/05-Scripts/Verify-SpectraDevBootstrap.ps1"
+$verifyFile = Join-Path $env:TEMP "Verify-SpectraDevBootstrap.ps1"
+Invoke-WebRequest -Uri $verifyUrl -UseBasicParsing -OutFile $verifyFile
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
+& $verifyFile
+# Optional: & $verifyFile -Strict
+# Optional: & $verifyFile -PullTooling -ToolingRoot "$env:USERPROFILE\Repos"
+```
+
+Shorter (same effect):
+
+```powershell
+iwr -useb https://raw.githubusercontent.com/SPECTRACoreSolutions/tooling/main/pc-build-toolkit/05-Scripts/Verify-SpectraDevBootstrap.ps1 -OutFile "$env:TEMP\Verify-SpectraDevBootstrap.ps1"
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
+& "$env:TEMP\Verify-SpectraDevBootstrap.ps1"
+```
+
+**Note:** A `.code-workspace` file only **opens** folders you already cloned — it does not download SE-First or SPECTRA. Clone repos first (below), then open the workspace.
+
 ---
 
 ## After the bootstrap
