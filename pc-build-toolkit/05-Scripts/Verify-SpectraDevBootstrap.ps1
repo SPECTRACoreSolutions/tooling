@@ -43,6 +43,21 @@ function Test-Command {
     }
 }
 
+function Get-AzCliInvocation {
+    $cmd = Get-Command az -ErrorAction SilentlyContinue
+    if ($cmd) { return @{ Invoke = "az"; Note = $null } }
+    foreach ($candidate in @(
+            "$env:ProgramFiles\Microsoft SDKs\Azure\CLI2\wbin\az.cmd",
+            "$env:ProgramFiles\Microsoft SDKs\Azure\CLI2\wbin\az.exe",
+            "${env:ProgramFiles(x86)}\Microsoft SDKs\Azure\CLI2\wbin\az.cmd"
+        )) {
+        if (Test-Path $candidate) {
+            return @{ Invoke = $candidate; Note = "not on PATH; open a new terminal after install or add CLI2\wbin to PATH" }
+        }
+    }
+    return $null
+}
+
 function Test-WingetId {
     param([string]$Id)
     if (-not (Get-Command winget -ErrorAction SilentlyContinue)) { return $false }
@@ -69,7 +84,7 @@ $expectedWinget = @(
 $coreCommands = @(
     @{ Key = "winget";  Arg = "--version" },
     @{ Key = "git";     Arg = "--version" },
-    @{ Key = "az";      Arg = "version" },
+    @{ Key = "az";      Arg = "--version" },
     @{ Key = "python";  Arg = "--version" }
 )
 
@@ -163,6 +178,31 @@ if (-not [string]::IsNullOrWhiteSpace($opsRoot) -and (Test-Path $opsRoot)) {
 
 Write-Host "--- Core commands (bootstrap should provide these) ---" -ForegroundColor Yellow
 foreach ($c in $coreCommands) {
+    if ($c.Key -eq "az") {
+        $az = Get-AzCliInvocation
+        if ($az) {
+            try {
+                $argParts = $c.Arg.Split(" ", [System.StringSplitOptions]::RemoveEmptyEntries)
+                $line = & $az.Invoke @argParts 2>&1 | Out-String
+                $line = ($line.Trim() -split "`n" | Select-Object -First 1)
+                if ($az.Note) {
+                    Write-Host "  [OK]   az: $line" -ForegroundColor Green
+                    Write-Host "         ($($az.Note))" -ForegroundColor Gray
+                } else {
+                    Write-Host "  [OK]   az: $line" -ForegroundColor Green
+                }
+            } catch {
+                Write-Host "  [FAIL] az: found at $($az.Invoke) but failed to run" -ForegroundColor Red
+                $fail++
+            }
+        } else {
+            Write-Host "  [FAIL] az: not installed (or not on PATH and not under Program Files\Microsoft SDKs\Azure\CLI2)" -ForegroundColor Red
+            Write-Host "         Install: winget install Microsoft.AzureCLI -e --scope user --accept-source-agreements --accept-package-agreements" -ForegroundColor Gray
+            Write-Host "         Then: open a new terminal; az extension add --name azure-devops" -ForegroundColor Gray
+            $fail++
+        }
+        continue
+    }
     $line = Test-Command -Name $c.Key -Arg $c.Arg
     if ($line) {
         Write-Host "  [OK]   $($c.Key): $line" -ForegroundColor Green
@@ -219,8 +259,9 @@ foreach ($p in $expectedWinget) {
 
 Write-Host ""
 Write-Host "--- Azure DevOps CLI extension ---" -ForegroundColor Yellow
-if (Get-Command az -ErrorAction SilentlyContinue) {
-    $ext = az extension list -o json 2>$null | ConvertFrom-Json
+$azForExt = Get-AzCliInvocation
+if ($azForExt) {
+    $ext = & $azForExt.Invoke extension list -o json 2>$null | ConvertFrom-Json
     $ado = $ext | Where-Object { $_.name -eq "azure-devops" }
     if ($ado) {
         Write-Host "  [OK]   azure-devops extension installed" -ForegroundColor Green
