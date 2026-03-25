@@ -115,25 +115,30 @@ Do these in order:
 
 ---
 
-## Azure CLI: `winget` says "No applicable installer" with `--scope user`
+## `winget` says "No applicable installer" with `--scope user`
 
-The Azure CLI package is normally a **per-machine** MSI. **`--scope user`** often matches no installer.
+The default bootstrap uses **per-user** winget scope. Some packages only ship a **per-machine** MSI, so **`--scope user`** matches nothing. That is common for **Azure CLI**, **GitHub CLI**, and **Docker Desktop**.
 
-**Option A — you can run elevated (recommended):** open **Windows Terminal → Run as administrator**, then:
-
-```powershell
-winget install Microsoft.AzureCLI -e --scope machine --accept-source-agreements --accept-package-agreements
-```
-
-Or let winget choose scope (official docs style):
+**Fix — Administrator PowerShell** (Windows Terminal → Run as administrator), then either install one package:
 
 ```powershell
-winget install -e --id Microsoft.AzureCLI --accept-source-agreements --accept-package-agreements
+winget install -e --id Microsoft.AzureCLI --scope machine --accept-source-agreements --accept-package-agreements
+winget install -e --id GitHub.cli --scope machine --accept-source-agreements --accept-package-agreements
+winget install -e --id Docker.DockerDesktop --scope machine --accept-source-agreements --accept-package-agreements
 ```
 
-**Option B — no administrator rights:** install the **ZIP** build (no MSI), extract somewhere under your profile, add the `bin` folder to your **user** `PATH`, then open a new terminal. See [Install the Azure CLI on Windows](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows) → **ZIP Package** and [64-bit ZIP](https://aka.ms/installazurecliwindowszipx64).
+Or re-run the full app script for everything with machine scope:
 
-After any install: **close all terminals**, then `az --version` and `az extension add --name azure-devops`.
+```powershell
+cd $env:USERPROFILE\Repos\tooling\pc-build-toolkit\05-Scripts
+.\04-install-post-wipe-apps.ps1 -InstallScope Machine
+```
+
+If you run **`04-install-post-wipe-apps.ps1`** as Administrator with default **User** scope, it will **automatically retry** those three IDs with **machine** scope when the user-scope install fails.
+
+**Azure CLI only, no admin:** use the **ZIP** build and add `bin` to your user `PATH` — [Install the Azure CLI on Windows](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows) → **ZIP Package**, [64-bit ZIP](https://aka.ms/installazurecliwindowszipx64).
+
+After any install: **close all terminals**, then `az --version`, `gh --version`, and `az extension add --name azure-devops` as needed.
 
 ---
 

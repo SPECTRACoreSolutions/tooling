@@ -56,13 +56,29 @@ if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
 }
 
 $scopeLower = $InstallScope.ToLowerInvariant()
+# These IDs often return "No applicable installer" with --scope user (MSI is per-machine).
+$machineIfUserFails = @('GitHub.cli', 'Docker.DockerDesktop', 'Microsoft.AzureCLI')
+$isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(
+    [Security.Principal.WindowsBuiltInRole]::Administrator)
+
 $installed = 0
 $failed = 0
 foreach ($p in $packages) {
     Write-Host "Installing $($p.Name) ($($p.Id))..." -ForegroundColor Yellow
     try {
         winget install --id $p.Id -e --scope $scopeLower --accept-source-agreements --accept-package-agreements --silent
-        if ($LASTEXITCODE -eq 0) { $installed++ } else { $failed++; Write-Host "  (skipped or failed)" -ForegroundColor Gray }
+        $ok = ($LASTEXITCODE -eq 0)
+        if (-not $ok -and $InstallScope -eq 'User' -and $machineIfUserFails -contains $p.Id) {
+            if ($isAdmin) {
+                Write-Host "  Per-user installer not available; retrying with machine scope..." -ForegroundColor Gray
+                winget install --id $p.Id -e --scope machine --accept-source-agreements --accept-package-agreements --silent
+                $ok = ($LASTEXITCODE -eq 0)
+            } else {
+                Write-Host "  No per-user winget target for this package. Use Administrator PowerShell:" -ForegroundColor Yellow
+                Write-Host "    winget install -e --id $($p.Id) --scope machine --accept-source-agreements --accept-package-agreements" -ForegroundColor Gray
+            }
+        }
+        if ($ok) { $installed++ } else { $failed++; Write-Host "  (skipped or failed)" -ForegroundColor Gray }
     } catch {
         $failed++
         Write-Host "  Failed: $_" -ForegroundColor Red
@@ -70,6 +86,10 @@ foreach ($p in $packages) {
 }
 
 Write-Host "`nDone. Installed: $installed. Failed/skipped: $failed." -ForegroundColor Cyan
+if ($failed -gt 0 -and $InstallScope -eq 'User' -and -not $isAdmin) {
+    Write-Host "Tip: GitHub CLI, Docker Desktop, and Azure CLI often need machine scope." -ForegroundColor Yellow
+    Write-Host "     Open Administrator PowerShell, then: .\04-install-post-wipe-apps.ps1 -InstallScope Machine" -ForegroundColor Gray
+}
 Write-Host "Next:" -ForegroundColor Yellow
 Write-Host "  1. az extension add --name azure-devops  (Azure DevOps CLI)" -ForegroundColor Gray
 Write-Host "  2. Python: pip install ruff pyright pytest uv azure-identity (or use uv/poetry)" -ForegroundColor Gray

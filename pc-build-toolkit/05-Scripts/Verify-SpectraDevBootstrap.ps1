@@ -255,7 +255,13 @@ foreach ($p in $expectedWinget) {
     if (Test-WingetId -Id $p.Id) {
         Write-Host "  [OK]   $($p.Name) ($($p.Id))" -ForegroundColor Green
     } elseif ($p.Required) {
-        Write-Host "  [FAIL] $($p.Name) ($($p.Id)) — required; winget install $($p.Id) -e --scope user (or Machine if needed)" -ForegroundColor Red
+        Write-Host "  [FAIL] $($p.Name) ($($p.Id)) — required" -ForegroundColor Red
+        if (@('GitHub.cli', 'Docker.DockerDesktop', 'Microsoft.AzureCLI') -contains $p.Id) {
+            Write-Host "         Per-user winget usually has no installer. Administrator PowerShell:" -ForegroundColor Gray
+            Write-Host "         winget install -e --id $($p.Id) --scope machine --accept-source-agreements --accept-package-agreements" -ForegroundColor Gray
+        } else {
+            Write-Host "         winget install -e --id $($p.Id) --accept-source-agreements --accept-package-agreements" -ForegroundColor Gray
+        }
         $fail++
     } else {
         Write-Host "  [MISS] $($p.Name) ($($p.Id))" -ForegroundColor DarkYellow
