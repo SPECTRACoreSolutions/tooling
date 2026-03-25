@@ -33,8 +33,7 @@ $packages = @(
     @{ Id = "OpenJS.NodeJS.LTS";             Name = "Node.js LTS" },
     @{ Id = "Microsoft.PowerAppsCLI";       Name = "Power Platform CLI (pac)" },
     @{ Id = "Microsoft.Azure.FunctionsCoreTools"; Name = "Azure Functions Core Tools" },
-    @{ Id = "Figma.Figma";                   Name = "Figma" },
-    @{ Id = "Adobe.CreativeCloud";           Name = "Adobe Creative Cloud" }
+    @{ Id = "Figma.Figma";                   Name = "Figma" }
 )
 
 Write-Host "`n================================================================================" -ForegroundColor Cyan

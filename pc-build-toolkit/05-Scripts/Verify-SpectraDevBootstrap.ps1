@@ -65,20 +65,20 @@ function Test-WingetId {
     return ($r -match [regex]::Escape($Id))
 }
 
+# Required = winget verify fails (not just a warning) if missing. Adobe Creative Cloud omitted for Cloud PC / dev images.
 $expectedWinget = @(
-    @{ Id = "Anysphere.Cursor";              Name = "Cursor" },
-    @{ Id = "Git.Git";                       Name = "Git" },
-    @{ Id = "GitHub.cli";                    Name = "GitHub CLI" },
-    @{ Id = "Microsoft.AzureCLI";            Name = "Azure CLI" },
-    @{ Id = "Microsoft.PowerShell";          Name = "PowerShell 7" },
-    @{ Id = "Microsoft.WindowsTerminal";    Name = "Windows Terminal" },
-    @{ Id = "Python.Python.3.12";            Name = "Python 3.12" },
-    @{ Id = "Docker.DockerDesktop";          Name = "Docker Desktop" },
-    @{ Id = "OpenJS.NodeJS.LTS";             Name = "Node.js LTS" },
-    @{ Id = "Microsoft.PowerAppsCLI";       Name = "Power Platform CLI (pac)" },
-    @{ Id = "Microsoft.Azure.FunctionsCoreTools"; Name = "Azure Functions Core Tools" },
-    @{ Id = "Figma.Figma";                   Name = "Figma" },
-    @{ Id = "Adobe.CreativeCloud";           Name = "Adobe Creative Cloud" }
+    @{ Id = "Anysphere.Cursor";              Name = "Cursor";              Required = $false },
+    @{ Id = "Git.Git";                       Name = "Git";                 Required = $false },
+    @{ Id = "GitHub.cli";                    Name = "GitHub CLI";          Required = $true },
+    @{ Id = "Microsoft.AzureCLI";            Name = "Azure CLI";           Required = $false },
+    @{ Id = "Microsoft.PowerShell";          Name = "PowerShell 7";        Required = $false },
+    @{ Id = "Microsoft.WindowsTerminal";    Name = "Windows Terminal";    Required = $false },
+    @{ Id = "Python.Python.3.12";            Name = "Python 3.12";         Required = $false },
+    @{ Id = "Docker.DockerDesktop";          Name = "Docker Desktop";      Required = $true },
+    @{ Id = "OpenJS.NodeJS.LTS";             Name = "Node.js LTS";         Required = $false },
+    @{ Id = "Microsoft.PowerAppsCLI";       Name = "Power Platform CLI (pac)"; Required = $false },
+    @{ Id = "Microsoft.Azure.FunctionsCoreTools"; Name = "Azure Functions Core Tools"; Required = $false },
+    @{ Id = "Figma.Figma";                   Name = "Figma";               Required = $false }
 )
 
 $coreCommands = @(
@@ -254,6 +254,9 @@ $missingWinget = @()
 foreach ($p in $expectedWinget) {
     if (Test-WingetId -Id $p.Id) {
         Write-Host "  [OK]   $($p.Name) ($($p.Id))" -ForegroundColor Green
+    } elseif ($p.Required) {
+        Write-Host "  [FAIL] $($p.Name) ($($p.Id)) — required; winget install $($p.Id) -e --scope user (or Machine if needed)" -ForegroundColor Red
+        $fail++
     } else {
         Write-Host "  [MISS] $($p.Name) ($($p.Id))" -ForegroundColor DarkYellow
         $missingWinget += $p
@@ -304,7 +307,7 @@ if ($Strict -and $missingWinget.Count -gt 0) {
     exit 1
 }
 if ($fail -gt 0) {
-    Write-Host " RESULT: FAIL ($fail core check(s) failed)" -ForegroundColor Red
+    Write-Host " RESULT: FAIL ($fail check(s) failed)" -ForegroundColor Red
     exit 1
 }
 if ($warn -gt 0 -or $missingWinget.Count -gt 0) {
