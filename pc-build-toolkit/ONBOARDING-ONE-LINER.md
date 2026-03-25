@@ -115,6 +115,28 @@ Do these in order:
 
 ---
 
+## Azure CLI: `winget` says "No applicable installer" with `--scope user`
+
+The Azure CLI package is normally a **per-machine** MSI. **`--scope user`** often matches no installer.
+
+**Option A — you can run elevated (recommended):** open **Windows Terminal → Run as administrator**, then:
+
+```powershell
+winget install Microsoft.AzureCLI -e --scope machine --accept-source-agreements --accept-package-agreements
+```
+
+Or let winget choose scope (official docs style):
+
+```powershell
+winget install -e --id Microsoft.AzureCLI --accept-source-agreements --accept-package-agreements
+```
+
+**Option B — no administrator rights:** install the **ZIP** build (no MSI), extract somewhere under your profile, add the `bin` folder to your **user** `PATH`, then open a new terminal. See [Install the Azure CLI on Windows](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows) → **ZIP Package** and [64-bit ZIP](https://aka.ms/installazurecliwindowszipx64).
+
+After any install: **close all terminals**, then `az --version` and `az extension add --name azure-devops`.
+
+---
+
 ## Execution policy
 
 If you get "scripts are disabled":

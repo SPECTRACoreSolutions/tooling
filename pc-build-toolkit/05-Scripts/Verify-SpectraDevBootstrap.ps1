@@ -197,8 +197,11 @@ foreach ($c in $coreCommands) {
             }
         } else {
             Write-Host "  [FAIL] az: not installed (or not on PATH and not under Program Files\Microsoft SDKs\Azure\CLI2)" -ForegroundColor Red
-            Write-Host "         Install: winget install Microsoft.AzureCLI -e --scope user --accept-source-agreements --accept-package-agreements" -ForegroundColor Gray
-            Write-Host "         Then: open a new terminal; az extension add --name azure-devops" -ForegroundColor Gray
+            Write-Host "         winget (often needs machine scope): open Administrator PowerShell, then:" -ForegroundColor Gray
+            Write-Host "           winget install Microsoft.AzureCLI -e --scope machine --accept-source-agreements --accept-package-agreements" -ForegroundColor Gray
+            Write-Host "         Or without scope flag: winget install -e --id Microsoft.AzureCLI --accept-source-agreements --accept-package-agreements" -ForegroundColor Gray
+            Write-Host "         No admin? Use ZIP (add ...\bin to user PATH): https://aka.ms/installazurecliwindowszipx64" -ForegroundColor Gray
+            Write-Host "         Then: new terminal; az extension add --name azure-devops" -ForegroundColor Gray
             $fail++
         }
         continue
