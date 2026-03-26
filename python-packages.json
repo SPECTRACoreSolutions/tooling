@@ -108,16 +108,6 @@
           ],
           "install": "pip install pytest"
         },
-        "ruff": {
-          "version": ">=0.1.0",
-          "description": "Fast Python linter",
-          "use_cases": [
-            "Code quality",
-            "Style enforcement",
-            "Error detection"
-          ],
-          "install": "pip install ruff"
-        }
       }
     },
     "fabric_runtime": {
@@ -140,23 +130,45 @@
   "installation_profiles": {
     "minimal": {
       "description": "Minimal setup for API testing",
-      "packages": ["python-dotenv", "requests", "pyyaml"],
+      "packages": [
+        "python-dotenv",
+        "requests",
+        "pyyaml"
+      ],
       "install": "pip install python-dotenv requests pyyaml"
     },
     "notebook_testing": {
       "description": "Local notebook testing without Spark",
-      "packages": ["python-dotenv", "requests", "pyyaml", "pandas", "jupyter"],
+      "packages": [
+        "python-dotenv",
+        "requests",
+        "pyyaml",
+        "pandas",
+        "jupyter"
+      ],
       "install": "pip install python-dotenv requests pyyaml pandas jupyter"
     },
     "full_local": {
       "description": "Full local development with Spark",
-      "packages": ["python-dotenv", "requests", "pyyaml", "pandas", "pyspark", "delta-spark", "jupyterlab", "pytest", "ruff"],
-      "install": "pip install python-dotenv requests pyyaml pandas pyspark delta-spark jupyterlab pytest ruff"
+      "packages": [
+        "python-dotenv",
+        "requests",
+        "pyyaml",
+        "pandas",
+        "pyspark",
+        "delta-spark",
+        "jupyterlab",
+        "pytest"
+      ],
+      "install": "pip install python-dotenv requests pyyaml pandas pyspark delta-spark jupyterlab pytest"
     },
     "development": {
       "description": "Development tools only",
-      "packages": ["pytest", "ruff", "jupyter"],
-      "install": "pip install pytest ruff jupyter"
+      "packages": [
+        "pytest",
+        "jupyter"
+      ],
+      "install": "pip install pytest jupyter"
     }
   },
   "conda_environment": {
@@ -165,4 +177,3 @@
     "note": "Jira has a comprehensive env.yml that can be adapted for Zephyr"
   }
 }
-

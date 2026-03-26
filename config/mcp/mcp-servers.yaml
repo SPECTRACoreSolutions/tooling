@@ -1,0 +1,110 @@
+metadata:
+  version: "1.0"
+  last_updated: "2025-01-07"
+  description: "SPECTRA MCP Servers Configuration - All enabled servers for Cursor integration"
+
+placeholders:
+  spectra_root: "__SPECTRA_ROOT__"
+  github_token: "__GITHUB_PERSONAL_ACCESS_TOKEN__"
+  atlassian_token: "__ATLASSIAN_API_TOKEN__"
+  atlassian_domain: "__ATLASSIAN_DOMAIN__"
+
+mcp_servers:
+  # Priority 1: Critical (REQUIRED)
+  spectra-context:
+    priority: 1
+    status: "required"
+    description: "SPECTRA's own MCP server providing framework knowledge and tool integration"
+    command: "python"
+    args:
+      - "-m"
+      - "spectra_context_mcp.server"
+      - "--mode"
+      - "stdio"
+    cwd: "__SPECTRA_ROOT__\\Core\\mcp-service"
+    env:
+      LOG_LEVEL: "INFO"
+
+  Railway:
+    priority: 1
+    status: "required"
+    description: "Primary deployment platform for SPECTRA services"
+    command: "npx"
+    args:
+      - "-y"
+      - "@railway/mcp-server"
+    auth: "railway_cli"
+
+  filesystem:
+    priority: 1
+    status: "required"
+    description: "Essential for AI file operations and workspace access"
+    command: "npx"
+    args:
+      - "-y"
+      - "@modelcontextprotocol/server-filesystem"
+    env:
+      ALLOWED_DIRECTORIES: "__SPECTRA_ROOT__"
+
+  git:
+    priority: 1
+    status: "required"
+    description: "Git operations for version control (non-interactive)"
+    command: "npx"
+    args:
+      - "-y"
+      - "@modelcontextprotocol/server-git"
+
+  github:
+    priority: 1
+    status: "required"
+    description: "GitHub API operations (issues, PRs, repos)"
+    command: "npx"
+    args:
+      - "-y"
+      - "@modelcontextprotocol/server-github"
+    env:
+      GITHUB_PERSONAL_ACCESS_TOKEN: "__GITHUB_PERSONAL_ACCESS_TOKEN__"
+
+  # Priority 2: Important (RECOMMENDED)
+  ms365:
+    priority: 2
+    status: "recommended"
+    description: "Microsoft 365 integration (Outlook, Calendar, OneDrive, Excel)"
+    command: "npx"
+    args:
+      - "-y"
+      - "@softeria/ms-365-mcp-server"
+    auth: "msal"
+
+  azure:
+    priority: 2
+    status: "recommended"
+    description: "Azure services integration (Fabric, authentication, resources)"
+    command: "npx"
+    args:
+      - "-y"
+      - "@azure/mcp-server"
+    auth: "azure_cli"
+
+  # Priority 3: Optional
+  atlassian:
+    priority: 3
+    status: "optional"
+    description: "Jira/Confluence integration (enable if actively using)"
+    command: "npx"
+    args:
+      - "-y"
+      - "@atlassian/mcp-server"
+    env:
+      ATLASSIAN_API_TOKEN: "__ATLASSIAN_API_TOKEN__"
+      ATLASSIAN_DOMAIN: "__ATLASSIAN_DOMAIN__"
+
+  cloudflare-dns:
+    priority: 3
+    status: "optional"
+    description: "Cloudflare DNS analytics (enable if using Cloudflare)"
+    command: "npx"
+    args:
+      - "-y"
+      - "@cloudflare/mcp-server-dns-analytics"

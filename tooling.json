@@ -1,10 +1,13 @@
 {
+  "_deprecated": true,
+  "_deprecated_date": "2025-12-07",
+  "_replacement": "Core/registries/tooling-registry.yaml",
+  "_note": "This file is deprecated. All tooling data has been migrated to Core/registries/tooling-registry.yaml following SPECTRA registry pattern. This file is kept temporarily for backward compatibility during migration.",
   "version": 1,
   "python": {
     "packages": [
       "ms-fabric-cli",
       "ipykernel",
-      "ruff",
       "openai",
       "tomli",
       "pytest",
@@ -23,13 +26,13 @@
   },
   "vscode": {
     "extensions": [
-      "ms-vscode-remote.remote-containers",
+      "anysphere.remote-containers",
       "github.copilot",
       "github.copilot-chat",
       "ms-vscode.powershell",
       "ms-python.python",
-      "ms-python.vscode-pylance",
-      "charliermarsh.ruff",
+      "anysphere.cursorpyright",
+      "ms-python.black-formatter",
       "ms-toolsai.jupyter",
       "bierner.markdown-preview-github-styles",
       "yzhang.markdown-all-in-one"

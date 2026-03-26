@@ -1,0 +1,161 @@
+{
+  "Name": "SPECTRA Development",
+  "Author": "Mark Maconnachie",
+  "Description": "Development workflows for SPECTRA projects",
+  "Version": "1.0.0",
+  "Actions": [
+    {
+      "Name": "Open Cursor",
+      "UUID": "com.elgato.streamdeck.system.open",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Cursor",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "application": "C:\\Users\\markm\\AppData\\Local\\Programs\\cursor\\Cursor.exe",
+        "applicationName": "Cursor"
+      }
+    },
+    {
+      "Name": "Open SPECTRA",
+      "UUID": "com.elgato.streamdeck.system.open",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "SPECTRA",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "application": "C:\\Users\\markm\\OneDrive\\SPECTRA",
+        "applicationName": "File Explorer"
+      }
+    },
+    {
+      "Name": "Open Terminal",
+      "UUID": "com.elgato.streamdeck.system.hotkey",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Terminal",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "Hotkey": {
+          "Keys": [
+            "ctrl",
+            "`"
+          ]
+        }
+      }
+    },
+    {
+      "Name": "Git Status",
+      "UUID": "com.elgato.streamdeck.system.hotkey",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Git Status",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "Hotkey": {
+          "Keys": [
+            "ctrl",
+            "shift",
+            "g"
+          ]
+        }
+      }
+    },
+    {
+      "Name": "Labs Queue",
+      "UUID": "com.elgato.streamdeck.system.open",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Labs Queue",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "application": "C:\\Users\\markm\\OneDrive\\SPECTRA\\Core\\labs\\queue\\ideas.json",
+        "applicationName": "Cursor"
+      }
+    },
+    {
+      "Name": "Service Catalog",
+      "UUID": "com.elgato.streamdeck.system.open",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Services",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "application": "C:\\Users\\markm\\OneDrive\\SPECTRA\\Core\\registries\\service-catalog.yaml",
+        "applicationName": "Cursor"
+      }
+    },
+    {
+      "Name": "Documentation",
+      "UUID": "com.elgato.streamdeck.system.open",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Docs",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "application": "C:\\Users\\markm\\OneDrive\\SPECTRA\\Core\\docs",
+        "applicationName": "File Explorer"
+      }
+    },
+    {
+      "Name": "Run Tests",
+      "UUID": "com.elgato.streamdeck.system.text",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Test",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "Text": "pytest",
+        "PressEnter": true
+      }
+    }
+  ],
+  "Software": {
+    "MinimumVersion": "6.0.0"
+  }
+}
+
+
+
+
+

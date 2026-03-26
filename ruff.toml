@@ -1,8 +1,8 @@
 # SPECTRA Universal Ruff Configuration
 # Central linting rules for all SPECTRA projects
 # Context-specific overrides via per-file-ignores
+# Standalone format: no [tool.ruff] (that is for pyproject.toml only)
 
-[tool.ruff]
 target-version = "py311"
 line-length = 120
 src = ["src", "scripts"]
@@ -19,11 +19,11 @@ exclude = [
     ".ruff_cache",
 ]
 
-[tool.ruff.lint]
+[lint]
 # Base rules (apply to all files by default)
 select = [
     "E",    # pycodestyle errors
-    "W",    # pycodestyle warnings  
+    "W",    # pycodestyle warnings
     "F",    # Pyflakes
     "I",    # isort
     "B",    # flake8-bugbear
@@ -53,7 +53,7 @@ ignore = [
 ]
 
 # Context-specific overrides
-[tool.ruff.lint.per-file-ignores]
+[lint.per-file-ignores]
 
 # === FABRIC NOTEBOOKS ===
 # Fabric runtime injects objects and has metadata cells before imports
@@ -102,27 +102,26 @@ ignore = [
     "F821",   # Undefined name
 ]
 
-[tool.ruff.format]
+[format]
 quote-style = "double"
 indent-style = "space"
 skip-magic-trailing-comma = false
 line-ending = "auto"
 
 # === USAGE ===
-# 
+#
 # Universal linting:
 #   spectra-lint.ps1 <file_or_directory>
-# 
+#
 # Auto-fix:
 #   spectra-lint.ps1 <file_or_directory> -Fix
-# 
+#
 # Verbose (show context-specific rules):
 #   spectra-lint.ps1 <file_or_directory> -Verbose
-# 
+#
 # === CONTEXT DETECTION ===
-# 
+#
 # - Fabric notebooks: **/*.Notebook/*.py
 # - Test files: **/tests/**/*.py, **/*_test.py, **/test_*.py
 # - Scripts: **/scripts/**/*.py
 # - General: Everything else (strict rules)
-

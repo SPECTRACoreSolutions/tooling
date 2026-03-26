@@ -70,9 +70,15 @@ if (-not $git) {
     Write-Host "  Git found: $($git.Source)" -ForegroundColor Green
 }
 
-# Step 2: Target path
+# Step 2: Target path (parent of the tooling clone — default: OneDrive root, else profile)
 if ([string]::IsNullOrWhiteSpace($TargetPath)) {
-    $TargetPath = Join-Path $env:USERPROFILE "Repos"
+    $oneDrive = $null
+    foreach ($key in @('OneDriveCommercial', 'OneDrive', 'OneDriveConsumer')) {
+        $p = [Environment]::GetEnvironmentVariable($key, 'User')
+        if (-not [string]::IsNullOrWhiteSpace($p) -and (Test-Path -LiteralPath $p)) { $oneDrive = $p; break }
+    }
+    if ($oneDrive) { $TargetPath = $oneDrive }
+    else { $TargetPath = $env:USERPROFILE }
 }
 $toolingPath = Join-Path $TargetPath "tooling"
 $bootstrapPath = Join-Path $toolingPath $BOOTSTRAP_SCRIPT_PATH

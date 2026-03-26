@@ -1,0 +1,198 @@
+{
+  "version": 2,
+  "metadata": {
+    "last_updated": "2025-12-07",
+    "schema_version": "2.0",
+    "maintainer": "SPECTRA Infrastructure Team",
+    "description": "Canonical tooling manifest - single source of truth for all SPECTRA platforms and services"
+  },
+  
+  "python": {
+    "version": "3.11",
+    "packages": [
+      "ms-fabric-cli",
+      "ipykernel",
+      "ruff",
+      "openai",
+      "tomli",
+      "pytest",
+      "pytest-cov",
+      "pytest-asyncio"
+    ],
+    "editable": [
+      "cli"
+    ]
+  },
+  
+  "npm": {
+    "global": [
+      "@railway/cli@4.11.2",
+      "@pnp/cli-microsoft365@11.1.0"
+    ]
+  },
+  
+  "vscode": {
+    "extensions": [
+      "ms-vscode-remote.remote-containers",
+      "github.copilot",
+      "github.copilot-chat",
+      "ms-vscode.powershell",
+      "ms-python.python",
+      "ms-python.vscode-pylance",
+      "charliermarsh.ruff",
+      "ms-toolsai.jupyter",
+      "bierner.markdown-preview-github-styles",
+      "yzhang.markdown-all-in-one"
+    ]
+  },
+  
+  "tools": {
+    "git": {
+      "required": true,
+      "install": {
+        "windows": { "winget_id": "Git.Git" },
+        "macos": { "homebrew": "git" },
+        "linux": { "apt": "git" }
+      },
+      "verify": "git --version"
+    },
+    "github_cli": {
+      "required": true,
+      "install": {
+        "windows": { "winget_id": "GitHub.cli" },
+        "macos": { "homebrew": "gh" },
+        "linux": { "apt": "gh" }
+      },
+      "verify": "gh --version",
+      "auth_scopes": ["repo", "read:org", "workflow"]
+    },
+    "python": {
+      "version": "3.11",
+      "required": true,
+      "install": {
+        "windows": { "winget_id": "Python.Python.3.11" },
+        "macos": { "homebrew": "python@3.11" },
+        "linux": { "apt": "python3.11" }
+      },
+      "verify": "python --version",
+      "install_path": {
+        "windows": "${env:LOCALAPPDATA}/Programs/Python/Python311"
+      }
+    },
+    "azure_cli": {
+      "required": true,
+      "install": {
+        "windows": { "winget_id": "Microsoft.AzureCLI" },
+        "macos": { "homebrew": "azure-cli" },
+        "linux": { "script": "https://aka.ms/InstallAzureCLIDeb" }
+      },
+      "verify": "az --version"
+    },
+    "nodejs": {
+      "required": false,
+      "version": "lts",
+      "install": {
+        "windows": { "winget_id": "OpenJS.NodeJS.LTS" },
+        "macos": { "homebrew": "node" },
+        "linux": { "nodesource": "lts" }
+      },
+      "verify": "node --version"
+    },
+    "powershell": {
+      "required": true,
+      "install": {
+        "windows": { "winget_id": "Microsoft.PowerShell" },
+        "macos": { "homebrew": "powershell" },
+        "linux": { "apt": "powershell" }
+      },
+      "verify": "pwsh --version"
+    },
+    "terraform": {
+      "required": false,
+      "install": {
+        "windows": { "winget_id": "Hashicorp.Terraform" },
+        "macos": { "homebrew": "terraform" },
+        "linux": { "apt": "terraform" }
+      },
+      "verify": "terraform --version"
+    },
+    "docker": {
+      "required": false,
+      "install": {
+        "windows": { "winget_id": "Docker.DockerDesktop" },
+        "macos": { "homebrew": "docker" },
+        "linux": { "apt": "docker-ce" }
+      },
+      "verify": "docker --version"
+    },
+    "kubectl": {
+      "required": false,
+      "version": "1.29.6",
+      "install": {
+        "windows": { "download": "https://dl.k8s.io/release/v1.29.6/bin/windows/amd64/kubectl.exe" },
+        "macos": { "homebrew": "kubectl" },
+        "linux": { "download": "https://dl.k8s.io/release/v1.29.6/bin/linux/amd64/kubectl" }
+      },
+      "verify": "kubectl version --client"
+    },
+    "helm": {
+      "required": false,
+      "install": {
+        "windows": { "script": "https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3" },
+        "macos": { "homebrew": "helm" },
+        "linux": { "script": "https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3" }
+      },
+      "verify": "helm version"
+    },
+    "go": {
+      "required": false,
+      "version": "1.23.2",
+      "install": {
+        "windows": { "download": "https://go.dev/dl/go1.23.2.windows-amd64.msi" },
+        "macos": { "homebrew": "go" },
+        "linux": { "download": "https://go.dev/dl/go1.23.2.linux-amd64.tar.gz" }
+      },
+      "verify": "go version"
+    },
+    "rust": {
+      "required": false,
+      "install": {
+        "windows": { "script": "https://rustup.rs/rustup-init.exe" },
+        "macos": { "homebrew": "rust" },
+        "linux": { "script": "https://sh.rustup.rs" }
+      },
+      "verify": "rustc --version"
+    },
+    "dotnet": {
+      "required": false,
+      "version": "8.0",
+      "install": {
+        "windows": { "winget_id": "Microsoft.DotNet.SDK.8" },
+        "macos": { "homebrew": "dotnet" },
+        "linux": { "apt": "dotnet-sdk-8.0" }
+      },
+      "verify": "dotnet --version"
+    }
+  },
+  
+  "env": {
+    "required": [
+      "SPECTRA_FABRIC_CLIENT_ID",
+      "SPECTRA_FABRIC_CLIENT_SECRET",
+      "SPECTRA_FABRIC_TENANT_ID",
+      "SPECTRA_FABRIC_CAPACITY_ID",
+      "SPECTRA_GITHUB_APP_ID",
+      "SPECTRA_GITHUB_APP_INSTALLATION_ID_CORE",
+      "SPECTRA_GITHUB_APP_PRIVATE_KEY_PATH"
+    ],
+    "optional": [
+      "SPECTRA_DATA_ROOT"
+    ]
+  },
+  
+  "shellProfiles": {
+    "pwsh": "# Load local .env if present\nif (Test-Path \"$PSScriptRoot/../../.env\") {\n  foreach ($line in Get-Content \"$PSScriptRoot/../../.env\") {\n    if ($line -match '^\\s*#' -or $line -notmatch '=') { continue }\n    $parts = $line -split '=', 2\n    if (-not $env:$($parts[0])) { $env:$($parts[0]) = $parts[1] }\n  }\n}\n",
+    "bash": "if [ -f \"$(dirname \"${BASH_SOURCE[0]}\")/../../.env\" ]; then\n  set -o allexport\n  source \"$(dirname \"${BASH_SOURCE[0]}\")/../../.env\"\n  set +o allexport\nfi\n"
+  }
+}
+

@@ -1,8 +1,11 @@
 # -----------------------------------------------------------------------------
 # Verify SPECTRA / Nexus dev bootstrap on Windows (Cloud PC or physical).
-# Shipped with public tooling: after Invoke-SpectraBootstrap this file is at
-#   %USERPROFILE%\Repos\tooling\pc-build-toolkit\05-Scripts\Verify-SpectraDevBootstrap.ps1
+# Shipped with public tooling: after Invoke-SpectraBootstrap this file is typically at
+#   {OneDrive}\tooling\pc-build-toolkit\05-Scripts\Verify-SpectraDevBootstrap.ps1
+#   (or %USERPROFILE%\tooling\... if OneDrive env vars are not set)
 # Aligns with 04-install-post-wipe-apps.ps1 and Invoke-SpectraBootstrap.ps1.
+# ADO mirror (same file; use when GitHub raw is outdated): SE-First operations
+#   playbooks\pc-setup\scripts\Verify-SpectraDevBootstrap.ps1
 #
 # Why optional ADO sync is not in Invoke-SpectraBootstrap:
 #   The one-liner only clones public GitHub tooling (no secrets). SE-First
@@ -11,7 +14,7 @@
 # Usage (PowerShell 5.1 or 7+):
 #   .\Verify-SpectraDevBootstrap.ps1
 #   .\Verify-SpectraDevBootstrap.ps1 -Strict
-#   .\Verify-SpectraDevBootstrap.ps1 -ToolingRoot "D:\Repos"
+#   .\Verify-SpectraDevBootstrap.ps1 -ToolingRoot "D:\dev"
 #   .\Verify-SpectraDevBootstrap.ps1 -PullTooling
 #   .\Verify-SpectraDevBootstrap.ps1 -PullOperations -OperationsRepoPath "C:\work\SE-First\operations"
 #   # or: $env:SPECTRA_OPERATIONS_REPO = "C:\...\operations"; .\Verify-SpectraDevBootstrap.ps1 -PullOperations
@@ -89,7 +92,13 @@ $coreCommands = @(
 )
 
 if ([string]::IsNullOrWhiteSpace($ToolingRoot)) {
-    $ToolingRoot = Join-Path $env:USERPROFILE "Repos"
+    $oneDrive = $null
+    foreach ($key in @('OneDriveCommercial', 'OneDrive', 'OneDriveConsumer')) {
+        $p = [Environment]::GetEnvironmentVariable($key, 'User')
+        if (-not [string]::IsNullOrWhiteSpace($p) -and (Test-Path -LiteralPath $p)) { $oneDrive = $p; break }
+    }
+    if ($oneDrive) { $ToolingRoot = $oneDrive }
+    else { $ToolingRoot = $env:USERPROFILE }
 }
 $toolingClone = Join-Path $ToolingRoot "tooling"
 $bootstrapScript = Join-Path $toolingClone "pc-build-toolkit\05-Scripts\05-bootstrap-dev-setup.ps1"
@@ -171,7 +180,7 @@ if (-not [string]::IsNullOrWhiteSpace($opsRoot) -and (Test-Path $opsRoot)) {
     }
     $launcher = Join-Path $opsRoot "playbooks\pc-setup\scripts\Verify-SpectraDevBootstrap.ps1"
     if (Test-Path $launcher) {
-        Write-Host "  [OK]   ADO playbook launcher: playbooks\pc-setup\scripts\ (delegates to tooling or raw)" -ForegroundColor Green
+        Write-Host "  [OK]   Operations verify script: playbooks\pc-setup\scripts\Verify-SpectraDevBootstrap.ps1" -ForegroundColor Green
     }
     Write-Host ""
 }
@@ -249,13 +258,13 @@ if (Test-Path $canonicalVerifySelf) {
 }
 
 Write-Host ""
-Write-Host "--- winget packages (04-install-post-wipe-apps.ps1 list) ---" -ForegroundColor Yellow
+Write-Host '--- winget packages (04-install-post-wipe-apps.ps1 list) ---' -ForegroundColor Yellow
 $missingWinget = @()
 foreach ($p in $expectedWinget) {
     if (Test-WingetId -Id $p.Id) {
         Write-Host "  [OK]   $($p.Name) ($($p.Id))" -ForegroundColor Green
     } elseif ($p.Required) {
-        Write-Host "  [FAIL] $($p.Name) ($($p.Id)) — required" -ForegroundColor Red
+        Write-Host ("  [FAIL] {0} ({1}) - required" -f $p.Name, $p.Id) -ForegroundColor Red
         if (@('GitHub.cli', 'Docker.DockerDesktop', 'Microsoft.AzureCLI') -contains $p.Id) {
             Write-Host "         Per-user winget usually has no installer. Administrator PowerShell:" -ForegroundColor Gray
             Write-Host "         winget install -e --id $($p.Id) --scope machine --accept-source-agreements --accept-package-agreements" -ForegroundColor Gray
@@ -286,7 +295,7 @@ if ($azForExt) {
 }
 
 Write-Host ""
-Write-Host "--- Python pip tools (05-bootstrap step 3) ---" -ForegroundColor Yellow
+Write-Host '--- Python pip tools (05-bootstrap step 3) ---' -ForegroundColor Yellow
 $pyOk = $false
 foreach ($name in @("python", "py")) {
     if (Get-Command $name -ErrorAction SilentlyContinue) { $pyOk = $true; break }
@@ -294,7 +303,8 @@ foreach ($name in @("python", "py")) {
 if ($pyOk) {
     $pipList = & python -m pip list --format=columns 2>$null | Out-String
     foreach ($pkg in @("ruff", "pyright", "pytest", "uv", "azure-identity")) {
-        if ($pipList -match "(?m)^$pkg\s") {
+        $pipPat = '(?m)^' + [regex]::Escape($pkg) + '\s'
+        if ($pipList -match $pipPat) {
             Write-Host "  [OK]   pip: $pkg" -ForegroundColor Green
         } else {
             Write-Host "  [WARN] pip missing: $pkg  -> pip install $pkg" -ForegroundColor Yellow
@@ -309,16 +319,18 @@ if ($pyOk) {
 Write-Host ""
 Write-Host "================================================================================" -ForegroundColor Cyan
 if ($Strict -and $missingWinget.Count -gt 0) {
-    Write-Host " RESULT: FAIL (Strict: $($missingWinget.Count) winget package(s) not reported installed)" -ForegroundColor Red
+    $strictMsg = ' RESULT: FAIL (Strict: {0} winget package(s) not reported installed)' -f $missingWinget.Count
+    Write-Host $strictMsg -ForegroundColor Red
     exit 1
 }
 if ($fail -gt 0) {
-    Write-Host " RESULT: FAIL ($fail check(s) failed)" -ForegroundColor Red
+    $failMsg = ' RESULT: FAIL ({0} check(s) failed)' -f $fail
+    Write-Host $failMsg -ForegroundColor Red
     exit 1
 }
 if ($warn -gt 0 -or $missingWinget.Count -gt 0) {
-    Write-Host " RESULT: PASS with warnings (core OK; install optional items or open a new terminal)" -ForegroundColor Yellow
+    Write-Host ' RESULT: PASS with warnings (core OK; install optional items or open a new terminal)' -ForegroundColor Yellow
     exit 0
 }
-Write-Host " RESULT: PASS" -ForegroundColor Green
+Write-Host ' RESULT: PASS' -ForegroundColor Green
 exit 0

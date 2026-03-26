@@ -48,7 +48,7 @@ Bootstrap defaults to **per-user winget** (`--scope user`) to avoid UAC where po
 | Step | Action |
 |------|--------|
 | 1 | Checks Git → installs via winget if missing |
-| 2 | Clones **tooling** to `%USERPROFILE%\Repos\tooling` (public, no auth) |
+| 2 | Clones **tooling** to **`{OneDrive}\tooling`** (uses **`OneDriveCommercial`**, then **`OneDrive`**, then profile if unset — not under `%USERPROFILE%\Repos`) |
 | 3 | Runs **05-bootstrap-dev-setup.ps1** — winget apps, Azure DevOps CLI extension, pip tools |
 | 4 | Done — Cursor, Python 3.12, Azure CLI, Docker, Node, and more are installed |
 
@@ -58,20 +58,20 @@ Bootstrap defaults to **per-user winget** (`--scope user`) to avoid UAC where po
 
 The bootstrap clone includes the checker at:
 
-`%USERPROFILE%\Repos\tooling\pc-build-toolkit\05-Scripts\Verify-SpectraDevBootstrap.ps1`
+`{OneDrive}\tooling\pc-build-toolkit\05-Scripts\Verify-SpectraDevBootstrap.ps1` (same rule as step 2 for which folder is `{OneDrive}`).
 
 Open a **new** PowerShell window (PATH refresh), then:
 
 ```powershell
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
-& "$env:USERPROFILE\Repos\tooling\pc-build-toolkit\05-Scripts\Verify-SpectraDevBootstrap.ps1"
+$t = if ($env:OneDriveCommercial) { $env:OneDriveCommercial } elseif ($env:OneDrive) { $env:OneDrive } else { $env:USERPROFILE }; & "$t\tooling\pc-build-toolkit\05-Scripts\Verify-SpectraDevBootstrap.ps1"
 ```
 
 Optional: `-Strict`, `-PullTooling`, or after you clone operations `-PullOperations -OperationsRepoPath "...\SE-First\operations"`.
 
 ### Verify without a local clone (download from GitHub raw)
 
-Use this when the script is **not** under `%USERPROFILE%\Repos\tooling\...` yet (bootstrap not run, or clone is old). **Requires** the file to exist on **`main`** in [SPECTRACoreSolutions/tooling](https://github.com/SPECTRACoreSolutions/tooling) — if `Invoke-WebRequest` returns **404**, push `pc-build-toolkit` from the SPECTRA workspace to that repo, then retry.
+Use this when the script is **not** under `{OneDrive}\tooling\...` yet (bootstrap not run, or clone is old). **Requires** the file to exist on **`main`** in [SPECTRACoreSolutions/tooling](https://github.com/SPECTRACoreSolutions/tooling) — if `Invoke-WebRequest` returns **404**, push `pc-build-toolkit` from the SPECTRA workspace to that repo, then retry.
 
 ```powershell
 $verifyUrl = "https://raw.githubusercontent.com/SPECTRACoreSolutions/tooling/main/pc-build-toolkit/05-Scripts/Verify-SpectraDevBootstrap.ps1"
@@ -80,7 +80,7 @@ Invoke-WebRequest -Uri $verifyUrl -UseBasicParsing -OutFile $verifyFile
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 & $verifyFile
 # Optional: & $verifyFile -Strict
-# Optional: & $verifyFile -PullTooling -ToolingRoot "$env:USERPROFILE\Repos"
+# Optional: & $verifyFile -PullTooling -ToolingRoot (if ($env:OneDriveCommercial) { $env:OneDriveCommercial } elseif ($env:OneDrive) { $env:OneDrive } else { $env:USERPROFILE })
 ```
 
 Shorter (same effect):
@@ -103,7 +103,7 @@ Do these in order:
 |---|--------|
 | 1 | **Restart** if Cursor or Docker asked you to |
 | 2 | **Open Azure DevOps in the browser** — [https://dev.azure.com/SEFirst](https://dev.azure.com/SEFirst) → sign in → open project **Digital Transformation** → confirm **Repos** (and create a **PAT** under User settings if you have not yet — **Code (Read)** minimum; **Packaging (Read)** for **spectra-sdk** from Artifacts). |
-| 3 | **Clone SE-First** — Four repos from ADO (Digital Transformation, docs, fusion, operations) |
+| 3 | **Clone SE-First** — Clone every ADO repo you use under one parent folder (typically Digital Transformation, docs, fusion, operations, portal; add others as needed). Parent has **no** `.git`. See `SE-First/docs/content/ado/se-first-workspace-git.md`. |
 | 4 | **Restore `.env`** — Copy from Key Vault or another machine → place at **SE-First root** |
 | 5 | **Install spectra-sdk** — Run (requires PAT in `.env`): |
 |   | `pip install spectra-sdk --extra-index-url "https://pkgs.dev.azure.com/SEFirst/Digital%20Transformation/_packaging/spectra-sdk/pypi/simple/"` |
@@ -130,7 +130,8 @@ winget install -e --id Docker.DockerDesktop --scope machine --accept-source-agre
 Or re-run the full app script for everything with machine scope:
 
 ```powershell
-cd $env:USERPROFILE\Repos\tooling\pc-build-toolkit\05-Scripts
+$t = if ($env:OneDriveCommercial) { $env:OneDriveCommercial } elseif ($env:OneDrive) { $env:OneDrive } else { $env:USERPROFILE }
+cd "$t\tooling\pc-build-toolkit\05-Scripts"
 .\04-install-post-wipe-apps.ps1 -InstallScope Machine
 ```
 
@@ -176,7 +177,7 @@ cd path\to\tooling\pc-build-toolkit
 | `-CloudPC` | Optional legacy flag (no longer required; bootstrap does not prompt for OEM drivers) |
 | `-MachineWinget` | winget `--scope machine` (all users; needs elevation). Default is **per-user** (`--scope user`) to avoid UAC on Cloud PCs |
 | `-WhatIf` | Dry run — show what would happen |
-| `-TargetPath` | Where to clone tooling (default: `%USERPROFILE%\Repos`) |
+| `-TargetPath` | Where to clone tooling (default: work/school **OneDrive** root, else personal OneDrive, else `%USERPROFILE%`) |
 
 ---
 

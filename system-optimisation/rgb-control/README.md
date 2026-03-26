@@ -63,29 +63,29 @@ pip install openrgb-python psutil
 
 ```powershell
 # Show help
-python rgb-control.py help
+python rgb_control.py help
 
 # Set work mode
-python rgb-control.py work
+python rgb_control.py work
 
 # Gaming rainbow
-python rgb-control.py gaming
+python rgb_control.py gaming
 
 # Breathing effect
-python rgb-control.py breathe
+python rgb_control.py breathe
 
 # Flash notification
-python rgb-control.py flash
+python rgb_control.py flash
 
 # List all devices
-python rgb-control.py list
+python rgb_control.py list
 ```
 
 ### **CPU Temperature Monitor:**
 
 ```powershell
 # Start temperature-reactive RGB
-python cpu-temp-rgb.py
+python cpu_temp_rgb.py
 
 # RGB changes colour based on CPU temp:
 # Blue (cool) → Cyan → Green → Yellow → Orange → Red (critical!)
@@ -131,7 +131,7 @@ python cpu-temp-rgb.py
 
 ### **Create Custom Profiles:**
 
-Edit `rgb-control.py` and add your own colours:
+Edit `rgb_control.py` and add your own colours:
 
 ```python
 def custom_mode(self):
@@ -182,7 +182,7 @@ Create Windows Task Scheduler tasks:
 **Run it:**
 
 ```powershell
-python cpu-temp-rgb.py
+python cpu_temp_rgb.py
 ```
 
 **Use case:** Gaming sessions, stress tests, overclocking
@@ -244,7 +244,7 @@ pip install openrgb-python
 **Run this to see your devices:**
 
 ```powershell
-python rgb-control.py list
+python rgb_control.py list
 ```
 
 **Should detect:**
@@ -263,8 +263,8 @@ python rgb-control.py list
 
 ### **Immediate:**
 
-1. ✅ Test profiles: `python rgb-control.py work`
-2. ✅ Try temperature monitor: `python cpu-temp-rgb.py`
+1. ✅ Test profiles: `python rgb_control.py work`
+2. ✅ Try temperature monitor: `python cpu_temp_rgb.py`
 3. ✅ Create hotkey shortcuts for quick changes
 
 ### **Near Future:**
@@ -314,8 +314,8 @@ _Part of the SPECTRA Home ecosystem_
 **Files:**
 
 - `quick-rgb.ps1` - Quick PowerShell profiles
-- `rgb-control.py` - Advanced Python control
-- `cpu-temp-rgb.py` - Temperature-reactive RGB
+- `rgb_control.py` - Advanced Python control
+- `cpu_temp_rgb.py` - Temperature-reactive RGB
 - `README.md` - This file
 
 **Future additions:**
@@ -334,10 +334,10 @@ _Part of the SPECTRA Home ecosystem_
 cd C:\Users\markm\OneDrive\SPECTRA\Core\tooling\system-optimisation\rgb-control
 
 # Quick test
-python rgb-control.py work
+python rgb_control.py work
 
 # Temperature monitor
-python cpu-temp-rgb.py
+python cpu_temp_rgb.py
 
 # Enjoy your automated RGB! 🎨
 ```
@@ -345,6 +345,12 @@ python cpu-temp-rgb.py
 ---
 
 **Questions? Check:** `Core/labs/queue/SPECTRA-HOME-ARCHITECTURE.md` for the full vision!
+
+
+
+
+
+
 
 
 

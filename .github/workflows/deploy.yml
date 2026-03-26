@@ -1,59 +1,50 @@
 name: Deploy to Railway
-
-on:
+true:
   push:
     branches:
-      - main
-  workflow_dispatch:
-
+    - main
+  workflow_dispatch: null
 env:
   RAILWAY_PROJECT: cosmos
   RAILWAY_ENVIRONMENT: production
   SERVICE_NAME: tooling
-
 jobs:
   deploy:
     name: Deploy tooling to Railway
     runs-on: ubuntu-latest
     environment: production
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Setup Node.js for Railway CLI
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+    - name: Install Railway CLI
+      run: npm install -g @railway/cli
+    - name: Verify Railway authentication
+      env:
+        RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      run: railway whoami || echo "✅ Using token-based auth"
+    - name: Deploy to Railway
+      env:
+        RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      run: 'echo "🚀 Deploying tooling to Railway..."
 
-      - name: Setup Node.js for Railway CLI
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
+        railway up --detach --ci
 
-      - name: Install Railway CLI
-        run: npm install -g @railway/cli
+        echo "✅ Deployment triggered"
 
-      - name: Verify Railway authentication
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: railway whoami || echo "✅ Using token-based auth"
-
-      - name: Deploy to Railway
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: |
-          echo "🚀 Deploying tooling to Railway..."
-          railway up --detach --ci
-          echo "✅ Deployment triggered"
-
-      - name: Wait for deployment
-        run: sleep 30
-
-      - name: Health check
-        run: |
-          URL=$(railway domain 2>/dev/null || echo "")
-          if [ -z "$URL" ]; then exit 0; fi
-          for i in $(seq 1 10); do
-            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "https://$URL/health" || echo "000")
-            if [ "$HTTP_CODE" = "200" ] || [ "$HTTP_CODE" = "204" ]; then
-              echo "✅ Health check passed"
-              exit 0
-            fi
-            sleep 30
-          done
-          exit 1
+        '
+    - name: Wait for deployment
+      run: sleep 30
+    - name: Health check
+      run: "URL=$(railway domain 2>/dev/null || echo \"\")\nif [ -z \"$URL\" ]; then\
+        \ exit 0; fi\nfor i in $(seq 1 10); do\n  HTTP_CODE=$(curl -s -o /dev/null\
+        \ -w \"%{http_code}\" \"https://$URL/health\" || echo \"000\")\n  if [ \"\
+        $HTTP_CODE\" = \"200\" ] || [ \"$HTTP_CODE\" = \"204\" ]; then\n    echo \"\
+        ✅ Health check passed\"\n    exit 0\n  fi\n  sleep 30\ndone\nexit 1\n"
+permissions:
+  contents: read
+  pull-requests: read
+  actions: read

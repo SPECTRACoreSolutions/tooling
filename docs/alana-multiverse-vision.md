@@ -393,7 +393,7 @@ Core/infrastructure/
 │   ├── Dockerfile               # Parameterized
 │   ├── files/
 │   │   ├── start.sh             # Dynamic configuration
-│   │   └── persona-engine.py    # Persona customization
+│   │   └── persona_engine.py    # Persona customization
 │   ├── personas/                # NEW: Persona definitions
 │   │   ├── alana.json
 │   │   ├── yoda.json
@@ -459,7 +459,7 @@ def provision_cosmos(customer_id, config):
 ```bash
 # Inside container start.sh
 PERSONA_CONFIG="/opt/spectra-cosmos/personas/${COSMOS_PERSONA_NAME}.json"
-python3 /usr/local/bin/persona-engine.py apply $PERSONA_CONFIG
+python3 /usr/local/bin/persona_engine.py apply $PERSONA_CONFIG
 ```
 
 ### 4. Customer connects

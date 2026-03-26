@@ -1,0 +1,8 @@
+{
+  "hue_bridge_ip": "",
+  "hue_username": "",
+  "nanoleaf_ip": "",
+  "nanoleaf_token": "",
+  "openrgb_host": "127.0.0.1",
+  "openrgb_port": 6742
+}

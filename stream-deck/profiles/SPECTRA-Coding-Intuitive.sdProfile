@@ -1,0 +1,320 @@
+{
+  "Name": "SPECTRA Coding (Intuitive)",
+  "Author": "Mark Maconnachie",
+  "Description": "Most intuitive coding buttons based on real developer usage",
+  "Version": "3.0.0",
+  "Actions": [
+    {
+      "Name": "Toggle Terminal",
+      "UUID": "com.elgato.streamdeck.system.hotkey",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Terminal",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "Hotkey": {
+          "Keys": [
+            "ctrl",
+            "`"
+          ]
+        }
+      }
+    },
+    {
+      "Name": "Command Palette",
+      "UUID": "com.elgato.streamdeck.system.hotkey",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Command\nPalette",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "Hotkey": {
+          "Keys": [
+            "ctrl",
+            "shift",
+            "p"
+          ]
+        }
+      }
+    },
+    {
+      "Name": "Quick File Open",
+      "UUID": "com.elgato.streamdeck.system.hotkey",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Quick\nOpen",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "Hotkey": {
+          "Keys": [
+            "ctrl",
+            "p"
+          ]
+        }
+      }
+    },
+    {
+      "Name": "Go to Definition",
+      "UUID": "com.elgato.streamdeck.system.hotkey",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Go to\nDefinition",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "Hotkey": {
+          "Keys": [
+            "f12"
+          ]
+        }
+      }
+    },
+    {
+      "Name": "Find All References",
+      "UUID": "com.elgato.streamdeck.system.hotkey",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Find\nReferences",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "Hotkey": {
+          "Keys": [
+            "shift",
+            "f12"
+          ]
+        }
+      }
+    },
+    {
+      "Name": "Comment Toggle",
+      "UUID": "com.elgato.streamdeck.system.hotkey",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Comment",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "Hotkey": {
+          "Keys": [
+            "ctrl",
+            "/"
+          ]
+        }
+      }
+    },
+    {
+      "Name": "Format Code",
+      "UUID": "com.elgato.streamdeck.system.hotkey",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Format",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "Hotkey": {
+          "Keys": [
+            "shift",
+            "alt",
+            "f"
+          ]
+        }
+      }
+    },
+    {
+      "Name": "Split Editor",
+      "UUID": "com.elgato.streamdeck.system.hotkey",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Split",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "Hotkey": {
+          "Keys": [
+            "ctrl",
+            "\\"
+          ]
+        }
+      }
+    },
+    {
+      "Name": "Toggle Breakpoint",
+      "UUID": "com.elgato.streamdeck.system.hotkey",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Breakpoint",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "Hotkey": {
+          "Keys": [
+            "f9"
+          ]
+        }
+      }
+    },
+    {
+      "Name": "Start Debugging",
+      "UUID": "com.elgato.streamdeck.system.hotkey",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Debug",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "Hotkey": {
+          "Keys": [
+            "f5"
+          ]
+        }
+      }
+    },
+    {
+      "Name": "Git Status",
+      "UUID": "com.elgato.streamdeck.system.hotkey",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Git\nStatus",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "Hotkey": {
+          "Keys": [
+            "ctrl",
+            "shift",
+            "g"
+          ]
+        }
+      }
+    },
+    {
+      "Name": "Git Commit",
+      "UUID": "com.elgato.streamdeck.system.text",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Commit",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "Text": "git commit -m \"",
+        "PressEnter": false
+      }
+    },
+    {
+      "Name": "Git Push",
+      "UUID": "com.elgato.streamdeck.system.text",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Push",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "Text": "git push",
+        "PressEnter": true
+      }
+    },
+    {
+      "Name": "Run Tests",
+      "UUID": "com.elgato.streamdeck.system.text",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Test",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "Text": "pytest",
+        "PressEnter": true
+      }
+    },
+    {
+      "Name": "Search in Files",
+      "UUID": "com.elgato.streamdeck.system.hotkey",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Search",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "Hotkey": {
+          "Keys": [
+            "ctrl",
+            "shift",
+            "f"
+          ]
+        }
+      }
+    }
+  ],
+  "Software": {
+    "MinimumVersion": "6.0.0"
+  }
+}
+
+
+
+
+

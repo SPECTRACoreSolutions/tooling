@@ -92,7 +92,13 @@ switch ($Mode) {
 
 Write-Host "💡 Note: Full OpenRGB control requires Python SDK integration." -ForegroundColor Yellow
 Write-Host "   Run: pip install openrgb-python" -ForegroundColor White
-Write-Host "   Then use: .\rgb-control.py for full control!`n" -ForegroundColor White
+Write-Host "   Then use: .\rgb_control.py for full control!`n" -ForegroundColor White
+
+
+
+
+
+
 
 
 

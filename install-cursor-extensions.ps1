@@ -2,7 +2,7 @@
 # Fixed: Uses 'cursor' command, not 'code' command
 
 param(
-    [Parameter(Mandatory=$false)]
+    [Parameter(Mandatory = $false)]
     [ValidateSet('essential', 'recommended', 'data', 'all')]
     [string]$Profile = 'essential'
 )
@@ -29,16 +29,17 @@ if (-not $cursorCmd) {
     
     # Show list to install manually
     Write-Host "Essential Extensions to Install Manually:" -ForegroundColor Cyan
-    Write-Host "  1. Thunder Client          (rangav.vscode-thunder-client)" -ForegroundColor White
-    Write-Host "  2. Rainbow CSV             (mechatroner.rainbow-csv)" -ForegroundColor White
-    Write-Host "  3. DotENV                  (mikestead.dotenv)" -ForegroundColor White
-    Write-Host "  4. GitLens                 (eamodio.gitlens)" -ForegroundColor White
-    Write-Host "  5. YAML                    (redhat.vscode-yaml)" -ForegroundColor White
-    Write-Host "  6. Python                  (ms-python.python)" -ForegroundColor White
-    Write-Host "  7. Pylance                 (ms-python.vscode-pylance)" -ForegroundColor White
-    Write-Host "  8. Black Formatter         (ms-python.black-formatter)" -ForegroundColor White
-    Write-Host "  9. Markdown All in One     (yzhang.markdown-all-in-one)" -ForegroundColor White
-    Write-Host " 10. Docker                  (ms-azuretools.vscode-docker)`n" -ForegroundColor White
+    Write-Host "  1. SpecStory               (SpecStory.specstory-vscode) - REQUIRED" -ForegroundColor White
+    Write-Host "  2. Thunder Client          (rangav.vscode-thunder-client)" -ForegroundColor White
+    Write-Host "  3. Rainbow CSV             (mechatroner.rainbow-csv)" -ForegroundColor White
+    Write-Host "  4. DotENV                  (mikestead.dotenv)" -ForegroundColor White
+    Write-Host "  5. GitLens                 (eamodio.gitlens)" -ForegroundColor White
+    Write-Host "  6. YAML                    (redhat.vscode-yaml)" -ForegroundColor White
+    Write-Host "  7. Python                  (ms-python.python)" -ForegroundColor White
+    Write-Host "  8. Pylance                 (ms-python.vscode-pylance)" -ForegroundColor White
+    Write-Host "  9. Black Formatter         (ms-python.black-formatter)" -ForegroundColor White
+    Write-Host " 10. Markdown All in One     (yzhang.markdown-all-in-one)" -ForegroundColor White
+    Write-Host " 11. Docker                  (ms-azuretools.vscode-docker)`n" -ForegroundColor White
     
     exit 1
 }
@@ -49,7 +50,8 @@ Write-Host "Quality: Only extensions with >500k downloads or major backing`n" -F
 
 # Extension definitions
 $extensions = @{
-    essential = @(
+    essential   = @(
+        @{ id = "SpecStory.specstory-vscode"; name = "SpecStory"; downloads = "16k+"; why = "Required: Chat history preservation (moves with codebase)" },
         @{ id = "rangav.vscode-thunder-client"; name = "Thunder Client"; downloads = "3M+"; why = "API testing with .env" },
         @{ id = "mechatroner.rainbow-csv"; name = "Rainbow CSV"; downloads = "2M+"; why = "Beautiful CSV viewing" },
         @{ id = "mikestead.dotenv"; name = "DotENV"; downloads = "4M+"; why = ".env syntax highlighting" },
@@ -75,7 +77,7 @@ $extensions = @{
         @{ id = "usernamehw.errorlens"; name = "Error Lens"; downloads = "3M+"; why = "Inline errors" }
     )
     
-    data = @(
+    data        = @(
         @{ id = "ms-toolsai.jupyter"; name = "Jupyter"; downloads = "20M+"; why = "Notebooks" },
         @{ id = "ms-toolsai.jupyter-renderers"; name = "Jupyter Renderers"; downloads = "3M+"; why = "Plot rendering" },
         @{ id = "ms-toolsai.datawrangler"; name = "Data Wrangler"; downloads = "500k+"; why = "Pandas UI" },
@@ -91,8 +93,9 @@ $extensions = @{
 # Combine profiles if 'all' selected
 if ($Profile -eq 'all') {
     $toInstall = ($extensions['essential'] + $extensions['recommended'] + $extensions['data']) | 
-        Sort-Object -Property id -Unique
-} else {
+    Sort-Object -Property id -Unique
+}
+else {
     $toInstall = $extensions[$Profile]
 }
 
@@ -156,10 +159,10 @@ Write-Host "  3. Try Rainbow CSV: Open any .csv file in Data/" -ForegroundColor 
 Write-Host "  4. Check installed: Ctrl+Shift+X → Extensions panel" -ForegroundColor White
 
 Write-Host "`nProfiles available:" -ForegroundColor Cyan
-Write-Host "  .\install-cursor-extensions.ps1 -Profile essential    (10 extensions)" -ForegroundColor Gray
-Write-Host "  .\install-cursor-extensions.ps1 -Profile recommended  (10 more)" -ForegroundColor Gray
-Write-Host "  .\install-cursor-extensions.ps1 -Profile data         (9 data tools)" -ForegroundColor Gray
-Write-Host "  .\install-cursor-extensions.ps1 -Profile all          (All above)" -ForegroundColor Gray
+Write-Host '  .\install-cursor-extensions.ps1 -Profile essential    (11 extensions)' -ForegroundColor Gray
+Write-Host '  .\install-cursor-extensions.ps1 -Profile recommended  (10 more)' -ForegroundColor Gray
+Write-Host '  .\install-cursor-extensions.ps1 -Profile data         (9 data tools)' -ForegroundColor Gray
+Write-Host '  .\install-cursor-extensions.ps1 -Profile all          (All above)' -ForegroundColor Gray
 
 Write-Host "`nFor full list, see: Core/tooling/cursor-extensions-curated.md`n" -ForegroundColor Cyan
 

@@ -1,0 +1,13 @@
+{
+  "name": "portals-streamdeck-profile",
+  "version": "1.0.0",
+  "description": "Generate Portals .streamDeckProfile for Elgato Stream Deck (Fabric, ADO, Azure, Entra, Intune, Power Platform)",
+  "main": "generate.js",
+  "scripts": {
+    "generate": "node generate.js"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1",
+    "sharp": "^0.34.5"
+  }
+}

@@ -108,7 +108,7 @@ switch ($Mode) {
 ### **Option B: Python SDK (Current Method)**
 
 ```python
-# rgb-control.py (what we built)
+# rgb_control.py (what we built)
 
 from openrgb import OpenRGBClient
 client = OpenRGBClient()
@@ -224,6 +224,12 @@ $openrgb = (Get-Process -Name "OpenRGB" -ErrorAction SilentlyContinue).Path
 ---
 
 **Want me to create CLI-based alternatives to the Python scripts?** Or stick with SDK since it's more powerful? 🎨
+
+
+
+
+
+
 
 
 

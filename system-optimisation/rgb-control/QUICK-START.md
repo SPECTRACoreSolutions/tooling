@@ -12,9 +12,9 @@
 **Scripts:**
 
 - ✅ `quick-rgb.ps1` - PowerShell quick profiles
-- ✅ `rgb-control.py` - Advanced Python control
-- ✅ `cpu-temp-rgb.py` - Temperature-reactive RGB
-- ✅ `test-connection.py` - Connection tester
+- ✅ `rgb_control.py` - Advanced Python control
+- ✅ `cpu_temp_rgb.py` - Temperature-reactive RGB
+- ✅ `test_connection.py` - Connection tester
 - ✅ `README.md` - Full documentation
 
 ---
@@ -27,7 +27,7 @@
 cd C:\Users\markm\OneDrive\SPECTRA\Core\tooling\system-optimisation\rgb-control
 
 # Launch control center
-python control-center.py
+python control_center.py
 ```
 
 **Features:**
@@ -42,10 +42,10 @@ python control-center.py
 
 ```powershell
 # Instant colour changes
-python rgb-control.py work      # Blue
-python rgb-control.py gaming    # Rainbow
-python rgb-control.py relax     # Orange
-python rgb-control.py off       # Off
+python rgb_control.py work      # Blue
+python rgb_control.py gaming    # Rainbow
+python rgb_control.py relax     # Orange
+python rgb_control.py off       # Off
 ```
 
 **Perfect for:**
@@ -58,7 +58,7 @@ python rgb-control.py off       # Off
 
 ```powershell
 # Live CPU temperature reactive RGB
-python cpu-temp-rgb.py
+python cpu_temp_rgb.py
 ```
 
 **Changes colour automatically based on CPU temp!**
@@ -80,7 +80,7 @@ python cpu-temp-rgb.py
 ## 🌡️ **Temperature Monitor:**
 
 ```powershell
-python cpu-temp-rgb.py
+python cpu_temp_rgb.py
 ```
 
 **Automatically changes RGB based on CPU temperature:**

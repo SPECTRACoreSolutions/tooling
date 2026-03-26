@@ -1,90 +1,54 @@
 {
   "mcpServers": {
-    "Railway": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@railway/mcp-server"
-      ]
-    },
     "spectra-context": {
       "command": "python",
-      "args": [
-        "-m",
-        "spectra_context_mcp.server",
-        "--mode",
-        "stdio"
-      ],
-      "cwd": "C:\\Users\\markm\\OneDrive\\SPECTRA\\Core\\mcp-service",
+      "args": ["-m", "spectra_context_mcp.server", "--mode", "stdio"],
+      "cwd": "__SPECTRA_ROOT__\\Core\\mcp-service",
       "env": {
         "LOG_LEVEL": "INFO"
       }
     },
-    "cloudflare-dns": {
+    "Railway": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@cloudflare/mcp-server-dns-analytics"
-      ]
-    },
-    "ms365": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@softeria/ms-365-mcp-server"
-      ]
-    },
-    "github": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-github"
-      ],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": ""
-      }
-    },
-    "atlassian": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@atlassian/mcp-server"
-      ],
-      "env": {
-        "ATLASSIAN_API_TOKEN": "",
-        "ATLASSIAN_DOMAIN": ""
-      }
-    },
-    "azure": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@azure/mcp-server"
-      ]
+      "args": ["-y", "@railway/mcp-server"]
     },
     "filesystem": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-filesystem"
-      ],
+      "args": ["-y", "@modelcontextprotocol/server-filesystem"],
       "env": {
-        "ALLOWED_DIRECTORIES": "C:\\Users\\markm\\OneDrive\\SPECTRA"
+        "ALLOWED_DIRECTORIES": "__SPECTRA_ROOT__"
       }
     },
     "git": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-git"
-      ]
+      "args": ["-y", "@modelcontextprotocol/server-git"]
     },
-    "playwright": {
+    "github": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-playwright"
-      ]
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "__GITHUB_PERSONAL_ACCESS_TOKEN__"
+      }
+    },
+    "ms365": {
+      "command": "npx",
+      "args": ["-y", "@softeria/ms-365-mcp-server"]
+    },
+    "azure": {
+      "command": "npx",
+      "args": ["-y", "@azure/mcp-server"]
+    },
+    "atlassian": {
+      "command": "npx",
+      "args": ["-y", "@atlassian/mcp-server"],
+      "env": {
+        "ATLASSIAN_API_TOKEN": "__ATLASSIAN_API_TOKEN__",
+        "ATLASSIAN_DOMAIN": "__ATLASSIAN_DOMAIN__"
+      }
+    },
+    "cloudflare-dns": {
+      "command": "npx",
+      "args": ["-y", "@cloudflare/mcp-server-dns-analytics"]
     }
   }
 }

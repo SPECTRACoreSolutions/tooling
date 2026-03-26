@@ -1,0 +1,10 @@
+@.specstory/history/2026-01-08_00-57Z-untitled.md
+
+Please read this SpecStory file (AI chat history) and provide:
+
+1. A concise summary (2-3 sentences) of what was discussed
+2. The main topic/theme
+3. Any key decisions or conclusions reached
+4. A suggested title for this chat session (max 60 characters)
+
+The file is from 2026-01-08 and the first user message appears to be about Power Apps and Bridge service. Use this context but read the full file to provide an accurate summary.

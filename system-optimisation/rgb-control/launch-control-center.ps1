@@ -38,7 +38,13 @@ Write-Host "✅ OpenRGB is running!`n" -ForegroundColor Green
 Write-Host "🚀 Launching control center...`n" -ForegroundColor Cyan
 
 # Launch control center
-python control-center.py
+python control_center.py
+
+
+
+
+
+
 
 
 

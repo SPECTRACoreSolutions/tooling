@@ -65,7 +65,7 @@ spectra-lint <file_or_directory>
 **Detection logic:**
 ```python
 def detect_context(file_path):
-    if ".Notebook/notebook-content.py" in file_path:
+    if ".Notebook/notebook_content.py" in file_path:
         return "fabric"
     elif file_path.startswith("tests/") or file_path.endswith("_test.py"):
         return "test"
@@ -164,7 +164,7 @@ param(
 )
 
 # Detect file type
-if ($Path -like "*.Notebook/notebook-content.py") {
+if ($Path -like "*.Notebook/notebook_content.py") {
     Write-Host "🔍 Fabric notebook detected" -ForegroundColor Cyan
     ruff check $Path --select E,F --ignore E402,F821,F401
 } elseif ($Path -like "*test*.py") {
@@ -227,7 +227,7 @@ import json  # Import after metadata
 ### 3. **How to Detect Fabric Notebooks?**
 
 **Pattern:** `**/*.Notebook/*.py`
-- Fabric exports notebooks to `<name>.Notebook/notebook-content.py`
+- Fabric exports notebooks to `<name>.Notebook/notebook_content.py`
 - This is a reliable indicator
 - No false positives
 

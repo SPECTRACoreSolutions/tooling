@@ -20,7 +20,7 @@ $context = "general"
 $contextEmoji = "📄"
 $contextName = "General Python"
 
-if ($Path -like "*.Notebook/notebook-content.py" -or $Path -like "*.Notebook\notebook-content.py") {
+if ($Path -like "*.Notebook/notebook_content.py" -or $Path -like "*.Notebook\notebook_content.py") {
     $context = "fabric"
     $contextEmoji = "☁️"
     $contextName = "Fabric Notebook"

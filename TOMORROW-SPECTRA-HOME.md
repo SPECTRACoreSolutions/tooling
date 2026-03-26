@@ -353,3 +353,9 @@ New-NetFirewallRule -DisplayName "OpenRGB SDK" -Direction Inbound -Protocol TCP 
 
 
 
+
+
+
+
+
+

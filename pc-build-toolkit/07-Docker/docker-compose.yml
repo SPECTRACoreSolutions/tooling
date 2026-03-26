@@ -1,0 +1,32 @@
+# Nexus / Alana local dev stack
+# Run: docker compose up -d
+# Stop: docker compose down
+# See: SE-First docs/content/process/nexus-dev-setup-full-design.md §2.9
+
+services:
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite
+    container_name: nexus-azurite
+    ports:
+      - "10000:10000"   # Blob
+      - "10001:10001"   # Queue
+      - "10002:10002"   # Table
+    volumes:
+      - azurite-data:/data
+    command: "azurite --blobHost 0.0.0.0 --queueHost 0.0.0.0 --tableHost 0.0.0.0"
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: nexus-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+    profiles:
+      - full   # Optional: start with docker compose --profile full up -d
+
+volumes:
+  azurite-data:
+  redis-data:

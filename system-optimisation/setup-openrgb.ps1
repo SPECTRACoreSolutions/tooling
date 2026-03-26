@@ -82,3 +82,9 @@ Write-Host "Then tell me 'openrgb ready' and I'll create automation scripts! ðŸŽ
 
 
 
+
+
+
+
+
+

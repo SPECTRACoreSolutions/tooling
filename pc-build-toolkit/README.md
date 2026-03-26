@@ -17,6 +17,7 @@ This is a **complete PC building toolkit** designed to be deployed on a USB driv
 - ✅ Download checklists with direct links
 
 Originally created for Mark's Christmas 2025 build:
+
 - **FROM:** ASRock Z690 Taichi Razer Edition
 - **TO:** MSI MEG Z890 GODLIKE + Intel Core Ultra 9 285K + MSI MAG CoreLiquid i360
 
@@ -27,17 +28,20 @@ Originally created for Mark's Christmas 2025 build:
 This Git repository contains **ONLY** the toolkit structure and documentation (~80KB).
 
 **Included in Git:**
+
 - 📄 All `.txt`, `.md`, `.ps1` documentation and scripts
 - 📁 Folder structure (empty folders)
 - ✅ Immediately usable - no downloads needed for docs!
 
 **Excluded from Git (via .gitignore):**
+
 - ❌ Downloaded drivers (typically 5-20GB)
 - ❌ Utility software installers (500MB-2GB)
 - ❌ Windows installation media (5GB+)
 - ❌ User backups (variable size)
 
 **Why?** Large binary files don't belong in Git. The toolkit can be **recreated anytime** by:
+
 1. Copying this structure to a USB drive
 2. Following `DOWNLOAD-CHECKLIST.txt` to get current drivers/software
 
@@ -80,6 +84,7 @@ pc-build-toolkit/
 ├── START-HERE.txt              ← Read this first!
 ├── README.txt                  ← Quick reference
 ├── DOWNLOAD-CHECKLIST.txt      ← What to download & where
+├── POST-WIPE-INSTALL-EVERYTHING.md   ← After wipe: drivers then apps (Cursor, Figma, etc.)
 │
 ├── 01-Windows/                 ← Windows 11 installation media
 ├── 02-Drivers/                 ← Motherboard & GPU drivers
@@ -96,7 +101,8 @@ pc-build-toolkit/
 ├── 05-Scripts/                 ← PowerShell automation
 │   ├── 01-check-system-info.ps1
 │   ├── 02-check-windows-activation.ps1
-│   └── 03-quick-troubleshoot.ps1
+│   ├── 03-quick-troubleshoot.ps1
+│   └── 04-install-post-wipe-apps.ps1   ← Post-wipe: Cursor, Figma, Git, etc. (winget)
 ├── 06-Documentation/           ← Build guides
 │   ├── BUILD-GUIDE.txt         (complete step-by-step)
 │   └── TROUBLESHOOTING.txt     (common issues)
@@ -117,6 +123,7 @@ pc-build-toolkit/
 ### **What to Update:**
 
 #### **For New Builds:**
+
 1. Edit `DOWNLOAD-CHECKLIST.txt` - change motherboard/AIO links
 2. Edit `BUILD-GUIDE.txt` - update component names
 3. Edit `README.txt` - update build specs
@@ -124,11 +131,13 @@ pc-build-toolkit/
 5. Update `03-AIO-RGB/` for new cooler
 
 #### **For Driver Updates:**
+
 1. Download latest drivers per `DOWNLOAD-CHECKLIST.txt`
 2. Replace old drivers on USB
 3. Update checklist with new version numbers/dates
 
 #### **For Script Improvements:**
+
 1. Edit PowerShell scripts in `05-Scripts/`
 2. Test thoroughly before deploying
 3. Update documentation if behavior changes
@@ -138,16 +147,19 @@ pc-build-toolkit/
 ## 💾 Backup Strategy
 
 **This folder is in SPECTRA Core/tooling (Git-tracked):**
+
 ```
 C:\Users\markm\OneDrive\SPECTRA\Core\tooling\pc-build-toolkit/
 ```
 
 **Automatic Backups:**
+
 - ✅ OneDrive syncs to cloud automatically
 - ✅ Git tracks all documentation/script changes
 - ✅ Version history preserved in Git
 
 **When Recreating USB:**
+
 1. Copy this folder to USB drive (E:, F:, G:, etc.)
 2. Follow `DOWNLOAD-CHECKLIST.txt` to get latest drivers
 3. Total time: 30-60 minutes (mostly download time)
@@ -163,6 +175,7 @@ This toolkit is designed for:
 3. **Troubleshooting** - System won't boot? Use this USB
 4. **Clean installs** - Fresh Windows with all drivers ready
 5. **System recovery** - Drivers, tools, and scripts all in one place
+6. **Post-wipe: install everything** - After a Windows reset, run MSI Center (drivers) then **04-install-post-wipe-apps.ps1** (Cursor, Figma, Git, Azure CLI, Python, Node, etc.). See **POST-WIPE-INSTALL-EVERYTHING.md**.
 
 ---
 
@@ -193,15 +206,18 @@ This toolkit is designed for:
 ## 🔧 Maintenance
 
 **Monthly:**
+
 - Check for motherboard driver updates
 - Update GPU drivers (NVIDIA/AMD)
 
 **Quarterly:**
+
 - Update utility software
 - Review and improve documentation
 - Test scripts on clean system
 
 **Annually:**
+
 - Full toolkit review
 - Remove outdated utilities
 - Update Windows installation media
@@ -212,15 +228,18 @@ This toolkit is designed for:
 ## ⚠️ Important Notes
 
 **Git vs USB:**
+
 - Git = Documentation + Scripts (always current)
 - USB = Documentation + Scripts + Downloaded Binaries (gets outdated)
 
 **Size Management:**
+
 - Toolkit structure: ~80KB (Git)
 - With all downloads: 15-30GB (USB only)
 - Keep USB updated manually!
 
 **Version Control:**
+
 - Commit documentation/script changes to Git
 - Don't commit downloaded binaries
 - Tag releases when making major updates
@@ -231,25 +250,55 @@ This toolkit is designed for:
 
 **Created for:** Mark Maconnachie  
 **Date:** December 4, 2025  
-**Occasion:** Christmas present to self!  
+**Occasion:** Christmas present to self!
 
 **Original Build:**
+
 - **CPU:** Intel Core Ultra 9 285K (Arrow Lake, LGA 1851)
 - **Motherboard:** MSI MEG Z890 GODLIKE
-- **RAM:** 64GB Corsair DDR5-4800 (4x 16GB)
+- **RAM:** 64GB Corsair DDR5-4800 (4x 16GB) ⚠️ **Upgrade Recommended** (see RAM-UPGRADE-RECOMMENDATION.md)
 - **Cooler:** MSI MAG CoreLiquid i360
 - **Previous:** ASRock Z690 Taichi Razer Edition
+
+---
+
+## 🔨 Build Status
+
+**Last Updated:** December 6, 2025
+
+**Completed:**
+
+- ✅ Motherboard installation (MSI MEG Z890 GODLIKE)
+- ✅ Processor installation (Intel Core Ultra 9 285K)
+- ✅ First boot successful (Windows loaded fine)
+- ✅ BIOS accessible
+
+**Issues Identified:**
+
+- ⚠️ **RAM Compatibility Issue:** Current RAM (64GB Corsair DDR5-4800, 4x 16GB) causes XMP boot failure
+- ⚠️ **RAM Upgrade Recommended:** DDR5-4800 is too slow for Z890 GODLIKE + Core Ultra 9 285K
+- 📋 See `RAM-UPGRADE-RECOMMENDATION.md` for detailed upgrade guidance
+
+**Remaining:**
+
+- ✅ RAM upgraded (2×32 DDR5-7200 — was 4×16 DDR5-4800)
+- ⏳ AIO cooler installation (MSI MAG CoreLiquid i360) *(if not already done)*
+- ⏳ BIOS configuration (XMP, boot order, fan curves)
+- ⏳ Driver installation
+- ⏳ System verification and stress testing
 
 ---
 
 ## 📞 Support
 
 **For this toolkit:**
+
 - Check `TROUBLESHOOTING.txt` first
 - Run `05-Scripts/03-quick-troubleshoot.ps1`
 - Review `BUILD-GUIDE.txt` for step-by-step help
 
 **For hardware:**
+
 - Motherboard manufacturer support
 - Component manuals (on USB in respective folders)
 - Reddit r/buildapc community
@@ -266,7 +315,14 @@ Maintain attribution when sharing with others.
 
 ## 🔄 Changelog
 
+### Version 1.1 (December 6, 2025)
+
+- ✅ Motherboard and processor upgrade completed
+- Added build status tracking section
+- Updated last modified date
+
 ### Version 1.0 (December 4, 2025)
+
 - Initial creation
 - Complete folder structure
 - 8 documentation files
@@ -277,7 +333,6 @@ Maintain attribution when sharing with others.
 
 ---
 
-**Last Updated:** December 4, 2025  
+**Last Updated:** December 6, 2025  
 **Maintained By:** Mark Maconnachie  
 **Repository:** SPECTRA Core (tooling/pc-build-toolkit)
-

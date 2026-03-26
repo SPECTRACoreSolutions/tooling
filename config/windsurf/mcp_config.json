@@ -1,0 +1,50 @@
+{
+  "mcpServers": {
+    "Railway": {
+      "command": "npx",
+      "args": ["-y", "@railway/mcp-server"]
+    },
+    "spectra-context": {
+      "command": "python",
+      "args": ["-m", "spectra_context_mcp.server", "--mode", "stdio"],
+      "env": {
+        "LOG_LEVEL": "INFO"
+      }
+    },
+    "cloudflare-dns": {
+      "command": "npx",
+      "args": ["-y", "@cloudflare/mcp-server-dns-analytics"]
+    },
+    "ms365": {
+      "command": "npx",
+      "args": ["-y", "@softeria/ms-365-mcp-server"]
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"]
+    },
+    "atlassian": {
+      "command": "npx",
+      "args": ["-y", "@atlassian/mcp-server"]
+    },
+    "azure": {
+      "command": "npx",
+      "args": ["-y", "@azure/mcp-server"]
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem"],
+      "env": {
+        "ALLOWED_DIRECTORIES": "__SPECTRA_ROOT__"
+      }
+    },
+    "git": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-git"]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-playwright"]
+    }
+  }
+}

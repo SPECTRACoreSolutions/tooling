@@ -3,7 +3,7 @@
 - Project: `cosmos` (production).
 - Services: `portal`, `assistant`, `context`, `bridge` (Core group).
 - CLI: `railway` (token stored in Railway vars; no local .env needed).
-- Key vars (shared env): `SPECTRA_RAILWAY_TOKEN`, `SPECTRA_RAILWAY_COSMOS_PROJECT_ID` (ids), plus service-specific settings stored in Railway.
+- Key vars (shared env): `RAILWAY_TOKEN`, `SPECTRA_RAILWAY_COSMOS_PROJECT_ID` (ids), plus service-specific settings stored in Railway.
 - Domains: `spectradatasolutions.com` on `portal` (port 8080). Assistant uses SSH only (no HTTP).
 - Docs: https://docs.railway.com/
 

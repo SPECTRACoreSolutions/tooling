@@ -1,0 +1,155 @@
+{
+  "Name": "SPECTRA Deployment",
+  "Author": "Mark Maconnachie",
+  "Description": "Deployment shortcuts for SPECTRA services",
+  "Version": "1.0.0",
+  "Actions": [
+    {
+      "Name": "Deploy Notifications",
+      "UUID": "com.elgato.streamdeck.system.open",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Deploy\nNotifications",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "application": "powershell.exe",
+        "applicationName": "PowerShell",
+        "applicationArguments": "-ExecutionPolicy Bypass -File \"C:\\Users\\markm\\OneDrive\\SPECTRA\\Core\\tooling\\stream-deck\\scripts\\deploy-service.ps1\" -ServiceName \"notifications\" -Environment \"production\""
+      }
+    },
+    {
+      "Name": "Deploy Assistant",
+      "UUID": "com.elgato.streamdeck.system.open",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Deploy\nAssistant",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "application": "powershell.exe",
+        "applicationName": "PowerShell",
+        "applicationArguments": "-ExecutionPolicy Bypass -File \"C:\\Users\\markm\\OneDrive\\SPECTRA\\Core\\tooling\\stream-deck\\scripts\\deploy-service.ps1\" -ServiceName \"assistant\" -Environment \"production\""
+      }
+    },
+    {
+      "Name": "Deploy Graph",
+      "UUID": "com.elgato.streamdeck.system.open",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Deploy\nGraph",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "application": "powershell.exe",
+        "applicationName": "PowerShell",
+        "applicationArguments": "-ExecutionPolicy Bypass -File \"C:\\Users\\markm\\OneDrive\\SPECTRA\\Core\\tooling\\stream-deck\\scripts\\deploy-service.ps1\" -ServiceName \"graph\" -Environment \"production\""
+      }
+    },
+    {
+      "Name": "Railway Dashboard",
+      "UUID": "com.elgato.streamdeck.system.website",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Railway",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "URL": "https://railway.app",
+        "OpenInBrowser": true
+      }
+    },
+    {
+      "Name": "GitHub Actions",
+      "UUID": "com.elgato.streamdeck.system.website",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "GitHub\nActions",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "URL": "https://github.com/SPECTRACoreSolutions",
+        "OpenInBrowser": true
+      }
+    },
+    {
+      "Name": "Service Catalog",
+      "UUID": "com.elgato.streamdeck.system.open",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Service\nCatalog",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "application": "C:\\Users\\markm\\OneDrive\\SPECTRA\\Core\\registries\\service-catalog.yaml",
+        "applicationName": "Cursor"
+      }
+    },
+    {
+      "Name": "Solution Engine",
+      "UUID": "com.elgato.streamdeck.system.open",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Solution\nEngine",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "application": "C:\\Users\\markm\\OneDrive\\SPECTRA\\Core\\solution-engine",
+        "applicationName": "Cursor"
+      }
+    },
+    {
+      "Name": "Deployment Docs",
+      "UUID": "com.elgato.streamdeck.system.open",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Deploy\nDocs",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "application": "C:\\Users\\markm\\OneDrive\\SPECTRA\\Core\\standards\\DEPLOYMENT-PATTERN.md",
+        "applicationName": "Cursor"
+      }
+    }
+  ],
+  "Software": {
+    "MinimumVersion": "6.0.0"
+  }
+}
+
+
+
+
+

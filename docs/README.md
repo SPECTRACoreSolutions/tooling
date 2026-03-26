@@ -4,6 +4,7 @@ This folder holds per-tool references (CLI/API/endpoints/credentials flow). Curr
 - `railway.md`, `railway-api.md`
 - `remote-dev.md`, `termius.md`
 - `fabric.md`, `azure.md`, `docker.md`
+- `power-apps.md` (Power Platform CLI, Code Apps, Dataverse)
 - `openai.md`
 - `openai-cheatsheet.md`
 - `package-distribution.md` (existing)

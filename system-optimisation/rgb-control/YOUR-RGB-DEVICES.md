@@ -98,9 +98,9 @@
 **Via SPECTRA scripts:**
 
 ```powershell
-python rgb-control.py work      # All 806 LEDs → Blue
-python rgb-control.py gaming    # All 806 LEDs → Rainbow
-python rgb-control.py off       # All 806 LEDs → Off
+python rgb_control.py work      # All 806 LEDs → Blue
+python rgb_control.py gaming    # All 806 LEDs → Rainbow
+python rgb_control.py off       # All 806 LEDs → Off
 ```
 
 **One command = 806 LEDs change instantly!** ⚡
@@ -211,6 +211,12 @@ And now you can control all of it with simple Python scripts! 🚀
 
 _Part of SPECTRA Home ecosystem_  
 _December 4, 2025_
+
+
+
+
+
+
 
 
 

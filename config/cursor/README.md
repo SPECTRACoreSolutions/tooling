@@ -1,6 +1,6 @@
 # Cursor Configuration - Canonical Source
 
-**Date:** 2025-12-02  
+**Date:** 2025-12-02
 **Purpose:** Version-controlled Cursor MCP configuration
 
 ---
@@ -11,18 +11,26 @@
 
 **Canonical Cursor MCP server configuration**
 
-Contains 10 MCP servers:
+Contains 10 MCP servers (priority ordered):
 
-1. **Railway** - Deployment platform
-2. **GitHub** - Repository management
-3. **MS365** - Microsoft 365 integration
-4. **Playwright** - Web browsing/doc fetching
-5. **Atlassian** - Jira & Confluence
-6. **Azure** - Azure management
-7. **Cloudflare-DNS** - DNS management
-8. **Filesystem** - Advanced file operations
-9. **Git** - Git operations
-10. **SPECTRA-Context** - Internal knowledge base
+**Priority 1 - Critical (Required):**
+1. **spectra-context** - SPECTRA's own MCP server (framework knowledge, 7-stage pipeline)
+2. **Railway** - Primary deployment platform for SPECTRA services
+3. **filesystem** - Essential for AI file operations and workspace access
+4. **git** - Git operations for version control (non-interactive)
+5. **github** - GitHub API operations (issues, PRs, repos) - *requires GITHUB_PERSONAL_ACCESS_TOKEN*
+
+**Priority 2 - Important (Recommended):**
+6. **ms365** - Microsoft 365 integration (Outlook, Calendar, OneDrive, Excel)
+7. **azure** - Azure services integration (Fabric, authentication, resources)
+
+**Priority 3 - Optional:**
+8. **atlassian** - Jira/Confluence integration - *requires ATLASSIAN_API_TOKEN and ATLASSIAN_DOMAIN*
+9. **cloudflare-dns** - Cloudflare DNS analytics
+
+**Note:** Playwright MCP server removed - package `@modelcontextprotocol/server-playwright` does not exist in npm registry and is not supported.
+
+See `.cursor/MCP-SERVERS-RECOMMENDATIONS.md` for full details and setup instructions.
 
 ---
 
@@ -92,16 +100,17 @@ Shows differences between local and canonical configs
 
 | Server          | Package                                   | Status | Credentials Needed                    |
 | --------------- | ----------------------------------------- | ------ | ------------------------------------- |
+| SPECTRA-Context | Python local service                      | ✅     | None (local service)                  |
 | Railway         | `@railway/mcp-server`                     | ✅     | None (CLI auth)                       |
-| GitHub          | `@modelcontextprotocol/server-github`     | ✅     | GITHUB_PERSONAL_ACCESS_TOKEN          |
-| MS365           | `@softeria/ms-365-mcp-server`             | ✅     | None (OAuth flow)                     |
-| Playwright      | `@modelcontextprotocol/server-playwright` | ✅     | None                                  |
-| Atlassian       | `@atlassian/mcp-server`                   | ⚠️     | ATLASSIAN_API_TOKEN, ATLASSIAN_DOMAIN |
-| Azure           | `@azure/mcp-server`                       | ✅     | None (uses Azure CLI)                 |
-| Cloudflare      | `@cloudflare/mcp-server-dns-analytics`    | ✅     | CLOUDFLARE_API_TOKEN (likely)         |
 | Filesystem      | `@modelcontextprotocol/server-filesystem` | ✅     | None (uses ALLOWED_DIRECTORIES)       |
 | Git             | `@modelcontextprotocol/server-git`        | ✅     | None                                  |
-| SPECTRA-Context | Python local service                      | ✅     | None (local service)                  |
+| GitHub          | `@modelcontextprotocol/server-github`     | ✅     | GITHUB_PERSONAL_ACCESS_TOKEN          |
+| MS365           | `@softeria/ms-365-mcp-server`             | ✅     | None (OAuth flow)                     |
+| Azure           | `@azure/mcp-server`                       | ✅     | None (uses Azure CLI)                 |
+| Atlassian       | `@atlassian/mcp-server`                   | ⚠️     | ATLASSIAN_API_TOKEN, ATLASSIAN_DOMAIN |
+| Cloudflare      | `@cloudflare/mcp-server-dns-analytics`    | ✅     | CLOUDFLARE_API_TOKEN (likely)         |
+
+**Note:** Playwright MCP server removed - package `@modelcontextprotocol/server-playwright` does not exist in npm registry (404 error).
 
 ### Credentials Status
 
@@ -152,7 +161,7 @@ Instead, reference environment variables in the config:
 
 **Current state:**
 
-- ✅ `.cursor/mcp.json` exists (10 servers including Playwright)
+- ✅ `.cursor/mcp.json` exists (9 servers - Playwright removed, package doesn't exist)
 - ✅ `config/cursor/mcp.json` is canonical version
 - ✅ Sync script available
 
@@ -277,9 +286,9 @@ This ignores `.cursor/` but allows `Core/tooling/config/cursor/`
 
 ## Status
 
-✅ **Canonical config created** - `config/cursor/mcp.json` (10 servers)  
-✅ **Sync script created** - `sync-cursor-config.ps1`  
-✅ **Both in sync** - Local and canonical match  
+✅ **Canonical config created** - `config/cursor/mcp.json` (9 servers - Playwright removed, package doesn't exist)
+✅ **Sync script created** - `sync-cursor-config.ps1`
+✅ **Both in sync** - Local and canonical match
 ✅ **Ready to commit** - Can be version controlled
 
 ---
@@ -288,6 +297,6 @@ This ignores `.cursor/` but allows `Core/tooling/config/cursor/`
 
 ---
 
-_Created: 2025-12-02_  
-_Purpose: Version control for Cursor environment_  
+_Created: 2025-12-02_
+_Purpose: Version control for Cursor environment_
 _Status: Active_

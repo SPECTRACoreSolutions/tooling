@@ -1,0 +1,206 @@
+{
+  "Name": "SPECTRA Productivity",
+  "Author": "Mark Maconnachie",
+  "Description": "General productivity shortcuts for SPECTRA workflows",
+  "Version": "1.0.0",
+  "Actions": [
+    {
+      "Name": "OneDrive",
+      "UUID": "com.elgato.streamdeck.system.open",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "OneDrive",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "application": "C:\\Users\\markm\\OneDrive",
+        "applicationName": "File Explorer"
+      }
+    },
+    {
+      "Name": "SPECTRA Folder",
+      "UUID": "com.elgato.streamdeck.system.open",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "SPECTRA",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "application": "C:\\Users\\markm\\OneDrive\\SPECTRA",
+        "applicationName": "File Explorer"
+      }
+    },
+    {
+      "Name": "Lock PC",
+      "UUID": "com.elgato.streamdeck.system.hotkey",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Lock",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "Hotkey": {
+          "Keys": [
+            "lwin",
+            "l"
+          ]
+        }
+      }
+    },
+    {
+      "Name": "Task Manager",
+      "UUID": "com.elgato.streamdeck.system.hotkey",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Task\nManager",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "Hotkey": {
+          "Keys": [
+            "ctrl",
+            "shift",
+            "escape"
+          ]
+        }
+      }
+    },
+    {
+      "Name": "Volume Up",
+      "UUID": "com.elgato.streamdeck.system.hotkey",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Vol +",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "Hotkey": {
+          "Keys": [
+            "volumeup"
+          ]
+        }
+      }
+    },
+    {
+      "Name": "Volume Down",
+      "UUID": "com.elgato.streamdeck.system.hotkey",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Vol -",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "Hotkey": {
+          "Keys": [
+            "volumedown"
+          ]
+        }
+      }
+    },
+    {
+      "Name": "Mute",
+      "UUID": "com.elgato.streamdeck.system.hotkey",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Mute",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "Hotkey": {
+          "Keys": [
+            "volumemute"
+          ]
+        }
+      }
+    },
+    {
+      "Name": "Calendar",
+      "UUID": "com.elgato.streamdeck.system.open",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Calendar",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "application": "outlookcal:",
+        "applicationName": "Outlook Calendar"
+      }
+    },
+    {
+      "Name": "Quick Status",
+      "UUID": "com.elgato.streamdeck.system.open",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Status",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "application": "powershell.exe",
+        "applicationName": "PowerShell",
+        "applicationArguments": "-ExecutionPolicy Bypass -File \"C:\\Users\\markm\\OneDrive\\SPECTRA\\Core\\tooling\\stream-deck\\scripts\\quick-commands.ps1\" -Command \"status\""
+      }
+    },
+    {
+      "Name": "Sync Index",
+      "UUID": "com.elgato.streamdeck.system.open",
+      "State": 0,
+      "States": [
+        {
+          "Image": "",
+          "Title": "Sync",
+          "TitleAlignment": "middle",
+          "FontSize": "auto"
+        }
+      ],
+      "Settings": {
+        "application": "powershell.exe",
+        "applicationName": "PowerShell",
+        "applicationArguments": "-ExecutionPolicy Bypass -File \"C:\\Users\\markm\\OneDrive\\SPECTRA\\Core\\tooling\\stream-deck\\scripts\\quick-commands.ps1\" -Command \"sync\""
+      }
+    }
+  ],
+  "Software": {
+    "MinimumVersion": "6.0.0"
+  }
+}
+
+
+
+
+
