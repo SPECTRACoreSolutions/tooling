@@ -1,6 +1,6 @@
 {
-  "hue_bridge_ip": "",
-  "hue_username": "",
+  "hue_bridge_ip": "192.168.1.14",
+  "hue_username": "soRgSisyfmg6GMKP2wenPA6sOv1DPVI2Em28oIOk",
   "nanoleaf_ip": "",
   "nanoleaf_token": "",
   "openrgb_host": "127.0.0.1",
